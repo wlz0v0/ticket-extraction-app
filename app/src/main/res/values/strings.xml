@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TicketExtraction</string>
+    <string name="app_name">识别发票</string>
+    <string name="storage_path">Android/data/edu.bupt.ticketextraction/files/Pictures</string>
 </resources>

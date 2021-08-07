@@ -1,10 +1,12 @@
 package edu.bupt.ticketextraction.camera;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.MediaStore;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 /**
  * <pre>
@@ -15,9 +17,10 @@ import static androidx.core.app.ActivityCompat.startActivityForResult;
  *     version:
  * </pre>
  */
-public class Record {
+public class Record extends AppCompatActivity {
     static final int REQUEST_VIDEO_CAPTURE = 1;
 
+    @SuppressLint("QueryPermissionsNeeded")
     private void dispatchTakeVideoIntent() {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
