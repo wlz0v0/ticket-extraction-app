@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-            android:id="@+id/info"
+    <RelativeLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:orientation="vertical"/>
-
-    <LinearLayout
-            android:id="@+id/camera"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="7"
-            android:background="@color/shallow_blue"
+            android:layout_height="48dp"
+            android:background="@android:color/holo_purple"
             android:orientation="vertical">
+        <!--TextView-->
+    </RelativeLayout>
+
+    <!-- 底部菜单栏   -->
+
+    <RadioGroup android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                android:orientation="horizontal"
+    >
+        <RadioButton
+                style="@style/radio_button_style"
+                android:id="@+id/bill"
+                android:drawableTop="@drawable/bottom_menu_image"
+                android:text="@string/fragment_bill"/>
+
+        <RadioButton
+                style="@style/radio_button_style"
+                android:id="@+id/export"
+                android:drawableTop="@drawable/bottom_menu_image"
+                android:text="@string/fragment_export"/>
 
         <Button
                 android:id="@+id/camera_btn"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/camera"
-        />
+                android:background="@drawable/camera"/>
 
-    </LinearLayout>
+        <!--        android:drawableTop="@drawable/camera"-->
+        <!--        android:drawablePadding="3dp"-->
+        <!--        android:padding="5dp"-->
+
+        <RadioButton
+                style="@style/radio_button_style"
+                android:id="@+id/tbd"
+                android:drawableTop="@drawable/bottom_menu_image"
+                android:text="@string/fragment_tbd"/>
+
+        <RadioButton
+                style="@style/radio_button_style"
+                android:id="@+id/setting"
+                android:drawableTop="@drawable/bottom_menu_image"
+                android:text="@string/fragment_setting"/>
+    </RadioGroup>
 
 
-</LinearLayout>
+</RelativeLayout>
