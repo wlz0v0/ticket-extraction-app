@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 本xml文件为设置fragment布局文件 -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Button
+            style="@style/setting_button_style"
+            android:id="@+id/setting_jump_to_login"
+            android:text="@string/setting_jump_to_login_name"/>
+
+    <Button
+            style="@style/setting_button_style"
+            android:id="@+id/clear_cache"
+            android:text="@string/clear_cache"/>
+
+    <Button
+            style="@style/setting_button_style"
+            android:id="@+id/about_us"
+            android:text="@string/about_us"/>
+
+</LinearLayout>

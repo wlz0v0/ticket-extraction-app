@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 本xml文件为登录activity布局文件 -->
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <EditText
+            style="@style/login_edit_text_style"
+            android:id="@+id/account"
+            android:autofillHints="@string/login_account"
+            android:inputType="number"
+            android:hint="@string/login_account"/>
+
+    <EditText
+            style="@style/login_edit_text_style"
+            android:id="@+id/password"
+            android:autofillHints="@string/login_password"
+            android:inputType="textPassword"
+            android:hint="@string/login_password"/>
+
+    <Button
+            android:id="@+id/login_btn"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_bkg"
+            android:text="@string/login_button"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+
+
+</LinearLayout>

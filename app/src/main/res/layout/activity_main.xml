@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 本xml为主activity布局文件 -->
+
 <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -8,7 +11,7 @@
     <RelativeLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="fill_parent"
             android:background="@android:color/holo_purple"
             android:orientation="vertical">
         <!--TextView-->
@@ -41,11 +44,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/camera"/>
 
-        <!--        android:drawableTop="@drawable/camera"-->
-        <!--        android:drawablePadding="3dp"-->
-        <!--        android:padding="5dp"-->
+                android:background="@drawable/camera"/>
 
         <RadioButton
                 style="@style/radio_button_style"

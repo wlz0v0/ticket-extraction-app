@@ -16,8 +16,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.TicketExtraction"
-
             android:fullBackupContent="@xml/backup"
+
             android:requestLegacyExternalStorage="true">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -26,17 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-<!--        <provider-->
-
-<!--                android:name="androidx.core.content.FileProvider"-->
-<!--                android:authorities="edu.bupt.ticketextraction.fileprovider"-->
-<!--                android:exported="false"-->
-<!--                android:grantUriPermissions="true">-->
-<!--            <meta-data-->
-<!--                    android:name="android.support.file_provider_paths"-->
-<!--                    android:resource="@xml/file_paths">-->
-
-<!--            </meta-data>-->
-<!--        </provider>-->
+        <activity
+                android:name=".activity.LoginActivity"
+                android:parentActivityName=".activity.MainActivity"
+                android:label="登录"/>
+        <activity
+                android:name=".activity.SendToEmailActivity"
+                android:parentActivityName=".activity.MainActivity"
+                android:label="发送到邮箱"/>
+        <activity
+                android:name=".activity.AboutUsActivity"
+                android:parentActivityName=".activity.MainActivity"
+                android:label="关于我们"/>
     </application>
 </manifest>

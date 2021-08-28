@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">识别发票</string>
     <string name="storage_path">Android/data/edu.bupt.ticketextraction/files/Pictures</string>
-    <string name="fragment_bill">账单</string>
+    <string name="fragment_bill">发票</string>
     <string name="fragment_export">导出</string>
+    <string name="camera_btn">相机</string>
     <string name="fragment_tbd">待定</string>
     <string name="fragment_setting">设置</string>
+    <string name="login_account">请输入账号</string>
+    <string name="login_password">请输入密码</string>
+    <string name="login_button">登录</string>
+    <string name="setting_jump_to_login_name">账号管理</string>
+    <string name="send_to_email">发送到邮箱</string>
+    <string name="send_email_address">请输入邮箱</string>
+    <string name="send">发送</string>
+    <string name="clear_cache">清空缓存</string>
+    <string name="about_us">关于我们</string>
+    <string name="activity_top">顶部栏</string>
 </resources>

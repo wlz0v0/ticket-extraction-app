@@ -1,77 +1,128 @@
 package edu.bupt.ticketextraction.activity;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.fragment.BillFragment;
+import edu.bupt.ticketextraction.fragment.BottomMenuFragment;
+import edu.bupt.ticketextraction.fragment.ExportFragment;
+import edu.bupt.ticketextraction.fragment.SettingFragment;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.lang.Integer;
 
+/**
+ * <pre>
+ *     author : 武连增
+ *     e-mail : wulianzeng@bupt.edu.cn
+ *     time   : 2021/08/03
+ *     desc   : 主activity，包含四个菜单栏，对应四个fragment
+ *     version: 0.0.1
+ * </pre>
+ */
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity {
     private FragmentManager fgMng;
-    private HashMap<Integer, BottomMenuFragment> fragments;
 
+    // 利用hashmap简化if else， fragments保存fragment的id和对象的映射关系
+    // Fragment利用多态，实际为继承了Fragment的自定义Fragment
+    private HashMap<Integer, Fragment> fragments;
+
+    //
+    private static int before_jump_fragment_id = R.id.bill;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 隐藏上部导航栏
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
-        BottomMenuFragment fg1 = new BottomMenuFragment("第1个fragment");
-        BottomMenuFragment fg2 = new BottomMenuFragment("第2个fragment");
-        BottomMenuFragment fg3 = new BottomMenuFragment("第3个fragment");
-        BottomMenuFragment fg4 = new BottomMenuFragment("第4个fragment");
+        BillFragment fg_bill = new BillFragment();
+        ExportFragment fg_export = new ExportFragment(this);
+        BottomMenuFragment fg_tbd = new BottomMenuFragment("这个页面暂时还没想好干啥");
+        SettingFragment fg_setting = new SettingFragment(this);
 
         fgMng = getSupportFragmentManager();
         fragments = new HashMap<>();
-        fragments.put(R.id.bill, fg1);
-        fragments.put(R.id.export, fg2);
-        fragments.put(R.id.tbd, fg3);
-        fragments.put(R.id.setting, fg4);
+        fragments.put(R.id.bill, fg_bill);
+        fragments.put(R.id.export, fg_export);
+        fragments.put(R.id.tbd, fg_tbd);
+        fragments.put(R.id.setting, fg_setting);
 
+        // 设置控制底边菜单栏的RadioGroup的checked change事件监听器
         RadioGroup rg_menu = findViewById(R.id.radio_group);
-        rg_menu.setOnCheckedChangeListener(this);
+        rg_menu.setOnCheckedChangeListener(this::bottomRadioGroupOnCheckedChangedCallback);
 
+        // 设置相机按钮被点击的事件监听器
         Button camera_btn = findViewById(R.id.camera_btn);
-        camera_btn.setOnClickListener(view -> {
-            //TOD:相机功能
-        });
+        camera_btn.setOnClickListener(this::cameraButtonOnClickCallback);
 
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
 
-        for (Map.Entry<Integer, BottomMenuFragment> entry : fragments.entrySet()) {
-            BottomMenuFragment fg = entry.getValue();
+        for (Map.Entry<Integer, Fragment> entry : fragments.entrySet()) {
+            Fragment fg = entry.getValue();
             fragmentTransaction.add(R.id.fragment_container, fg);
         }
         fragmentTransaction.commit();
         hideFragments(fragmentTransaction);
 
-        RadioButton bill_button = findViewById(R.id.bill);
-        bill_button.setChecked(true);
+        // 设置跳转前fragment的checked为true以在初始界面展示，默认为发票fragment
+        RadioButton before_jump_button = findViewById(before_jump_fragment_id);
+        before_jump_button.setChecked(true);
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int check_id) {
+    public void jumpFromMainToLogin() {
+        // 从设置fragment跳转
+        before_jump_fragment_id = R.id.setting;
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpFromMainToEmail() {
+        // 从导出fragment跳转
+        before_jump_fragment_id = R.id.export;
+        Intent intent = new Intent(MainActivity.this, SendToEmailActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpFromMainToAboutUs() {
+        // 从设置fragment跳转
+        before_jump_fragment_id = R.id.setting;
+        Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+        startActivity(intent);
+    }
+
+    // 底部单选按钮点击事件监听器回调函数
+    private void bottomRadioGroupOnCheckedChangedCallback(RadioGroup radioGroup, int check_id) {
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
         hideFragments(fragmentTransaction);
-        BottomMenuFragment fg = fragments.get(check_id);
+        Fragment fg = fragments.get(check_id);
         if (fg != null) {
             fragmentTransaction.show(fg);
-        }
-        else {
+        } else {
             Log.e("fragment error", "fragment is null");
         }
         fragmentTransaction.commit();
     }
 
+    // 相机按钮点击事件监听器回调函数
+    private void cameraButtonOnClickCallback(View view) {
+        //TODO: by xhy
+    }
+
     private void hideFragments(FragmentTransaction fragmentTransaction) {
-        for (Map.Entry<Integer, BottomMenuFragment> entry : fragments.entrySet()) {
+        for (Map.Entry<Integer, Fragment> entry : fragments.entrySet()) {
             fragmentTransaction.hide(entry.getValue());
         }
     }

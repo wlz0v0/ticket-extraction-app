@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.activity;
+package edu.bupt.ticketextraction.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
