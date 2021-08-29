@@ -16,4 +16,7 @@
     <string name="clear_cache">清空缓存</string>
     <string name="about_us">关于我们</string>
     <string name="activity_top">顶部栏</string>
+    <string name="version">当前版本</string>
+    <string name="team_introduction">团队介绍</string>
+    <string name="visit_web">访问网页端</string>
 </resources>

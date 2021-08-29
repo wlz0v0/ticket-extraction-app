@@ -1,7 +1,6 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,14 +29,16 @@ import java.lang.Integer;
  */
 
 public class MainActivity extends AppCompatActivity {
+    // 用于创建FragmentTransaction，以展示fragment
     private FragmentManager fgMng;
 
-    // 利用hashmap简化if else， fragments保存fragment的id和对象的映射关系
+    // 利用hashmap简化if else语句，fragments保存fragment的id和对象的映射关系
     // Fragment利用多态，实际为继承了Fragment的自定义Fragment
     private HashMap<Integer, Fragment> fragments;
 
-    //
+    // 跳转到其他activity前的fragment的id，默认为发票fragment
     private static int before_jump_fragment_id = R.id.bill;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         SettingFragment fg_setting = new SettingFragment(this);
 
         fgMng = getSupportFragmentManager();
+
+        // 把fragment以及对应的id存入hashmap中
         fragments = new HashMap<>();
         fragments.put(R.id.bill, fg_bill);
         fragments.put(R.id.export, fg_export);
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         Button camera_btn = findViewById(R.id.camera_btn);
         camera_btn.setOnClickListener(this::cameraButtonOnClickCallback);
 
+        // 初始化FragmentTransaction并将fragments添加到activity中
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
 
         for (Map.Entry<Integer, Fragment> entry : fragments.entrySet()) {
@@ -77,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
         hideFragments(fragmentTransaction);
 
-        // 设置跳转前fragment的checked为true以在初始界面展示，默认为发票fragment
+        // 设置跳转前fragment的checked为true以在初始界面展示
         RadioButton before_jump_button = findViewById(before_jump_fragment_id);
         before_jump_button.setChecked(true);
     }
 
+    // 跳转到login activity
     public void jumpFromMainToLogin() {
         // 从设置fragment跳转
         before_jump_fragment_id = R.id.setting;
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // 跳转到send to email activity
     public void jumpFromMainToEmail() {
         // 从导出fragment跳转
         before_jump_fragment_id = R.id.export;
@@ -96,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // 跳转到about us activity
     public void jumpFromMainToAboutUs() {
         // 从设置fragment跳转
         before_jump_fragment_id = R.id.setting;
@@ -107,12 +114,11 @@ public class MainActivity extends AppCompatActivity {
     private void bottomRadioGroupOnCheckedChangedCallback(RadioGroup radioGroup, int check_id) {
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
         hideFragments(fragmentTransaction);
+        // 通过id展示对应的fragment
         Fragment fg = fragments.get(check_id);
-        if (fg != null) {
-            fragmentTransaction.show(fg);
-        } else {
-            Log.e("fragment error", "fragment is null");
-        }
+        // 断言fragment不为null
+        assert fg != null;
+        fragmentTransaction.show(fg);
         fragmentTransaction.commit();
     }
 

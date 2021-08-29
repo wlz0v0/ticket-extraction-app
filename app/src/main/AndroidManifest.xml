@@ -17,26 +17,21 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.TicketExtraction"
             android:fullBackupContent="@xml/backup"
-
             android:requestLegacyExternalStorage="true">
-        <activity android:name=".activity.MainActivity">
+        <activity
+                android:name=".activity.MainActivity"
+                android:alwaysRetainTaskState="true"
+                android:launchMode="singleTop">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-                android:name=".activity.LoginActivity"
-                android:parentActivityName=".activity.MainActivity"
-                android:label="登录"/>
-        <activity
-                android:name=".activity.SendToEmailActivity"
-                android:parentActivityName=".activity.MainActivity"
-                android:label="发送到邮箱"/>
-        <activity
-                android:name=".activity.AboutUsActivity"
-                android:parentActivityName=".activity.MainActivity"
-                android:label="关于我们"/>
+        <activity android:name=".activity.LoginActivity"/>
+        <activity android:name=".activity.SendToEmailActivity"/>
+        <activity android:name=".activity.AboutUsActivity"/>
+        <activity android:name=".activity.TeamActivity"/>
     </application>
 </manifest>
