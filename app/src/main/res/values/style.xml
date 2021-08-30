@@ -34,4 +34,14 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
+    <style name="introduction_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">500dp</item>
+        <item name="android:background">@drawable/button_bkg</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>
