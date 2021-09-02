@@ -17,16 +17,16 @@ import edu.bupt.ticketextraction.R;
  *     version: 0.0.1
  * </pre>
  */
-public class BottomMenuFragment extends Fragment {
+public class CheckFragment extends Fragment {
     private final String content;
 
-    public BottomMenuFragment(String content) {
+    public CheckFragment(String content) {
         this.content = content;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_content, container, false);
+        View view = inflater.inflate(R.layout.fragment_check, container, false);
         TextView txt_content = view.findViewById(R.id.txt_content);
         txt_content.setText(content);
         return view;

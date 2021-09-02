@@ -34,9 +34,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (login_state) {
-            show_personal_info();
+            showPersonalInfo();
         } else {
-            show_login();
+            showLogin();
         }
     }
 
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void show_login() {
+    private void showLogin() {
         setContentView(R.layout.activity_login);
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
@@ -79,15 +79,15 @@ public class LoginActivity extends AppCompatActivity {
             password = password_et.getText().toString();
             if (isMatch()) {
                 //TODO:登录成功
-                login_successful();
+                loginSuccessful();
             } else {
                 //TODO:登录失败
-                login_failed();
+                loginFailed();
             }
         });
     }
 
-    private void show_personal_info() {
+    private void showPersonalInfo() {
         setContentView(R.layout.activity_personal_info);
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         return input_pwd != null && input_pwd.equals(password);
     }
 
-    private void login_successful() {
+    private void loginSuccessful() {
         login_state = true;
         // 通过调用finish结束LoginActivity，登录成功
         getAlertDialog("登录成功",
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void login_failed() {
+    private void loginFailed() {
         login_state = false;
         String builder_msg;
         String input_pwd = account_info.get(account);
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         builder_msg = input_pwd == null ? "用户名错误!" : "密码错误!";
         // 登录失败，关闭提示框
         getAlertDialog(builder_msg,
-                (dialogInterface, i) -> dialogInterface.dismiss()) //
+                (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
     }
 

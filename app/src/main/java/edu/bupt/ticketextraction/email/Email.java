@@ -17,6 +17,9 @@ import java.util.Properties;
  *     time   : 2021/08/30
  *     desc   : 设置邮件内容并发送
  *              注意需要安装mail.jar和activation.jar两个包
+ *              TODO 本类仍存在无法发送邮件的问题，等待一名大佬进行修复。
+ *              TODO 目前的问题疑似是sendFromPassword错误，修改成错误的授权码会报相同的错误。
+ *              TODO 目前可以使用python发邮件
  *     version:
  * </pre>
  */
@@ -61,14 +64,16 @@ public class Email {
         }
     }
 
-    public void send() {
+    public boolean send() {
         try {
             transport.connect(sendFrom,sendFromPassword);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     // 初始化邮件信息
@@ -102,7 +107,7 @@ public class Email {
 
         // QQ邮箱需要使用SSL安全连接
         // QQ邮箱的SSL端口为465或587
-        final String smtp_port = "465";
+        final String smtp_port = "587";
         properties.setProperty("mail.smtp.port", smtp_port);
         properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.setProperty("mail.smtp.socketFactory.fallback", "false");

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/shallow_gray">
+
+    <EditText
+            android:id="@+id/wallet_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:hint="@string/create_wallet_hint"
+            android:background="@color/white"
+            android:autofillHints="@string/create_wallet_hint"
+            android:inputType="text"/>
+
+    <Button
+            android:id="@+id/create_btn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="@string/create_btn"
+            android:background="@drawable/button_bkg"
+            android:textSize="25sp"
+            android:textColor="@android:color/holo_purple"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
+
+</LinearLayout>

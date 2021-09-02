@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.email.Email;
@@ -59,6 +60,28 @@ public class SendToEmailActivity extends AppCompatActivity {
 
     private void sendEmail() {
         Email email = new Email(email_address);
-        email.send();
+        if (email.send()) {
+            sendSuccessful();
+        } else {
+            sendFailed();
+        }
+    }
+
+    private void sendSuccessful() {
+        getAlertDialog("发送邮件成功").show();
+    }
+
+    private void sendFailed() {
+        getAlertDialog("发送邮件失败").show();
+    }
+
+    private AlertDialog getAlertDialog(String text) {
+        // 先创建一个builder，再通过builder构造alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(text).
+                setCancelable(false).
+                setPositiveButton("确认", (dialog, which) ->
+                    dialog.dismiss());
+        return builder.create();
     }
 }

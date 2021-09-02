@@ -4,7 +4,7 @@
     <string name="fragment_bill">发票</string>
     <string name="fragment_export">导出</string>
     <string name="camera_btn">相机</string>
-    <string name="fragment_tbd">待定</string>
+    <string name="fragment_check">验真</string>
     <string name="fragment_setting">设置</string>
     <string name="login_account">请输入账号</string>
     <string name="login_password">请输入密码</string>
@@ -20,4 +20,6 @@
     <string name="team_introduction">团队介绍</string>
     <string name="visit_web">访问网页端</string>
     <string name="introduction">本app为北邮大创项目，开发APP的有武连增和肖皓月</string>
+    <string name="create_wallet_hint">请输入钱包名称</string>
+    <string name="create_btn">创建</string>
 </resources>

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import edu.bupt.ticketextraction.file.FileManager;
 
 /**
  * <pre>
@@ -44,6 +45,7 @@ public class AboutUsActivity extends AppCompatActivity {
             intent.setData(uri);
             startActivity(intent);
         });
+
     }
 
     // 通过该回调函数监听返回键是否被点击

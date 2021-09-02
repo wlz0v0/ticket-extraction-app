@@ -13,7 +13,7 @@ import edu.bupt.ticketextraction.R;
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2021/08/29
  *     desc   : 团队介绍activity
- *     version:
+ *     version: 0.0.1
  * </pre>
  */
 public class TeamActivity extends AppCompatActivity {
