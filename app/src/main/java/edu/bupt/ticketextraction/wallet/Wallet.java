@@ -1,9 +1,8 @@
 package edu.bupt.ticketextraction.wallet;
 
-import androidx.appcompat.app.AppCompatActivity;
-import edu.bupt.ticketextraction.file.FileFactory;
-import edu.bupt.ticketextraction.file.ImageFileFactory;
-import edu.bupt.ticketextraction.file.VideoFileFactory;
+import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
+import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
+import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,8 +23,11 @@ public class Wallet {
     // 读取文件进入两个数组
     private ArrayList<File> files;
 
+    private final File walletDataFile;
+
     public Wallet(String walletName) {
         this.walletName = walletName;
+        walletDataFile = new WalletDataFileFactory(walletName).createFile();
     }
 
     public File createImage() {
@@ -43,6 +45,7 @@ public class Wallet {
     }
 
     // 从data文件中读取数据
+    // TODO:数据存资源文件名
     public void readData() {
         //TODO
     }

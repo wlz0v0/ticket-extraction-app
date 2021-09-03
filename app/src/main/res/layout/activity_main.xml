@@ -25,8 +25,7 @@
                 android:layout_height="56dp"
                 android:layout_alignParentBottom="true"
                 android:background="@color/white"
-                android:orientation="horizontal"
-    >
+                android:orientation="horizontal">
         <RadioButton
                 style="@style/radio_button_style"
                 android:id="@+id/bill"

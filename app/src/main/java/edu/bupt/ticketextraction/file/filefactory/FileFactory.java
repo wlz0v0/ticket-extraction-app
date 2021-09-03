@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.file;
+package edu.bupt.ticketextraction.file.filefactory;
 
 import android.content.Context;
 import android.content.ContextWrapper;

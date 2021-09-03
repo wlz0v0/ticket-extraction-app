@@ -19,26 +19,26 @@ import edu.bupt.ticketextraction.activity.MainActivity;
  * </pre>
  */
 public class SettingFragment extends Fragment {
-    private final MainActivity mainActivity;
+    private final MainActivity fatherActivity;
 
-    public SettingFragment(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public SettingFragment(MainActivity fatherActivity) {
+        this.fatherActivity = fatherActivity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        Button setting_jump_to_login_btn = view.findViewById(R.id.setting_jump_to_login);
-        setting_jump_to_login_btn.setOnClickListener(view1 -> mainActivity.jumpFromMainToLogin());
+        Button settingJumpToLoginBtn = view.findViewById(R.id.setting_jump_to_login);
+        settingJumpToLoginBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToLogin());
 
-        Button clear_cache_btn = view.findViewById(R.id.clear_cache);
-        clear_cache_btn.setOnClickListener(view1 -> {
+        Button clearCacheBtn = view.findViewById(R.id.clear_cache);
+        clearCacheBtn.setOnClickListener(view1 -> {
             //TODO:清空缓存
         });
 
-        Button about_us_btn = view.findViewById(R.id.about_us);
-        about_us_btn.setOnClickListener(view1 -> mainActivity.jumpFromMainToAboutUs());
+        Button aboutUsBtn = view.findViewById(R.id.about_us);
+        aboutUsBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToAboutUs());
         return view;
     }
 }

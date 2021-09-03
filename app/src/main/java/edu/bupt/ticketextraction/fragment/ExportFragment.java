@@ -19,18 +19,18 @@ import edu.bupt.ticketextraction.activity.MainActivity;
  * </pre>
  */
 public class ExportFragment extends Fragment {
-    private final MainActivity mainActivity;
+    private final MainActivity fatherActivity;
 
-    public ExportFragment(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public ExportFragment(MainActivity fatherActivity) {
+        this.fatherActivity = fatherActivity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_export, container, false);
-        Button send_to_email_btn = view.findViewById(R.id.send_to_email_btn);
-        send_to_email_btn.setOnClickListener(view1 -> {
-            mainActivity.jumpFromMainToEmail();
+        Button sendToEmailBtn = view.findViewById(R.id.send_to_email_btn);
+        sendToEmailBtn.setOnClickListener(view1 -> {
+            fatherActivity.jumpFromMainToEmail();
         });
         return view;
     }
