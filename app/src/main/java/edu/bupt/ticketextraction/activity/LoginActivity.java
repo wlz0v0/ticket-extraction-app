@@ -30,16 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     private String password;
     private HashMap<String, String> accountInfo;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (loginState) {
-            showPersonalInfo();
-        } else {
-            showLogin();
-        }
-    }
-
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
     // 等号右侧必须是android.R.id.home
@@ -51,6 +41,16 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (loginState) {
+            showPersonalInfo();
+        } else {
+            showLogin();
+        }
     }
 
     private void showLogin() {

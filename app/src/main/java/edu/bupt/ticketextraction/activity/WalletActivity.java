@@ -1,11 +1,15 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.wallet.Wallet;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -26,9 +30,24 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(curWallet.getWalletName());
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Button shootBtn = findViewById(R.id.camera_shoot_btn);
         shootBtn.setOnClickListener(this::shootBtnOnClickCallback);
