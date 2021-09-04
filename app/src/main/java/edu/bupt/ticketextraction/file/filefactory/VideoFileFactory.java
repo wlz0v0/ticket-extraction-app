@@ -1,5 +1,7 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,18 +28,12 @@ public class VideoFileFactory extends FileFactory{
     public VideoFileFactory(String walletName) {
         super();
         // 视频文件应该在一个包内
-        VIDEO_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/video";
-        VIDEO_PREFIX = "/VIDEO_";
+        VIDEO_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/video/";
+        VIDEO_PREFIX = "VIDEO_";
         VIDEO_SUFFIX = ".mp4";
     }
-    @Override
+
     public File createFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
-        try {
-            return File.createTempFile(VIDEO_PREFIX + timeStamp, VIDEO_SUFFIX, new File(VIDEO_DIRECTORY));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getSourceFile(VIDEO_DIRECTORY, VIDEO_PREFIX, VIDEO_SUFFIX);
     }
 }

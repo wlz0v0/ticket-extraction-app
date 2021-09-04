@@ -23,12 +23,12 @@ public class TableFileFactory extends FileFactory{
     public TableFileFactory(String walletName) {
         super();
         // 一个包对应一个表格文件
-        TABLE_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/table";
-        TABLE_PREFIX = "_TABLE_";
+        TABLE_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/table/";
+        TABLE_PREFIX = "TABLE_";
         TABLE_SUFFIX = ".xlsx";
     }
 
-    @Override
+    // TODO 表格文件还不知道要如何操作及创建
     public File createFile() {
         try {
             return File.createTempFile(TABLE_PREFIX, TABLE_SUFFIX, new File(TABLE_DIRECTORY));

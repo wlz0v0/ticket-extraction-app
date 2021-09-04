@@ -33,21 +33,7 @@ public class ImageFileFactory extends FileFactory{
         IMAGE_SUFFIX = ".jpg";
     }
 
-    @Override
     public File createFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
-        try {
-            File dir = new File(IMAGE_DIRECTORY);
-            if (!dir.exists()) {
-                boolean isMkdir = dir.mkdirs();
-                if (!isMkdir) {
-                    Log.e("wlz", "mkdir failed");
-                }
-            }
-            return File.createTempFile(IMAGE_PREFIX + timeStamp, IMAGE_SUFFIX, new File(IMAGE_DIRECTORY));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getSourceFile(IMAGE_DIRECTORY, IMAGE_PREFIX, IMAGE_SUFFIX);
     }
 }

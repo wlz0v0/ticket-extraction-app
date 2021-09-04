@@ -1,6 +1,7 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -12,7 +13,7 @@ import java.io.IOException;
  *     version: 0.0.1
  * </pre>
  */
-public class WalletDataFileFactory extends FileFactory{
+public class WalletDataFileFactory extends FileFactory {
     // 发票数据文件目录
     private final String DATA_DIRECTORY;
     // 发票数据文件前缀
@@ -23,18 +24,13 @@ public class WalletDataFileFactory extends FileFactory{
     public WalletDataFileFactory(String walletName) {
         super();
         // 一个包对应一个数据文件
-        DATA_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/data";
-        WALLET_DATA_PREFIX = "_WALLET_DATA_";
+        DATA_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/data/";
+        WALLET_DATA_PREFIX = "WALLET_DATA_";
         DATA_SUFFIX = ".dat";
     }
 
-    @Override
-    public File createFile() {
-        try {
-            return File.createTempFile(WALLET_DATA_PREFIX, DATA_SUFFIX, new File(DATA_DIRECTORY));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+
+    public FileOutputStream createFile() {
+        return getDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX, DATA_SUFFIX);
     }
 }
