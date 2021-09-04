@@ -1,10 +1,7 @@
-package edu.bupt.ticketextraction.file;
+package edu.bupt.ticketextraction.file.filefactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * <pre>
@@ -26,7 +23,7 @@ public class TableFileFactory extends FileFactory{
     public TableFileFactory(String walletName) {
         super();
         // 一个包对应一个表格文件
-        TABLE_DIRECTORY = "/wallets" + walletName + "/table";
+        TABLE_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/table";
         TABLE_PREFIX = "_TABLE_";
         TABLE_SUFFIX = ".xlsx";
     }

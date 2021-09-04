@@ -24,16 +24,16 @@ import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
     // true 展示登录后的个人信息
     // false 展示登录界面
-    public static boolean login_state = false;
+    public static boolean loginState = false;
 
     private String account;
     private String password;
-    private HashMap<String, String> account_info;
+    private HashMap<String, String> accountInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (login_state) {
+        if (loginState) {
             showPersonalInfo();
         } else {
             showLogin();
@@ -65,18 +65,18 @@ public class LoginActivity extends AppCompatActivity {
         //TODO:登录界面
 
         // 编辑文本框初始化
-        EditText account_et = findViewById(R.id.account);
-        EditText password_et = findViewById(R.id.password);
+        EditText accountEt = findViewById(R.id.account);
+        EditText passwordEt = findViewById(R.id.password);
 
-        account_info = new HashMap<>();
-        account_info.put("18863238727", "123456");
+        accountInfo = new HashMap<>();
+        accountInfo.put("18863238727", "123456");
 
         // 登录按钮初始化及点击事件监听器设置
-        Button login_btn = findViewById(R.id.login_btn);
-        login_btn.setOnClickListener(view -> {
+        Button loginBtn = findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(view -> {
             // 获取输入的账号和密码
-            account = account_et.getText().toString();
-            password = password_et.getText().toString();
+            account = accountEt.getText().toString();
+            password = passwordEt.getText().toString();
             if (isMatch()) {
                 //TODO:登录成功
                 loginSuccessful();
@@ -101,12 +101,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isMatch() {
         //TODO:数据库存用户名密码，去数据库中查询
-        String input_pwd = account_info.get(account);
-        return input_pwd != null && input_pwd.equals(password);
+        String inputPwd = accountInfo.get(account);
+        return inputPwd != null && inputPwd.equals(password);
     }
 
     private void loginSuccessful() {
-        login_state = true;
+        loginState = true;
         // 通过调用finish结束LoginActivity，登录成功
         getAlertDialog("登录成功",
                 (dialogInterface, i) -> finish())
@@ -114,14 +114,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginFailed() {
-        login_state = false;
-        String builder_msg;
-        String input_pwd = account_info.get(account);
+        loginState = false;
+        String builderMsg;
+        String inputPwd = accountInfo.get(account);
         // input_pwd为空则是查询不到用户名
         // 否则是密码与账号不匹配
-        builder_msg = input_pwd == null ? "用户名错误!" : "密码错误!";
+        builderMsg = inputPwd == null ? "用户名不存在!" : "密码错误!";
         // 登录失败，关闭提示框
-        getAlertDialog(builder_msg,
+        getAlertDialog(builderMsg,
                 (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
     }

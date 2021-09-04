@@ -1,15 +1,8 @@
-package edu.bupt.ticketextraction.file;
+package edu.bupt.ticketextraction.file.filefactory;
 
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.os.Environment;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * <pre>
@@ -23,6 +16,6 @@ import java.util.Locale;
  * </pre>
  */
 public abstract class FileFactory {
-    // TODO:获得外部存储缓存路径
+    public static String EXTERNAL_FILE_DIR;
     public abstract File createFile();
 }

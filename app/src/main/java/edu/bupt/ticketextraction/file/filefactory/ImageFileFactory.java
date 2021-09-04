@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.file;
+package edu.bupt.ticketextraction.file.filefactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class ImageFileFactory extends FileFactory{
     public ImageFileFactory(String walletName) {
         super();
         // 图像文件应该在一个包内
-        IMAGE_DIRECTORY = "/wallets" + walletName + "/image";
+        IMAGE_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/image";
         IMAGE_PREFIX = "/IMAGE_";
         IMAGE_SUFFIX = ".jpg";
     }

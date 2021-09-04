@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.file;
+package edu.bupt.ticketextraction.file.filefactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class VideoFileFactory extends FileFactory{
     public VideoFileFactory(String walletName) {
         super();
         // 视频文件应该在一个包内
-        VIDEO_DIRECTORY = "/wallets" + walletName + "/video";
+        VIDEO_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/video";
         VIDEO_PREFIX = "/VIDEO_";
         VIDEO_SUFFIX = ".mp4";
     }

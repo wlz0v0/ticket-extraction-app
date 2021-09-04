@@ -1,6 +1,5 @@
 package edu.bupt.ticketextraction.extraction;
 
-import edu.bupt.ticketextraction.file.FileManager;
 import org.jetbrains.annotations.Contract;
 
 /**

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
-import edu.bupt.ticketextraction.file.FileManager;
 
 /**
  * <pre>
@@ -35,11 +34,11 @@ public class AboutUsActivity extends AppCompatActivity {
             actionBar.setTitle("关于");
         }
 
-        Button team_btn = findViewById(R.id.team_btn);
-        team_btn.setOnClickListener(view -> jumpFromAboutUsToTeam());
+        Button teamBtn = findViewById(R.id.team_btn);
+        teamBtn.setOnClickListener(view -> jumpFromAboutUsToTeam());
 
-        Button web_btn = findViewById(R.id.website_btn);
-        web_btn.setOnClickListener(view -> {
+        Button webBtn = findViewById(R.id.website_btn);
+        webBtn.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.parse(address);
             intent.setData(uri);

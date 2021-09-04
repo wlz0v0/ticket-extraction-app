@@ -22,4 +22,8 @@
     <string name="introduction">本app为北邮大创项目，开发APP的有武连增和肖皓月</string>
     <string name="create_wallet_hint">请输入钱包名称</string>
     <string name="create_btn">创建</string>
+    <string name="default_wallet">默认</string>
+    <string name="new_wallet">新建钱包</string>
+    <string name="shoot">拍照</string>
+    <string name="record">录制</string>
 </resources>

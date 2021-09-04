@@ -1,9 +1,13 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.wallet.Wallet;
+
+import java.io.File;
 
 /**
  * <pre>
@@ -25,7 +29,22 @@ public class WalletActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
+
+        Button shootBtn = findViewById(R.id.camera_shoot_btn);
+        shootBtn.setOnClickListener(this::shootBtnOnClickCallback);
+
+        Button recordBtn = findViewById(R.id.camera_record_btn);
+        recordBtn.setOnClickListener(this::recordBtnOnClickCallback);
+
         showResources();
+    }
+
+    private void shootBtnOnClickCallback(View view) {
+        File imageFile = curWallet.createImage();
+    }
+
+    private void recordBtnOnClickCallback(View view) {
+
     }
 
     // 在钱包中展示资源文件

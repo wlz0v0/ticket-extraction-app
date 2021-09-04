@@ -34,5 +34,6 @@
         <activity android:name=".activity.AboutUsActivity"/>
         <activity android:name=".activity.TeamActivity"/>
         <activity android:name=".activity.CreateWalletActivity"/>
+        <activity android:name=".activity.WalletActivity"/>
     </application>
 </manifest>

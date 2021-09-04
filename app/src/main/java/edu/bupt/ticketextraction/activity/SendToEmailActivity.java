@@ -22,7 +22,7 @@ import edu.bupt.ticketextraction.email.Email;
  */
 
 public class SendToEmailActivity extends AppCompatActivity {
-    private String email_address;
+    private String emailAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,11 @@ public class SendToEmailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        EditText email_et = findViewById(R.id.email_address_et);
+        EditText emailEt = findViewById(R.id.email_address_et);
 
-        Button send_btn = findViewById(R.id.send_btn);
-        send_btn.setOnClickListener(view -> {
-            email_address = email_et.getText().toString();
+        Button sendBtn = findViewById(R.id.send_btn);
+        sendBtn.setOnClickListener(view -> {
+            emailAddress = emailEt.getText().toString();
             sendEmail();
         });
     }
@@ -59,7 +59,7 @@ public class SendToEmailActivity extends AppCompatActivity {
     }
 
     private void sendEmail() {
-        Email email = new Email(email_address);
+        Email email = new Email(emailAddress);
         if (email.send()) {
             sendSuccessful();
         } else {
