@@ -5,6 +5,7 @@ import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class Wallet {
     // 读取文件进入两个数组
     private ArrayList<File> files;
 
-    private final File walletDataFile;
+    private final FileOutputStream walletDataFile;
 
     public Wallet(String walletName) {
         this.walletName = walletName;
