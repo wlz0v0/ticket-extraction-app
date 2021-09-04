@@ -1,5 +1,7 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,8 +28,8 @@ public class ImageFileFactory extends FileFactory{
     public ImageFileFactory(String walletName) {
         super();
         // 图像文件应该在一个包内
-        IMAGE_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/image";
-        IMAGE_PREFIX = "/IMAGE_";
+        IMAGE_DIRECTORY = EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/image/";
+        IMAGE_PREFIX = "IMAGE_";
         IMAGE_SUFFIX = ".jpg";
     }
 
@@ -35,6 +37,13 @@ public class ImageFileFactory extends FileFactory{
     public File createFile() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
         try {
+            File dir = new File(IMAGE_DIRECTORY);
+            if (!dir.exists()) {
+                boolean isMkdir = dir.mkdirs();
+                if (!isMkdir) {
+                    Log.e("wlz", "mkdir failed");
+                }
+            }
             return File.createTempFile(IMAGE_PREFIX + timeStamp, IMAGE_SUFFIX, new File(IMAGE_DIRECTORY));
         } catch (IOException e) {
             e.printStackTrace();

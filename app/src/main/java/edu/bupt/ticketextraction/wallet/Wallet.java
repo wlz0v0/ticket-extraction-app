@@ -28,6 +28,7 @@ public class Wallet {
     public Wallet(String walletName) {
         this.walletName = walletName;
         walletDataFile = new WalletDataFileFactory(walletName).createFile();
+        files = new ArrayList<>();
     }
 
     public String getWalletName() {
@@ -36,6 +37,9 @@ public class Wallet {
 
     public File createImage() {
         File file = new ImageFileFactory(walletName).createFile();
+        // 断言文件创建成功
+        // TODO:实际上失败了
+        assert file != null;
         files.add(file);
         writeToData(file);
         return file;

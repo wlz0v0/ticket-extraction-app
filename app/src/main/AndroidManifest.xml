@@ -35,5 +35,12 @@
         <activity android:name=".activity.TeamActivity"/>
         <activity android:name=".activity.CreateWalletActivity"/>
         <activity android:name=".activity.WalletActivity"/>
+        <provider android:authorities="edu.bupt.ticketextraction.FileProvider"
+                  android:name="androidx.core.content.FileProvider"
+                  android:exported="false"
+                  android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                       android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 </manifest>
