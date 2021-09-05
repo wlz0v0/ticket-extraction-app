@@ -1,7 +1,5 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -63,7 +61,7 @@ public abstract class FileFactory {
      **/
     public FileOutputStream getDataStream(String directory, String prefix, String suffix) {
         try {
-            return new FileOutputStream(new File(directory + prefix + suffix));
+            return new FileOutputStream(directory + prefix + suffix);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

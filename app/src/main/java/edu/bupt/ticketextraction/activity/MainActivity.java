@@ -1,9 +1,10 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.*;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,13 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.fragment.*;
-import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.Integer;
 
 /**
  * <pre>

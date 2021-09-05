@@ -16,7 +16,8 @@
             android:hint="@string/login_account"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="50dp"
+            android:drawableStart="@drawable/account_box_gray"/>
 
     <EditText
             style="@style/login_edit_text_style"
@@ -25,7 +26,9 @@
             android:inputType="textPassword"
             android:hint="@string/login_password"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:drawableStart="@drawable/lock_gray"/>
+
     <Button
             android:id="@+id/login_btn"
             android:layout_width="100dp"

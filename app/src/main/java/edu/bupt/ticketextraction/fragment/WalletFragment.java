@@ -26,7 +26,6 @@ import edu.bupt.ticketextraction.wallet.WalletManager;
 public class WalletFragment extends Fragment {
     private final String walletName;
     private final MainActivity fatherActivity;
-//    private static boolean isDelete = false;
 
     public WalletFragment(String walletName, MainActivity fatherActivity) {
         this.walletName = walletName;
@@ -52,10 +51,11 @@ public class WalletFragment extends Fragment {
         //TODO 添加重命名和删除钱包操作
         AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
         // 设置弹窗，可以重命名或删除钱包
-        builder.setMessage("希望进行的操作")
-                .setPositiveButton("删除", this::positiveButtonCallback)
-                .setNeutralButton("取消", this::neutralButtonCallback)
-                .setNegativeButton("重命名", this::negativeButtonCallback);
+        builder.setMessage("希望进行的操作").
+                setCancelable(false).
+                setPositiveButton("删除", this::positiveButtonCallback).
+                setNeutralButton("取消", this::neutralButtonCallback).
+                setNegativeButton("重命名", this::negativeButtonCallback);
         AlertDialog dialog = builder.create();
         dialog.show();
         return true;
@@ -65,8 +65,9 @@ public class WalletFragment extends Fragment {
     private void positiveButtonCallback(DialogInterface dialog, int which) {
         // 设置确认弹窗，用户是否确认要删除钱包
         AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-        builder.setMessage("确认要删除此钱包吗？一旦删除，发票信息无法恢复！")
-                .setPositiveButton("确认", (dialog1, which1) -> {
+        builder.setMessage("确认要删除此钱包吗？一旦删除，发票信息无法恢复！").
+                setCancelable(false).
+                setPositiveButton("确认", (dialog1, which1) -> {
                     // 删除对应Wallet实例
                     WalletManager.getInstance().deleteWallet(WalletManager.getInstance().getWallet(walletName));
 
@@ -82,8 +83,8 @@ public class WalletFragment extends Fragment {
                     dialog1.dismiss();
                     // 关闭父弹窗
                     dialog.dismiss();
-                })
-                .setNegativeButton("取消", (dialog1, which1) -> {
+                }).
+                setNegativeButton("取消", (dialog1, which1) -> {
                     // 关闭子弹窗
                     dialog1.dismiss();
                     // 关闭父弹窗
@@ -100,6 +101,7 @@ public class WalletFragment extends Fragment {
 
     // 重命名按钮点击回调
     private void negativeButtonCallback(DialogInterface dialog, int which) {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
+        builder.setView(R.layout.editable_dialog);
     }
 }

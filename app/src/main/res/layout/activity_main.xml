@@ -29,25 +29,25 @@
         <RadioButton
                 style="@style/radio_button_style"
                 android:id="@+id/bill"
-                android:drawableTop="@drawable/bottom_menu_image"
+                android:drawableTop="@drawable/receipt_icon_selector"
                 android:text="@string/fragment_bill"/>
 
         <RadioButton
                 style="@style/radio_button_style"
                 android:id="@+id/export"
-                android:drawableTop="@drawable/bottom_menu_image"
+                android:drawableTop="@drawable/email_icon_selector"
                 android:text="@string/fragment_export"/>
 
         <RadioButton
                 style="@style/radio_button_style"
                 android:id="@+id/check"
-                android:drawableTop="@drawable/bottom_menu_image"
+                android:drawableTop="@drawable/check_icon_selector"
                 android:text="@string/fragment_check"/>
 
         <RadioButton
                 style="@style/radio_button_style"
                 android:id="@+id/setting"
-                android:drawableTop="@drawable/bottom_menu_image"
+                android:drawableTop="@drawable/setting_icon_selector"
                 android:text="@string/fragment_setting"/>
     </RadioGroup>
 

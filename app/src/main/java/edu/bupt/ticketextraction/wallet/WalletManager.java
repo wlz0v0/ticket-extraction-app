@@ -1,6 +1,5 @@
 package edu.bupt.ticketextraction.wallet;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
