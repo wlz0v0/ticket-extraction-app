@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
@@ -45,12 +46,17 @@ public class AboutUsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-        //TODO: 2021.8.29
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("关于");
         }
+
+        TextView textView = findViewById(R.id.version_textview);
+        // 当前版本
+        final String cur_version = "0.0.0";
+        textView.setText(cur_version);
 
         Button teamBtn = findViewById(R.id.team_btn);
         teamBtn.setOnClickListener(view -> jumpFromAboutUsToTeam());

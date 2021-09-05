@@ -11,4 +11,5 @@
     <color name="shallow_green">#FF00F570</color>
     <color name="gray">#FF606060</color>
     <color name="shallow_gray">#FFEDEDED</color>
+    <color name="version_gray">#FFA0A0A0</color>
 </resources>
