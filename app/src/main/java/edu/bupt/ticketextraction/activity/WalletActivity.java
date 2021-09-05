@@ -76,7 +76,12 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     private void recordBtnOnClickCallback(View view) {
-
+        int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, START_CAMERA);
+        } else {
+            startVideoCamera();
+        }
     }
 
     private void startShootCamera() {
@@ -87,6 +92,22 @@ public class WalletActivity extends AppCompatActivity {
                 Uri uri = FileProvider.getUriForFile(this,
                         "edu.bupt.ticketextraction.FileProvider",
                         imageFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                // startActivityForResult已被弃用，但仍然选择使用它XD
+                // noinspection deprecation
+                startActivityForResult(intent, START_CAMERA);
+            }
+        }
+    }
+
+    private void startVideoCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            File videoFile = curWallet.createVideo();
+            if (videoFile != null) {
+                Uri uri = FileProvider.getUriForFile(this,
+                        "edu.bupt.ticketextraction.FileProvider",
+                        videoFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 // startActivityForResult已被弃用，但仍然选择使用它XD
                 // noinspection deprecation

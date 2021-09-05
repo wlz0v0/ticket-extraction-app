@@ -32,6 +32,7 @@ public abstract class FileFactory {
      * @param directory 目录
      * @param prefix 文件名前缀
      * @param suffix 文件名后缀
+     * @return File实例 图像或视频资源文件
      **/
     public File getSourceFile(String directory, String prefix, String suffix) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
@@ -58,6 +59,7 @@ public abstract class FileFactory {
      * @param directory 目录
      * @param prefix 文件名前缀
      * @param suffix 文件名后缀
+     * @return 文件输出流，用于写入数据文件
      **/
     public FileOutputStream getDataStream(String directory, String prefix, String suffix) {
         try {
