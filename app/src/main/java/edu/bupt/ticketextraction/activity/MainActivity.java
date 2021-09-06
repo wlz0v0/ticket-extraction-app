@@ -2,7 +2,6 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,17 +37,23 @@ public class MainActivity extends AppCompatActivity {
     // 跳转到其他activity前的fragment的id，默认为发票fragment
     private static int beforeJumpFragmentId = R.id.bill;
 
-    // 存放wallet fragment的map
-    // value保存的是该key是否已经被添加到FragmentTransaction中
+    /**
+     * key 钱包fragment
+     * value fragment是否已经被添加到activity中
+     **/
     public static HashMap<WalletFragment, Boolean> walletFragments = new HashMap<>();
 
+    // 跳转到钱包activity
     public void jumpFromMainToWallet() {
+        // 从发票fragment跳转
         beforeJumpFragmentId = R.id.bill;
         Intent intent = new Intent(MainActivity.this, WalletActivity.class);
         startActivity(intent);
     }
 
+    // 跳转到创建钱包activity
     public void jumpFromMainToCreateWallet() {
+        // 从发票fragment跳转
         beforeJumpFragmentId = R.id.bill;
         Intent intent = new Intent(MainActivity.this, CreateWalletActivity.class);
         startActivity(intent);
@@ -83,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 隐藏上部导航栏
+        // 设置main activity的标题
         if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
+            getSupportActionBar().setTitle(R.string.app_name);
         }
 
         fgMng = getSupportFragmentManager();
@@ -183,12 +188,6 @@ public class MainActivity extends AppCompatActivity {
         assert fg != null;
         fragmentTransaction.show(fg);
         fragmentTransaction.commit();
-    }
-
-    // 相机按钮点击事件监听器回调函数
-    private void cameraButtonOnClickCallback(View view) {
-        //TODO: 不在MainActivity中设置拍照，而改在wallet activity中调用相机，两个按钮分别为照相和录制
-        // perfect!
     }
 
     private void hideFragments(FragmentTransaction fragmentTransaction) {
