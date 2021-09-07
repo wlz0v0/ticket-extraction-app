@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,7 +25,7 @@ import edu.bupt.ticketextraction.wallet.WalletManager;
  * </pre>
  */
 public class WalletFragment extends Fragment {
-    private final String walletName;
+    private String walletName;
     private final MainActivity fatherActivity;
 
     public WalletFragment(String walletName, MainActivity fatherActivity) {
@@ -102,6 +103,33 @@ public class WalletFragment extends Fragment {
     // 重命名按钮点击回调
     private void negativeButtonCallback(DialogInterface dialog, int which) {
         AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-        builder.setView(R.layout.editable_dialog);
+        builder.setView(R.layout.editable_dialog).
+                setPositiveButton("重命名", (dialog1, which1) -> {
+                    //TODO: rename
+                    EditText editText = fatherActivity.findViewById(R.id.dialog_et);
+                    String newWalletName = editText.getText().toString();
+                    // 新名称不能为空！
+                    if (!newWalletName.isEmpty()){
+                        Button walletBtn = fatherActivity.findViewById(R.id.wallet_btn);
+                        walletBtn.setText(newWalletName);
+                        this.walletName = newWalletName;
+                        //TODO:修改相关文件夹名
+                        dialog1.dismiss();
+                        dialog.dismiss();
+                    } else {
+                        // 弹出警告并重新输入新名称
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(fatherActivity);
+                        builder1.setMessage("钱包名不能为空！").
+                                setPositiveButton("确认", (dialog2, which2) -> dialog2.dismiss());
+                    }
+                }).
+                setNegativeButton("取消", (dialog1, which1) -> {
+                    // 关闭子弹窗
+                    dialog1.dismiss();
+                    // 关闭父弹窗
+                    dialog.dismiss();
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
