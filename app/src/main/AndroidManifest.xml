@@ -35,6 +35,7 @@
         <activity android:name=".activity.TeamActivity"/>
         <activity android:name=".activity.CreateWalletActivity"/>
         <activity android:name=".activity.WalletActivity"/>
+        <activity android:name=".activity.InstructionActivity"/>
         <provider android:authorities="edu.bupt.ticketextraction.FileProvider"
                   android:name="androidx.core.content.FileProvider"
                   android:exported="false"

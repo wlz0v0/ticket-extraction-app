@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -38,21 +39,6 @@
                 tools:ignore="RelativeOverlap"/>
 
     </RelativeLayout>
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/setting_button_bkg"
-            android:text="@string/version"
-            android:textSize="20sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="start|center_vertical"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp">
-
-    </Button>
 
     <Button
             style="@style/setting_button_style"

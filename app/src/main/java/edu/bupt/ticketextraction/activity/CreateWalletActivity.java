@@ -24,7 +24,6 @@ import edu.bupt.ticketextraction.wallet.WalletManager;
  *     version: 0.0.1
  * </pre>
  */
-//TODO: 9.3task!
 public class CreateWalletActivity extends AppCompatActivity {
     private static MainActivity mainActivity;
 

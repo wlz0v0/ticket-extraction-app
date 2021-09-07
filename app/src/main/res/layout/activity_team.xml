@@ -6,7 +6,19 @@
 
     <TextView
             style="@style/introduction_style"
-            android:text="@string/introduction"
+            android:text="@string/introduction1"
             android:layout_marginTop="30dp"/>
+
+    <TextView
+            style="@style/introduction_style"
+            android:text="@string/introduction2"/>
+
+    <TextView
+            style="@style/introduction_style"
+            android:text="@string/introduction3"/>
+
+    <TextView
+            style="@style/introduction_style"
+            android:text="@string/introduction4"/>
 
 </LinearLayout>
