@@ -2,8 +2,13 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +17,7 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.fragment.*;
 import edu.bupt.ticketextraction.wallet.WalletManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,14 +89,36 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // 跳转到使用说明activity
+    public void jumpFromMainToInstruction() {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.instructions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        if (item.getItemId() == R.id.instruction_button) {
+            jumpFromMainToInstruction();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar actionBar = getSupportActionBar();
         // 设置main activity的标题
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.app_name);
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.app_name);
+
         }
 
         fgMng = getSupportFragmentManager();
