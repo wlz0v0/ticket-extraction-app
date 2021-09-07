@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -91,14 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
     // 跳转到使用说明activity
     public void jumpFromMainToInstruction() {
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.instructions, menu);
-        return super.onCreateOptionsMenu(menu);
+        // 无需设置跳转id，因为所有fragment都能跳转过去
+        Intent intent = new Intent(MainActivity.this, InstructionActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -115,10 +110,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
-        // 设置main activity的标题
+        // 设置自定义顶部actionbar
+        // 设置使用说明按钮点击监听器
         if (actionBar != null) {
-            actionBar.setTitle(R.string.app_name);
-
+            actionBar.setCustomView(R.layout.actionbar_main_activity);
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+            Button instructionBtn = findViewById(R.id.instruction_button);
+            instructionBtn.setOnClickListener(view -> jumpFromMainToInstruction());
         }
 
         fgMng = getSupportFragmentManager();
