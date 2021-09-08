@@ -2,8 +2,6 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -115,8 +113,10 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setCustomView(R.layout.actionbar_main_activity);
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            // 显示自定义的view
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setDisplayShowHomeEnabled(false);
+            // 不显示标题
             actionBar.setDisplayShowTitleEnabled(false);
             Button instructionBtn = findViewById(R.id.instruction_button);
             instructionBtn.setOnClickListener(view -> jumpFromMainToInstruction());
@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         initFragments();
 
-        // 将main activity传入create wallet activity
-        CreateWalletActivity.setMainActivity(this);
+        // 将main activity传入WalletManager
+        WalletManager.setMainActivity(this);
 
         // 设置控制底边菜单栏的RadioGroup的checked change事件监听器
         RadioGroup rgMenu = findViewById(R.id.radio_group);
@@ -200,11 +200,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         fragmentTransaction.commitNowAllowingStateLoss();
-    }
-
-    // 把所有wallet读进wallets中，需要创建一个文件管理wallet
-    private void readWallets() {
-        //TODO 把所有钱包读进wallets中
     }
 
     // 底部单选按钮点击事件监听器回调函数

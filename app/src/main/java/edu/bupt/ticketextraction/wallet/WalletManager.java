@@ -1,6 +1,14 @@
 package edu.bupt.ticketextraction.wallet;
 
+import edu.bupt.ticketextraction.activity.MainActivity;
+import edu.bupt.ticketextraction.file.filefactory.FileFactory;
+import edu.bupt.ticketextraction.fragment.WalletFragment;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <pre>
@@ -21,16 +29,101 @@ public enum WalletManager {
      **/
     private final HashMap<String, Wallet> wallets = new HashMap<>();
 
+    private final static String WALLETS_DATA_PATH = FileFactory.EXTERNAL_FILE_DIR + "/wallets/WalletsData.dat";
+
+    private static MainActivity mainActivity;
+
+    /**
+     *  由于在创建wallet fragment时需要设置按钮点击监听器
+     *  使得点击wallet时能够从main activity跳转到对应wallet activity
+     *  于是需要一个main activity的实例来进行跳转
+     *  在本类中只能选择用一个静态变量获取到main activity
+     *  以便将其传给wallet fragment
+     */
+    public static void setMainActivity(MainActivity mainActivity) {
+        WalletManager.mainActivity = mainActivity;
+    }
+
     public static WalletManager getInstance() {
         return INSTANCE;
     }
 
-    public void writeToData() {
+    /**
+     * @param walletName 钱包名
+     * @return 是否创建成功
+     * CreateWalletActivity也会调用此方法
+     **/
+    public boolean createWallet(String walletName) {
+        if (walletName.isEmpty()) {
+            return false;
+        }
+        if (walletName.equals("默认")) {
+            return true;
+        }
+        // 新建一个wallet并添加到wallets中管理
+        Wallet wallet = new Wallet(walletName);
+        WalletManager.getInstance().addWallet(wallet);
 
+        // 新建一个wallet fragment并将其添加到对应的container中
+        WalletFragment fgWallet = new WalletFragment(walletName, mainActivity);
+        // 将新建的wallet fragment添加到MainActivity中并在其中展示
+        MainActivity.walletFragments.put(fgWallet, false);
+        return true;
     }
 
-    public void readFromData() {
+    // 先把wallets写入，再写入每个wallet
+    public void writeToData() {
+        File file = new File(WALLETS_DATA_PATH);
+        if (!file.exists()) {
+            try {
+                //noinspection ResultOfMethodCallIgnored
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(WALLETS_DATA_PATH, false);
+            for (Map.Entry<String, Wallet> entry: wallets.entrySet()) {
+                // 加个\n，每个钱包名为一行
+                byte[] bytes = (entry.getKey() + "\n").getBytes(StandardCharsets.UTF_8);
+                outputStream.write(bytes);
+            }
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    // 先读入wallets，再读入每个wallet
+    public void readFromData() {
+        // 存所有wallet的name
+        ArrayList<String> walletNames = new ArrayList<>();
+        try {
+            // 构造BufferReader来读取一行
+            // 一个wallet的name为一行
+            FileInputStream inputStream = new FileInputStream(WALLETS_DATA_PATH);
+            InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            // 局部变量line保存每行读取的钱包名
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                walletNames.add(line);
+            }
+            // 关闭所有输入流
+            bufferedReader.close();
+            reader.close();
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 根据所有钱包的名字创建钱包
+        if (!walletNames.isEmpty()) {
+            for (String name: walletNames) {
+                createWallet(name);
+            }
+        }
     }
 
     public void addWallet(Wallet wallet) {

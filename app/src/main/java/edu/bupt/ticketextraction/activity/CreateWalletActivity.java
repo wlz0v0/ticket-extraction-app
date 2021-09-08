@@ -8,11 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.fragment.WalletFragment;
-import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 
 /**
@@ -25,19 +21,6 @@ import edu.bupt.ticketextraction.wallet.WalletManager;
  * </pre>
  */
 public class CreateWalletActivity extends AppCompatActivity {
-    private static MainActivity mainActivity;
-
-    /**
-     *  由于在创建wallet fragment时需要设置按钮点击监听器
-     *  使得点击wallet时能够从main activity跳转到对应wallet activity
-     *  于是需要一个main activity的实例来进行跳转
-     *  在本类中只能选择用一个静态变量获取到main activity
-     *  以便将其传给wallet fragment
-     */
-    public static void setMainActivity(MainActivity mainActivity) {
-        CreateWalletActivity.mainActivity = mainActivity;
-    }
-
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
     // 等号右侧必须是android.R.id.home
@@ -69,27 +52,12 @@ public class CreateWalletActivity extends AppCompatActivity {
         Button createBtn = findViewById(R.id.create_btn);
         createBtn.setOnClickListener(view -> {
             String walletName = walletNameEt.getText().toString();
-            if (createWallet(walletName)) {
+            if (WalletManager.getInstance().createWallet(walletName)) {
                 createSuccessful();
             } else {
                 createFailed();
             }
         });
-    }
-
-    private boolean createWallet(String walletName) {
-        if (walletName.isEmpty()) {
-            return false;
-        }
-        // 新建一个wallet并添加到wallets中管理
-        Wallet wallet = new Wallet(walletName);
-        WalletManager.getInstance().addWallet(wallet);
-
-        // 新建一个wallet fragment并将其添加到对应的container中
-        WalletFragment fgWallet = new WalletFragment(walletName, mainActivity);
-        // 将新建的wallet fragment添加到MainActivity中并在其中展示
-        MainActivity.walletFragments.put(fgWallet, false);
-        return true;
     }
 
     private void createSuccessful() {
