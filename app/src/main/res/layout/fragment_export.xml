@@ -6,11 +6,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-    <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+    <!-- 为export fragment添加滚动条，
+         防止创建的钱包数量占满整个布局后无法创建新钱包 -->
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+        <!-- 钱包fragment的容器Layout -->
+        <LinearLayout
+                android:id="@+id/wallet_fragment_container_in_check"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
             android:layout_width="match_parent"

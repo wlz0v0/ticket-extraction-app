@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 本文件为钱包fragment，新建一个钱包，就新建一个这个fragment -->
+<!-- 本文件为钱包fragment，新建一个钱包，就新建一个这个fragment，放在导出fragment中 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Button
+    <CheckBox
             style="@style/wallet_btn"
             android:id="@+id/wallet_btn"
             android:text=""/>

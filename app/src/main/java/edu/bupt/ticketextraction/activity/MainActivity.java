@@ -184,7 +184,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 在MainActivity中展示是因为
+     * TODO：发票fragment，导出fragment都要展示，先判断当前页面是哪个然后进行展示，不展示的页面只添加并隐藏
+     * 注：在MainActivity中展示是因为
      * 如果在CreateWalletActivity中使用FragmentTransaction添加fragment
      * 由于未知原因app会崩掉
      * 猜测：添加fragment时必须处于该fragment所处于的activity中，否则会出现问题
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
         for (Map.Entry<WalletFragment, Boolean> w : walletFragments.entrySet()) {
             if (!w.getValue()) {
-                fragmentTransaction.add(R.id.wallet_fragment_container, w.getKey());
+                fragmentTransaction.add(R.id.wallet_fragment_container_in_bill, w.getKey());
                 w.setValue(true);
             } else {
                 fragmentTransaction.show(w.getKey());
