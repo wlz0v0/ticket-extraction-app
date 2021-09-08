@@ -53,9 +53,9 @@ public enum WalletManager {
     }
 
     /**
+     * CreateWalletActivity也会调用此方法
      * @param walletName 钱包名
      * @return 是否创建成功
-     * CreateWalletActivity也会调用此方法
      **/
     public boolean createWallet(String walletName) {
         if (walletName.isEmpty()) {

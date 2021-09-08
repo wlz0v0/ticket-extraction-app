@@ -19,8 +19,8 @@ public enum FileManager {
     }
 
     /**
-     * @param path 删除的目录或文件路径
      * 递归删除文件夹下的所有文件和目录
+     * @param path 删除的目录或文件路径
      **/
     public void deleteAllFiles(String path) {
         File file = new File(path);
