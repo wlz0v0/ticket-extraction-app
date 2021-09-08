@@ -1,8 +1,6 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * <pre>

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Wallet {
     // 钱包名
     private final String walletName;
-    // 读取文件进入两个数组
+    // 读取文件进入数组
     private ArrayList<File> files;
 
     private final FileOutputStream walletDataFile;

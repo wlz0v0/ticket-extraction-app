@@ -69,6 +69,9 @@ public class WalletFragment extends Fragment {
         builder.setMessage("确认要删除此钱包吗？一旦删除，发票信息无法恢复！").
                 setCancelable(false).
                 setPositiveButton("确认", (dialog1, which1) -> {
+                    // 删除目录
+                    WalletManager.getInstance().deleteWalletDirectory(walletName);
+
                     // 删除对应Wallet实例
                     WalletManager.getInstance().deleteWallet(WalletManager.getInstance().getWallet(walletName));
 
@@ -79,7 +82,7 @@ public class WalletFragment extends Fragment {
 
                     // 删除对应WalletFragment
                     MainActivity.walletFragments.remove(this);
-                    // TODO：删除文件
+
                     // 关闭子弹窗
                     dialog1.dismiss();
                     // 关闭父弹窗

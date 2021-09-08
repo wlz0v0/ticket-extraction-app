@@ -1,13 +1,14 @@
 package edu.bupt.ticketextraction.wallet;
 
 import edu.bupt.ticketextraction.activity.MainActivity;
+import edu.bupt.ticketextraction.file.FileManager;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.fragment.WalletFragment;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -26,8 +27,11 @@ public enum WalletManager {
     /**
      *  key: wallet name string
      *  value: wallet
+     *  采用LinkedHashMap原因：在界面初始化时必须要根据原有输入顺序创建所有钱包fragment
+     *  HashMap会打乱顺序，LinkedHashMap会保留原有输入顺序
+     *  所以采用LinkedHashMap
      **/
-    private final HashMap<String, Wallet> wallets = new HashMap<>();
+    private final LinkedHashMap<String, Wallet> wallets = new LinkedHashMap<>();
 
     private final static String WALLETS_DATA_PATH = FileFactory.EXTERNAL_FILE_DIR + "/wallets/WalletsData.dat";
 
@@ -126,14 +130,32 @@ public enum WalletManager {
         }
     }
 
+    /**
+     * @param wallet 钱包实例
+     **/
     public void addWallet(Wallet wallet) {
         wallets.put(wallet.getWalletName(), wallet);
     }
 
+    /**
+     * @param wallet 钱包实例
+     **/
     public void deleteWallet(Wallet wallet) {
         wallets.remove(wallet.getWalletName());
     }
 
+    /**
+     * @param walletName 钱包名字符串
+     **/
+    public void deleteWalletDirectory(String walletName) {
+        String path = FileFactory.EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/";
+        FileManager.getInstance().deleteAllFiles(path);
+    }
+
+    /**
+     * @param walletName 钱包名字符串
+     * @return 钱包名对应的钱包实例
+     **/
     public Wallet getWallet(String walletName) {
         return wallets.get(walletName);
     }
