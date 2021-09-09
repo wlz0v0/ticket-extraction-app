@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // 点击使用说明后跳转到使用说明
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == R.id.instruction_button) {
@@ -122,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
         // 存放所有钱包名和钱包CheckBox对应关系的HashMap
         WalletCheckBoxFragment.checkBoxFragmentHashMap = new HashMap<>();
 
+        fgMng = getSupportFragmentManager();
+        // 获取外部存储绝对路径字符串
+        FileFactory.EXTERNAL_FILE_DIR = getExternalFilesDir(null).getAbsolutePath();
+
+
         ActionBar actionBar = getSupportActionBar();
         // 设置自定义顶部actionbar
         // 设置使用说明按钮点击监听器
@@ -133,12 +139,11 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(false);
             // 不显示标题
             actionBar.setDisplayShowTitleEnabled(false);
+            // 绑定使用说明按钮
             Button instructionBtn = findViewById(R.id.instruction_button);
+            // 设置使用说明按钮点击监听器
             instructionBtn.setOnClickListener(view -> jumpFromMainToInstruction());
         }
-
-        fgMng = getSupportFragmentManager();
-        FileFactory.EXTERNAL_FILE_DIR = getExternalFilesDir(null).getAbsolutePath();
 
         initFragments();
 
@@ -164,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         if (!walletButtonFragments.isEmpty()) {
             showWalletButtonFragments();
         }
+        // 展示所有wallet check box fragment
         if (!walletCheckBoxFragments.isEmpty()) {
             showWalletCheckBoxFragments();
         }
@@ -193,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
         // 初始化FragmentTransaction并将fragments添加到activity中
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
 
+        // 原本希望使用JDK11关键字var来代替Map.Entry
+        // 结果把开发环境换成JDK11后无法识别android包
+        // 只好换成JDK8然后不用var了
         for (Map.Entry<Integer, Fragment> entry : fragments.entrySet()) {
             Fragment fg = entry.getValue();
             fragmentTransaction.add(R.id.fragment_container, fg);

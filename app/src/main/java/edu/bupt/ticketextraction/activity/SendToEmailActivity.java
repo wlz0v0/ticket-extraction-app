@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class SendToEmailActivity extends AppCompatActivity {
     private String emailAddress;
 
+    // checkBoxes用于发送email时确定哪些需要被发送
     public static ArrayList<CheckBox> checkBoxes;
 
     // 通过该回调函数监听返回键是否被点击
@@ -87,6 +88,10 @@ public class SendToEmailActivity extends AppCompatActivity {
         getAlertDialog("发送邮件失败").show();
     }
 
+    /**
+     * 获得一个弹窗，用于提高代码复用率
+     * @param text 创建的弹窗的信息的字符串
+     **/
     private AlertDialog getAlertDialog(String text) {
         // 先创建一个builder，再通过builder构造alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

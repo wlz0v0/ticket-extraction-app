@@ -32,8 +32,10 @@ public class ExportFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_export, container, false);
         // 绑定默认check box
         CheckBox defaultCheckBox = view.findViewById(R.id.default_wallet_check_box);
+        // checkBoxes用于发送email时确定哪些需要被发送
         SendToEmailActivity.checkBoxes.add(defaultCheckBox);
 
+        // 发送邮件时发送选定钱包对应的表格
         Button sendToEmailBtn = view.findViewById(R.id.send_to_email_btn);
         sendToEmailBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToEmail());
         return view;

@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.SendToEmailActivity;
-import edu.bupt.ticketextraction.activity.WalletActivity;
-import edu.bupt.ticketextraction.wallet.WalletManager;
 
 import java.util.HashMap;
 
@@ -30,6 +27,7 @@ public class WalletCheckBoxFragment extends Fragment {
     private final String walletName;
     private final MainActivity fatherActivity;
     // 创建此HashMap是为了通过钱包名得到对应的CheckBoxFragment
+    // 目前只用于删除WalletCheckBox
     public static HashMap<String, WalletCheckBoxFragment> checkBoxFragmentHashMap;
 
     public WalletCheckBoxFragment(String walletName, MainActivity fatherActivity) {
