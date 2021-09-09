@@ -15,6 +15,8 @@ import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.WalletActivity;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 
+import java.util.HashMap;
+
 /**
  * <pre>
  *     author : 武连增
@@ -24,11 +26,11 @@ import edu.bupt.ticketextraction.wallet.WalletManager;
  *     version: 0.0.1
  * </pre>
  */
-public class WalletFragment extends Fragment {
+public class WalletButtonFragment extends Fragment {
     private String walletName;
     private final MainActivity fatherActivity;
 
-    public WalletFragment(String walletName, MainActivity fatherActivity) {
+    public WalletButtonFragment(String walletName, MainActivity fatherActivity) {
         this.walletName = walletName;
         this.fatherActivity = fatherActivity;
     }
@@ -75,13 +77,23 @@ public class WalletFragment extends Fragment {
                     // 删除对应Wallet实例
                     WalletManager.getInstance().deleteWallet(WalletManager.getInstance().getWallet(walletName));
 
-                    // 隐藏对应WalletFragment
+                    // 隐藏对应WalletButtonFragment
                     FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
                     transaction.hide(this);
                     transaction.commit();
 
-                    // 删除对应WalletFragment
-                    MainActivity.walletFragments.remove(this);
+                    // 删除对应WalletButtonFragment
+                    MainActivity.walletButtonFragments.remove(this);
+
+                    WalletCheckBoxFragment cbFragment = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+                    if (cbFragment != null) {
+                        // 隐藏对应WalletCheckBox
+                        cbFragment.hideWalletCheckBoxFragment();
+                        // 删除fragment
+                        MainActivity.walletCheckBoxFragments.remove(cbFragment);
+                        // 删除映射关系
+                        WalletCheckBoxFragment.checkBoxFragmentHashMap.remove(walletName);
+                    }
 
                     // 关闭子弹窗
                     dialog1.dismiss();

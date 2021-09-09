@@ -6,7 +6,7 @@
               android:layout_height="match_parent">
 
     <Button
-            style="@style/wallet_btn"
+            style="@style/bill_wallet_btn"
             android:id="@+id/wallet_btn"
             android:text=""/>
     <!-- 按钮text的内容是钱包的名称，由创建的时候使用setText设置 -->

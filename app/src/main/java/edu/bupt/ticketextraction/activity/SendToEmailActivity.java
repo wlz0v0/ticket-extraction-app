@@ -1,8 +1,10 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,6 +12,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.email.Email;
+
+import java.util.ArrayList;
 
 /**
  * <pre>
@@ -23,6 +27,8 @@ import edu.bupt.ticketextraction.email.Email;
 
 public class SendToEmailActivity extends AppCompatActivity {
     private String emailAddress;
+
+    public static ArrayList<CheckBox> checkBoxes;
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
@@ -59,6 +65,12 @@ public class SendToEmailActivity extends AppCompatActivity {
     }
 
     private void sendEmail() {
+        for (CheckBox cb : checkBoxes) {
+            if (cb.isChecked()) {
+                Log.d("", "");
+                // TODO: 将此钱包对应的excel添加到附件中！
+            }
+        }
         Email email = new Email(emailAddress);
         if (email.send()) {
             sendSuccessful();

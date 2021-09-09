@@ -3,7 +3,8 @@ package edu.bupt.ticketextraction.wallet;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.file.FileManager;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
-import edu.bupt.ticketextraction.fragment.WalletFragment;
+import edu.bupt.ticketextraction.fragment.WalletButtonFragment;
+import edu.bupt.ticketextraction.fragment.WalletCheckBoxFragment;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -68,10 +69,17 @@ public enum WalletManager {
         Wallet wallet = new Wallet(walletName);
         WalletManager.getInstance().addWallet(wallet);
 
-        // 新建一个wallet fragment并将其添加到对应的container中
-        WalletFragment fgWallet = new WalletFragment(walletName, mainActivity);
+        // 新建一个wallet button fragment并将其添加到对应的container中
+        WalletButtonFragment fgBtnWallet = new WalletButtonFragment(walletName, mainActivity);
         // 将新建的wallet fragment添加到MainActivity中并在其中展示
-        MainActivity.walletFragments.put(fgWallet, false);
+        MainActivity.walletButtonFragments.put(fgBtnWallet, false);
+
+        // 新建一个wallet button fragment并将其添加到对应的container中
+        WalletCheckBoxFragment fgCBWallet = new WalletCheckBoxFragment(walletName, mainActivity);
+        // 将新建的实例添加到HashMap中
+        WalletCheckBoxFragment.checkBoxFragmentHashMap.put(walletName, fgCBWallet);
+        // 将新建的wallet check box fragment添加到MainActivity中并在其中展示
+        MainActivity.walletCheckBoxFragments.put(fgCBWallet, false);
         return true;
     }
 

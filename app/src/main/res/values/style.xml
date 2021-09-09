@@ -43,9 +43,21 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="wallet_btn">
+    <style name="bill_wallet_btn">
         <item name="android:background">@drawable/setting_button_bkg</item>
         <item name="android:drawableEnd">@drawable/right_arrow</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:drawableStart">@drawable/wallet</item>
+        <item name="android:drawablePadding">5dp</item>
+    </style>
+
+    <style name="export_wallet_check_box">
+        <item name="android:background">@drawable/setting_button_bkg</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">10dp</item>
         <item name="android:gravity">start|center_vertical</item>

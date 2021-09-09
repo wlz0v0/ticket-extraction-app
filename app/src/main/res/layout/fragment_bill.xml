@@ -30,7 +30,7 @@
                     android:orientation="vertical">
 
                 <Button
-                        style="@style/wallet_btn"
+                        style="@style/bill_wallet_btn"
                         android:id="@+id/default_wallet_btn"
                         android:text="@string/default_wallet"/>
 

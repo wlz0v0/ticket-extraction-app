@@ -6,8 +6,8 @@
               android:layout_height="match_parent">
 
     <CheckBox
-            style="@style/wallet_btn"
-            android:id="@+id/wallet_btn"
+            style="@style/export_wallet_check_box"
+            android:id="@+id/wallet_check_box"
             android:text=""/>
     <!-- 按钮text的内容是钱包的名称，由创建的时候使用setText设置 -->
 

@@ -17,6 +17,7 @@ import edu.bupt.ticketextraction.fragment.*;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,13 @@ public class MainActivity extends AppCompatActivity {
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
      **/
-    public static HashMap<WalletFragment, Boolean> walletFragments = new HashMap<>();
+    public static HashMap<WalletButtonFragment, Boolean> walletButtonFragments;
+
+    /**
+     * key 钱包fragment
+     * value fragment是否已经被添加到activity中
+     **/
+    public static HashMap<WalletCheckBoxFragment, Boolean> walletCheckBoxFragments;
 
     // 跳转到钱包activity
     public void jumpFromMainToWallet() {
@@ -107,6 +114,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 首先初始化所有static变量
+        walletButtonFragments = new HashMap<>();
+        walletCheckBoxFragments = new HashMap<>();
+        // 存放所有CheckBox的数组
+        SendToEmailActivity.checkBoxes = new ArrayList<>();
+        // 存放所有钱包名和钱包CheckBox对应关系的HashMap
+        WalletCheckBoxFragment.checkBoxFragmentHashMap = new HashMap<>();
+
         ActionBar actionBar = getSupportActionBar();
         // 设置自定义顶部actionbar
         // 设置使用说明按钮点击监听器
@@ -145,9 +160,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // 展示所有钱包fragment
-        if (!walletFragments.isEmpty()) {
-            showWalletFragments();
+        // 展示所有wallet button fragment
+        if (!walletButtonFragments.isEmpty()) {
+            showWalletButtonFragments();
+        }
+        if (!walletCheckBoxFragments.isEmpty()) {
+            showWalletCheckBoxFragments();
         }
     }
 
@@ -184,17 +202,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO：发票fragment，导出fragment都要展示，先判断当前页面是哪个然后进行展示，不展示的页面只添加并隐藏
      * 注：在MainActivity中展示是因为
      * 如果在CreateWalletActivity中使用FragmentTransaction添加fragment
      * 由于未知原因app会崩掉
      * 猜测：添加fragment时必须处于该fragment所处于的activity中，否则会出现问题
      */
-    private void showWalletFragments() {
+    private void showWalletButtonFragments() {
         FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
-        for (Map.Entry<WalletFragment, Boolean> w : walletFragments.entrySet()) {
+        for (Map.Entry<WalletButtonFragment, Boolean> w : walletButtonFragments.entrySet()) {
             if (!w.getValue()) {
                 fragmentTransaction.add(R.id.wallet_fragment_container_in_bill, w.getKey());
+                w.setValue(true);
+            } else {
+                fragmentTransaction.show(w.getKey());
+            }
+        }
+        fragmentTransaction.commitNowAllowingStateLoss();
+    }
+
+    /**
+     * 注：在MainActivity中展示是因为
+     * 如果在CreateWalletActivity中使用FragmentTransaction添加fragment
+     * 由于未知原因app会崩掉
+     * 猜测：添加fragment时必须处于该fragment所处于的activity中，否则会出现问题
+     */
+    private void showWalletCheckBoxFragments() {
+        FragmentTransaction fragmentTransaction = fgMng.beginTransaction();
+        for (Map.Entry<WalletCheckBoxFragment, Boolean> w : walletCheckBoxFragments.entrySet()) {
+            if (!w.getValue()) {
+                fragmentTransaction.add(R.id.wallet_fragment_container_in_export, w.getKey());
                 w.setValue(true);
             } else {
                 fragmentTransaction.show(w.getKey());
