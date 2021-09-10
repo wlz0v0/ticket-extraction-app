@@ -22,7 +22,7 @@ public class Wallet {
     // 钱包名
     private final String walletName;
     // 读取文件进入数组
-    private ArrayList<File> files;
+    private final ArrayList<File> files;
 
     private final FileOutputStream walletDataFile;
 

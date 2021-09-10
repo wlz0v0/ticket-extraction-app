@@ -4,16 +4,19 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
                 android:background="@color/shallow_gray">
 
     <!-- 为export fragment添加滚动条，
-         防止创建的钱包数量占满整个布局后无法创建新钱包 -->
-    <ScrollView
+         防止创建的钱包数量占满整个布局后无法创建新钱包
+         自定义滚动条，设置最大高度 -->
+    <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:id="@+id/export_scroll"
+            app:max_height="560dp">
 
         <!-- 钱包fragment的容器Layout -->
         <LinearLayout
@@ -29,14 +32,13 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </edu.bupt.ticketextraction.customviews.MaxHeightScrollView>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="136dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:layout_marginBottom="56dp">
+            android:background="@color/white">
 
         <Button
                 android:id="@+id/send_to_email_btn"
@@ -50,7 +52,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="66dp"/>
     </LinearLayout>
 
 

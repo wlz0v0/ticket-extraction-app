@@ -74,7 +74,7 @@ public enum WalletManager {
         // 将新建的wallet fragment添加到MainActivity中并在其中展示
         MainActivity.walletButtonFragments.put(fgBtnWallet, false);
 
-        // 新建一个wallet button fragment并将其添加到对应的container中
+        // 新建一个wallet check box fragment并将其添加到对应的container中
         WalletCheckBoxFragment fgCBWallet = new WalletCheckBoxFragment(walletName, mainActivity);
         // 将新建的实例添加到HashMap中
         WalletCheckBoxFragment.checkBoxFragmentHashMap.put(walletName, fgCBWallet);

@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -43,16 +44,17 @@ public class MainActivity extends AppCompatActivity {
     private static int beforeJumpFragmentId = R.id.bill;
 
     /**
+     * LinkedHashMap防止打乱顺序
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
      **/
-    public static HashMap<WalletButtonFragment, Boolean> walletButtonFragments;
+    public static LinkedHashMap<WalletButtonFragment, Boolean> walletButtonFragments;
 
     /**
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
      **/
-    public static HashMap<WalletCheckBoxFragment, Boolean> walletCheckBoxFragments;
+    public static LinkedHashMap<WalletCheckBoxFragment, Boolean> walletCheckBoxFragments;
 
     // 跳转到钱包activity
     public void jumpFromMainToWallet() {
@@ -116,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 首先初始化所有static变量
-        walletButtonFragments = new HashMap<>();
-        walletCheckBoxFragments = new HashMap<>();
+        walletButtonFragments = new LinkedHashMap<>();
+        walletCheckBoxFragments = new LinkedHashMap<>();
         // 存放所有CheckBox的数组
         SendToEmailActivity.checkBoxes = new ArrayList<>();
         // 存放所有钱包名和钱包CheckBox对应关系的HashMap

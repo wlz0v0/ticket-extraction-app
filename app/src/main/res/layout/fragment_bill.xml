@@ -2,55 +2,62 @@
 
 <!-- 本xml文件为发票fragment布局文件 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/shallow_gray">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/shallow_gray">
 
     <!-- 为bill fragment添加滚动条，
-         防止创建的钱包数量占满整个布局后无法创建新钱包 -->
-    <ScrollView
+         防止创建的钱包数量占满整个布局后无法创建新钱包
+         自定义滚动条，设置最大高度 -->
+    <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:id="@+id/bill_scroll"
+            app:max_height="560dp">
 
-        <!-- 一个滚动条控件只能包含一个子控件，于是创建一个子Layout来包含所有控件 -->
+        <!-- 钱包fragment的容器Layout -->
         <LinearLayout
-                android:id="@+id/scroll_view"
-                android:layout_height="wrap_content"
+                android:id="@+id/wallet_fragment_container_in_bill"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <!-- 钱包fragment的容器Layout -->
-            <LinearLayout
-                    android:id="@+id/wallet_fragment_container_in_bill"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <Button
-                        style="@style/bill_wallet_btn"
-                        android:id="@+id/default_wallet_btn"
-                        android:text="@string/default_wallet"/>
-
-
-            </LinearLayout>
-
-            <!-- 创建新钱包按钮，也应该包含在滚动条控件内 -->
             <Button
-                    android:id="@+id/new_wallet_btn"
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/new_wallet"
-                    android:background="@drawable/button_bkg"
-                    android:textSize="22sp"
-                    android:textColor="@android:color/holo_purple"
-                    android:layout_marginTop="20dp"/>
+                    style="@style/bill_wallet_btn"
+                    android:id="@+id/default_wallet_btn"
+                    android:text="@string/default_wallet"/>
 
         </LinearLayout>
 
-    </ScrollView>
+    </edu.bupt.ticketextraction.customviews.MaxHeightScrollView>
 
-</LinearLayout>
+    <LinearLayout
+            android:id="@+id/dummy"
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+        <!-- 创建新钱包按钮，不包含在滚动条控件内 -->
+        <Button
+                android:id="@+id/new_wallet_btn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/new_wallet"
+                android:background="@drawable/button_bkg"
+                android:textSize="22sp"
+                android:textColor="@android:color/holo_purple"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
