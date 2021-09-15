@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static LinkedHashMap<WalletButtonFragment, Boolean> walletButtonFragments;
 
     /**
+     * LinkedHashMap防止打乱顺序
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
      **/
