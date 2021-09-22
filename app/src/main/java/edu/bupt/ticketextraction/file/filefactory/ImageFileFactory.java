@@ -17,7 +17,7 @@ import java.util.Locale;
  *     version: 0.0.1
  * </pre>
  */
-public class ImageFileFactory extends FileFactory{
+public class ImageFileFactory extends FileFactory {
     // 图像目录
     private final String IMAGE_DIRECTORY;
     // 图像前缀
@@ -25,6 +25,11 @@ public class ImageFileFactory extends FileFactory{
     // 图像后缀
     private final String IMAGE_SUFFIX;
 
+    /**
+     * 根据钱包名称在该钱包下创建图片
+     *
+     * @param walletName 钱包名称
+     */
     public ImageFileFactory(String walletName) {
         super();
         // 图像文件应该在一个包内
@@ -33,6 +38,11 @@ public class ImageFileFactory extends FileFactory{
         IMAGE_SUFFIX = ".jpg";
     }
 
+    /**
+     * 在某钱包下创建图片文件
+     *
+     * @return 生成的图片文件
+     */
     public File createFile() {
         return getSourceFile(IMAGE_DIRECTORY, IMAGE_PREFIX, IMAGE_SUFFIX);
     }

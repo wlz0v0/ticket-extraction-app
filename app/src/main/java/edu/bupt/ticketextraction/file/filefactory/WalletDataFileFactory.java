@@ -19,6 +19,11 @@ public class WalletDataFileFactory extends FileFactory {
     // 发票数据文件后缀
     private final String DATA_SUFFIX;
 
+    /**
+     * 根据钱包名称在该钱包下创建钱包数据文件
+     *
+     * @param walletName 钱包名称
+     */
     public WalletDataFileFactory(String walletName) {
         super();
         // 一个包对应一个数据文件
@@ -27,7 +32,11 @@ public class WalletDataFileFactory extends FileFactory {
         DATA_SUFFIX = ".dat";
     }
 
-
+    /**
+     * 根据钱包名称创建输出流将数据写入文件
+     *
+     * @return 钱包数据文件输出流
+     */
     public FileOutputStream createFile() {
         return getDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX, DATA_SUFFIX);
     }

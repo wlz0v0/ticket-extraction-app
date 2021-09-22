@@ -26,11 +26,11 @@ public enum WalletManager {
     INSTANCE;
 
     /**
-     *  key: wallet name string
-     *  value: wallet
-     *  采用LinkedHashMap原因：在界面初始化时必须要根据原有输入顺序创建所有钱包fragment
-     *  HashMap会打乱顺序，LinkedHashMap会保留原有输入顺序
-     *  所以采用LinkedHashMap
+     * key: wallet name string
+     * value: wallet
+     * 采用LinkedHashMap原因：在界面初始化时必须要根据原有输入顺序创建所有钱包fragment
+     * HashMap会打乱顺序，LinkedHashMap会保留原有输入顺序
+     * 所以采用LinkedHashMap
      **/
     private final LinkedHashMap<String, Wallet> wallets = new LinkedHashMap<>();
 
@@ -39,22 +39,28 @@ public enum WalletManager {
     private static MainActivity mainActivity;
 
     /**
-     *  由于在创建wallet fragment时需要设置按钮点击监听器
-     *  使得点击wallet时能够从main activity跳转到对应wallet activity
-     *  于是需要一个main activity的实例来进行跳转
-     *  在本类中只能选择用一个静态变量获取到main activity
-     *  以便将其传给wallet fragment
+     * 由于在创建wallet fragment时需要设置按钮点击监听器
+     * 使得点击wallet时能够从main activity跳转到对应wallet activity
+     * 于是需要一个main activity的实例来进行跳转
+     * 在本类中只能选择用一个静态变量获取到main activity
+     * 以便将其传给wallet fragment
+     *
+     * @param mainActivity MainActivity实例
      */
     public static void setMainActivity(MainActivity mainActivity) {
         WalletManager.mainActivity = mainActivity;
     }
 
+    /**
+     * @return WalletManager实例
+     */
     public static WalletManager getInstance() {
         return INSTANCE;
     }
 
     /**
      * CreateWalletActivity也会调用此方法
+     *
      * @param walletName 钱包名
      * @return 是否创建成功
      **/
@@ -83,7 +89,10 @@ public enum WalletManager {
         return true;
     }
 
-    // 先把wallets写入，再写入每个wallet
+    /**
+     * 将数据写入文件
+     * TODO 写入各钱包的数据
+     */
     public void writeToData() {
         File file = new File(WALLETS_DATA_PATH);
         if (!file.exists()) {
@@ -97,7 +106,7 @@ public enum WalletManager {
         FileOutputStream outputStream;
         try {
             outputStream = new FileOutputStream(WALLETS_DATA_PATH, false);
-            for (Map.Entry<String, Wallet> entry: wallets.entrySet()) {
+            for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
                 // 加个\n，每个钱包名为一行
                 byte[] bytes = (entry.getKey() + "\n").getBytes(StandardCharsets.UTF_8);
                 outputStream.write(bytes);
@@ -108,7 +117,10 @@ public enum WalletManager {
         }
     }
 
-    // 先读入wallets，再读入每个wallet
+    /**
+     * 将数据读入文件
+     * TODO 读入各钱包数据
+     */
     public void readFromData() {
         // 存所有wallet的name
         ArrayList<String> walletNames = new ArrayList<>();
@@ -132,13 +144,15 @@ public enum WalletManager {
         }
         // 根据所有钱包的名字创建钱包
         if (!walletNames.isEmpty()) {
-            for (String name: walletNames) {
+            for (String name : walletNames) {
                 createWallet(name);
             }
         }
     }
 
     /**
+     * 添加一个钱包
+     *
      * @param wallet 钱包实例
      **/
     public void addWallet(Wallet wallet) {
@@ -146,6 +160,8 @@ public enum WalletManager {
     }
 
     /**
+     * 删除一个钱包
+     *
      * @param wallet 钱包实例
      **/
     public void deleteWallet(Wallet wallet) {
@@ -153,7 +169,9 @@ public enum WalletManager {
     }
 
     /**
-     * @param walletName 钱包名字符串
+     * 根据钱包名删除钱包目录
+     *
+     * @param walletName 钱包名
      **/
     public void deleteWalletDirectory(String walletName) {
         String path = FileFactory.EXTERNAL_FILE_DIR + "/wallets/" + walletName + "/";
@@ -161,7 +179,7 @@ public enum WalletManager {
     }
 
     /**
-     * @param walletName 钱包名字符串
+     * @param walletName 钱包名
      * @return 钱包名对应的钱包实例
      **/
     public Wallet getWallet(String walletName) {

@@ -26,16 +26,27 @@ public class Wallet {
 
     private final FileOutputStream walletDataFile;
 
+    /**
+     * 创建一个钱包
+     *
+     * @param walletName 钱包名称
+     */
     public Wallet(String walletName) {
         this.walletName = walletName;
         walletDataFile = new WalletDataFileFactory(walletName).createFile();
         files = new ArrayList<>();
     }
 
+    /**
+     * @return 钱包名
+     */
     public String getWalletName() {
         return walletName;
     }
 
+    /**
+     * @return 创建的图像文件
+     */
     public File createImage() {
         File file = new ImageFileFactory(walletName).createFile();
         // 断言文件创建成功
@@ -45,6 +56,9 @@ public class Wallet {
         return file;
     }
 
+    /**
+     * @return 创建的视频文件
+     */
     public File createVideo() {
         File file = new VideoFileFactory(walletName).createFile();
         files.add(file);
