@@ -20,6 +20,7 @@ public enum FileManager {
 
     /**
      * 递归删除文件夹下的所有文件和目录
+     *
      * @param path 删除的目录或文件路径
      **/
     public void deleteAllFiles(String path) {
@@ -43,4 +44,10 @@ public enum FileManager {
         }
     }
 
+    /**
+     * 清空缓存
+     */
+    public void clearCache() {
+
+    }
 }

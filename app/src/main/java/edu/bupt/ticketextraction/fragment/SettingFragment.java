@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
+import edu.bupt.ticketextraction.file.FileManager;
 
 /**
  * <pre>
@@ -33,9 +34,7 @@ public class SettingFragment extends Fragment {
         settingJumpToLoginBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToLogin());
 
         Button clearCacheBtn = view.findViewById(R.id.clear_cache);
-        clearCacheBtn.setOnClickListener(view1 -> {
-            //TODO:清空缓存
-        });
+        clearCacheBtn.setOnClickListener(view1 -> FileManager.getInstance().clearCache());
 
         Button aboutUsBtn = view.findViewById(R.id.about_us);
         aboutUsBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToAboutUs());
