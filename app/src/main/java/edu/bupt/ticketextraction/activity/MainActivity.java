@@ -119,17 +119,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 首先初始化所有static变量
-        walletButtonFragments = new LinkedHashMap<>();
-        walletCheckBoxFragments = new LinkedHashMap<>();
-        // 存放所有CheckBox的数组
-        SendToEmailActivity.checkBoxes = new ArrayList<>();
-        // 存放所有钱包名和钱包CheckBox对应关系的HashMap
-        WalletCheckBoxFragment.checkBoxFragmentHashMap = new HashMap<>();
+        initStaticVars();
 
         fgMng = getSupportFragmentManager();
-        // 获取外部存储绝对路径字符串
-        FileFactory.EXTERNAL_FILE_DIR = getExternalFilesDir(null).getAbsolutePath();
-
 
         ActionBar actionBar = getSupportActionBar();
         // 设置自定义顶部actionbar
@@ -149,9 +141,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initFragments();
-
-        // 将main activity传入WalletManager
-        WalletManager.setMainActivity(this);
 
         // 设置控制底边菜单栏的RadioGroup的checked change事件监听器
         RadioGroup rgMenu = findViewById(R.id.radio_group);
@@ -183,6 +172,22 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         // 将wallets中的数据保存到文件中
         WalletManager.getInstance().writeToData();
+    }
+
+    // 初始化所有static变量
+    private void initStaticVars() {
+        walletButtonFragments = new LinkedHashMap<>();
+        walletCheckBoxFragments = new LinkedHashMap<>();
+        // 存放所有CheckBox的数组
+        SendToEmailActivity.checkBoxes = new ArrayList<>();
+        // 存放所有钱包名和钱包CheckBox对应关系的HashMap
+        WalletCheckBoxFragment.checkBoxFragmentHashMap = new HashMap<>();
+
+        // 获取外部存储绝对路径字符串
+        FileFactory.EXTERNAL_FILE_DIR = getExternalFilesDir(null).getAbsolutePath();
+
+        // 将main activity传入WalletManager
+        WalletManager.setMainActivity(this);
     }
 
     // 初始化所有界面fragment
