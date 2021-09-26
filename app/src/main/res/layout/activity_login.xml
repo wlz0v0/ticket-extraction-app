@@ -29,15 +29,39 @@
             android:layout_marginEnd="20dp"
             android:drawableStart="@drawable/lock_gray"/>
 
-    <Button
-            android:id="@+id/login_btn"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@drawable/button_bkg"
-            android:text="@string/login_button"
-            android:textColor="@android:color/holo_purple"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp">
 
+        <Button
+                android:id="@+id/register_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button_bkg"
+                android:text="@string/register_button"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginBottom="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"/>
+
+        <Button
+                android:id="@+id/login_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button_bkg"
+                android:text="@string/login_button"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

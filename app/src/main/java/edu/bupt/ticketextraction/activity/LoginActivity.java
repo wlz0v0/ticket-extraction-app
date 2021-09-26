@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.activity;
 
+import android.content.Intent;
 import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import android.content.DialogInterface;
@@ -70,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
 
         accountInfo = new HashMap<>();
         accountInfo.put("18863238727", "123456");
+        // 注册按钮初始化及点击事件监听器设置
+        Button registerBtn = findViewById(R.id.register_btn);
+        registerBtn.setOnClickListener(view -> jumpFromLoginToRegister());
 
         // 登录按钮初始化及点击事件监听器设置
         Button loginBtn = findViewById(R.id.login_btn);
@@ -124,6 +128,11 @@ public class LoginActivity extends AppCompatActivity {
         getAlertDialog(builderMsg,
                 (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
+    }
+
+    private void jumpFromLoginToRegister() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     private AlertDialog getAlertDialog(String text,
