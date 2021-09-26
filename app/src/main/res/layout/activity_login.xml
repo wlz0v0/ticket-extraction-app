@@ -35,12 +35,11 @@
             android:layout_marginTop="10dp">
 
         <Button
+                style="@style/normal_button_style"
                 android:id="@+id/register_btn"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:background="@drawable/button_bkg"
                 android:text="@string/register_button"
-                android:textColor="@android:color/holo_purple"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:layout_marginStart="50dp"
@@ -49,12 +48,11 @@
                 android:layout_alignParentStart="true"/>
 
         <Button
+                style="@style/normal_button_style"
                 android:id="@+id/login_btn"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:background="@drawable/button_bkg"
                 android:text="@string/login_button"
-                android:textColor="@android:color/holo_purple"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="50dp"

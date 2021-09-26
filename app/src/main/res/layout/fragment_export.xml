@@ -41,13 +41,12 @@
             android:background="@color/white">
 
         <Button
+                style="@style/normal_button_style"
                 android:id="@+id/send_to_email_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/button_bkg"
                 android:text="@string/send_to_email"
                 android:textSize="20sp"
-                android:textColor="@android:color/holo_purple"
                 android:gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"

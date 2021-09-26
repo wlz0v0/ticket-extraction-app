@@ -68,4 +68,9 @@
         <item name="android:drawablePadding">10dp</item>
     </style>
 
+    <style name="normal_button_style">
+        <item name="android:background">@drawable/button_bkg</item>
+        <item name="android:textColor">@android:color/holo_purple</item>
+    </style>
+
 </resources>

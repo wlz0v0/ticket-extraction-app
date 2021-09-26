@@ -4,4 +4,107 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/register_phone_number"
+                android:gravity="center_vertical"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+        <EditText
+                style="@style/login_edit_text_style"
+                android:id="@+id/register_account"
+                android:autofillHints="@string/input_phone_number"
+                android:inputType="number"
+                android:hint="@string/input_phone_number"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="22sp"
+                android:paddingStart="100dp"
+                android:paddingEnd="100dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/register_password"
+                android:gravity="center_vertical"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+        <EditText
+                style="@style/login_edit_text_style"
+                android:id="@+id/register_password"
+                android:autofillHints="@string/login_password"
+                android:inputType="textPassword"
+                android:hint="@string/login_password"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="22sp"
+                android:paddingStart="100dp"
+                android:paddingEnd="100dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/register_password"
+                android:gravity="center_vertical"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+        <EditText
+                style="@style/login_edit_text_style"
+                android:id="@+id/register_re_password"
+                android:autofillHints="@string/re_input_password"
+                android:inputType="textPassword"
+                android:hint="@string/re_input_password"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="22sp"
+                android:paddingStart="100dp"
+                android:paddingEnd="100dp"/>
+
+    </RelativeLayout>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:text=""
+              android:textColor="@android:color/holo_red_light"
+              android:layout_marginStart="20dp"
+              android:layout_marginEnd="20dp"/>
+
+    <Button
+            style="@style/normal_button_style"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:id="@+id/register_button"
+            android:text="@string/register_button"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"/>
+
 </LinearLayout>
