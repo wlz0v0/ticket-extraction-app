@@ -26,10 +26,11 @@ public abstract class FileFactory {
     public static String EXTERNAL_FILE_DIR;
 
     // 图像和视频文件
+
     /**
      * @param directory 目录
-     * @param prefix 文件名前缀
-     * @param suffix 文件名后缀
+     * @param prefix    文件名前缀
+     * @param suffix    文件名后缀
      * @return File实例 图像或视频资源文件
      **/
     public File getSourceFile(String directory, String prefix, String suffix) {
@@ -53,15 +54,25 @@ public abstract class FileFactory {
     }
 
     // 数据文件流
+
     /**
      * @param directory 目录
-     * @param prefix 文件名前缀
-     * @param suffix 文件名后缀
+     * @param prefix    文件名前缀
+     * @param isAppend  是否追加
      * @return 文件输出流，用于写入数据文件
      **/
-    public FileOutputStream getDataStream(String directory, String prefix, String suffix) {
+    public FileOutputStream getDataStream(String directory, String prefix, boolean isAppend) {
+        File file = new File(directory + prefix + ".dat");
+        if (!file.exists()) {
+            try {
+                //noinspection ResultOfMethodCallIgnored
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
-            return new FileOutputStream(directory + prefix + suffix);
+            return new FileOutputStream(directory + prefix + ".dat", isAppend);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
