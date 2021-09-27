@@ -36,7 +36,7 @@
 
         <Button
                 style="@style/normal_button_style"
-                android:id="@+id/register_btn"
+                android:id="@+id/jump_to_register_button"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:text="@string/register_button"

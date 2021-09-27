@@ -73,4 +73,20 @@
         <item name="android:textColor">@android:color/holo_purple</item>
     </style>
 
+    <style name="warning_text_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+<!--    <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/re_password_warning"-->
+<!--            android:textSize="16sp"-->
+<!--            android:text=""-->
+<!--            android:textColor="@android:color/holo_red_light"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"/>-->
+
 </resources>

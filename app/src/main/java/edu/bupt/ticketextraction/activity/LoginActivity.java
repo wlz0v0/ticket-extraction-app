@@ -65,14 +65,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         //TODO:登录界面
 
-        // 编辑文本框初始化
+        // 绑定编辑文本框
         EditText accountEt = findViewById(R.id.account);
         EditText passwordEt = findViewById(R.id.password);
 
         accountInfo = new HashMap<>();
         accountInfo.put("18863238727", "123456");
         // 注册按钮初始化及点击事件监听器设置
-        Button registerBtn = findViewById(R.id.register_btn);
+        Button registerBtn = findViewById(R.id.jump_to_register_button);
         registerBtn.setOnClickListener(view -> jumpFromLoginToRegister());
 
         // 登录按钮初始化及点击事件监听器设置
