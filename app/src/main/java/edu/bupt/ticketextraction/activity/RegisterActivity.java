@@ -1,6 +1,5 @@
 package edu.bupt.ticketextraction.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -26,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView passwordWarning;
     private TextView rePasswordWarning;
     private final static Pattern phoneNumberPattern = Pattern.compile("1[3-9]\\d{9}");
+    private final static Pattern passwordPattern = Pattern.compile("[A-Za-z]+\\d+.*|\\d+[A-Za-z]+.*");
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
