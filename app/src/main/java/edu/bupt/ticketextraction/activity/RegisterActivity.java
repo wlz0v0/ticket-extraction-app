@@ -28,8 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText phoneNumberEt;
     private EditText passWordEt;
     private EditText rePassWordEt;
-    // 字母+数字+特殊字符 3~16位
-    private final static Pattern passwordPattern = Pattern.compile("\\D+\\d+.*|\\d+\\D+.*");
+    // 大写字母+数字+小写字母 3~16位
+    private final static Pattern passwordPattern = Pattern.compile("[A-Za-z0-9]{3,16}");
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
