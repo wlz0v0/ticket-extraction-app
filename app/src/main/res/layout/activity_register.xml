@@ -34,6 +34,7 @@
 
     </RelativeLayout>
 
+    <!--  默认手机号码是正确的，加上这个TextView只是为了界面工整好看  -->
     <TextView
             style="@style/warning_text_view"
             android:id="@+id/phone_number_warning"

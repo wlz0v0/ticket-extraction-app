@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -21,11 +22,14 @@ import java.util.regex.Pattern;
  * </pre>
  */
 public class RegisterActivity extends AppCompatActivity {
-    private TextView phoneNumberWarning;
+    // 手机账号默认正确，不做判断
     private TextView passwordWarning;
     private TextView rePasswordWarning;
-    private final static Pattern phoneNumberPattern = Pattern.compile("1[3-9]\\d{9}");
-    private final static Pattern passwordPattern = Pattern.compile("[A-Za-z]+\\d+.*|\\d+[A-Za-z]+.*");
+    private EditText phoneNumberEt;
+    private EditText passWordEt;
+    private EditText rePassWordEt;
+    // 字母+数字+特殊字符 3~16位
+    private final static Pattern passwordPattern = Pattern.compile("\\D+\\d+.*|\\d+\\D+.*");
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
@@ -54,14 +58,25 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // 绑定错误提醒文本框
-        phoneNumberWarning = findViewById(R.id.phone_number_warning);
         passwordWarning = findViewById(R.id.password_warning);
         rePasswordWarning = findViewById(R.id.re_password_warning);
 
         // 绑定EditText
-        EditText phoneNumberEt = findViewById(R.id.register_account);
-        EditText passWordEt = findViewById(R.id.register_password);
-        EditText rePassWordEt = findViewById(R.id.register_re_password);
+        phoneNumberEt = findViewById(R.id.register_account);
+        passWordEt = findViewById(R.id.register_password);
+        rePassWordEt = findViewById(R.id.register_re_password);
+
+        Thread checkValid = new Thread(() -> {
+            while (true) {
+                if (isPasswordValid()) {
+                    passwordHandle();
+                }
+                if (isRePasswordValid()) {
+                    rePasswordHandle();
+                }
+            }
+        });
+        checkValid.start();
 
         // 注册按钮初始化及点击事件监听器设置
         Button registerBtn = findViewById(R.id.register_button);
@@ -73,34 +88,32 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isValid() {
-        return true;
+        return isPasswordValid() && isRePasswordValid();
     }
 
     private void callServerRegister() {
         //TODO:调用用户管理系统进行注册
+        String phoneNumber = phoneNumberEt.getText().toString();
     }
 
-    private boolean isPhoneNumberValid(String number) {
-        return false;
+    private boolean isPasswordValid() {
+        String password = passWordEt.getText().toString();
+        return password.length() >= 3 && password.length() <= 16
+                && passwordPattern.matcher(password).matches();
     }
 
-    private void phoneNumberHandle() {
-
-    }
-
-    private boolean isPasswordValid(String password) {
-        return false;
-    }
-
+    @SuppressLint("SetTextI18n")
     private void passwordHandle() {
-
+        passwordWarning.setText("密码长度为3~16位，必须包含字母数字特殊符号中至少两种！");
     }
 
-    private boolean isRePasswordValid(String rePassword) {
-        return false;
+    private boolean isRePasswordValid() {
+        String password = passWordEt.getText().toString();
+        String rePassword = rePassWordEt.getText().toString();
+        return password.equals(rePassword);
     }
 
     private void rePasswordHandle() {
-
+        rePasswordWarning.setText("两次密码不匹配！");
     }
 }
