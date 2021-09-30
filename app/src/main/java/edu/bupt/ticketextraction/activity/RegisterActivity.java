@@ -66,18 +66,6 @@ public class RegisterActivity extends AppCompatActivity {
         passWordEt = findViewById(R.id.register_password);
         rePassWordEt = findViewById(R.id.register_re_password);
 
-        Thread checkValid = new Thread(() -> {
-            while (true) {
-                if (isPasswordValid()) {
-                    passwordHandle();
-                }
-                if (isRePasswordValid()) {
-                    rePasswordHandle();
-                }
-            }
-        });
-        checkValid.start();
-
         // 注册按钮初始化及点击事件监听器设置
         Button registerBtn = findViewById(R.id.register_button);
         registerBtn.setOnClickListener(view -> {
@@ -87,8 +75,23 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Thread checkValid = new Thread(() -> {
+            while (true) {
+                passwordHandle(isPasswordValid());
+                rePasswordHandle(isRePasswordValid());
+            }
+        });
+        checkValid.start();
+    }
+
     private boolean isValid() {
-        return isPasswordValid() && isRePasswordValid();
+        String password = passWordEt.getText().toString();
+        String rePassword = rePassWordEt.getText().toString();
+        return password.isEmpty() && rePassword.isEmpty()
+                && isPasswordValid() && isRePasswordValid();
     }
 
     private void callServerRegister() {
@@ -98,22 +101,35 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isPasswordValid() {
         String password = passWordEt.getText().toString();
-        return password.length() >= 3 && password.length() <= 16
-                && passwordPattern.matcher(password).matches();
+        if (password.isEmpty())
+            return true;
+        return passwordPattern.matcher(password).matches();
     }
 
     @SuppressLint("SetTextI18n")
-    private void passwordHandle() {
-        passwordWarning.setText("密码长度为3~16位，必须包含字母数字特殊符号中至少两种！");
+    private void passwordHandle(boolean valid) {
+        if (valid) {
+            passwordWarning.setText("");
+        } else {
+            passwordWarning.setText("密码长度3~16位，包含大小写字母和数字");
+        }
     }
 
     private boolean isRePasswordValid() {
-        String password = passWordEt.getText().toString();
         String rePassword = rePassWordEt.getText().toString();
+        if (rePassword.isEmpty()) {
+            return true;
+        }
+        String password = passWordEt.getText().toString();
         return password.equals(rePassword);
     }
 
-    private void rePasswordHandle() {
-        rePasswordWarning.setText("两次密码不匹配！");
+    private void rePasswordHandle(boolean valid) {
+        if (valid) {
+            rePasswordWarning.setText("");
+        } else {
+            rePasswordWarning.setText("两次密码不匹配！");
+        }
+
     }
 }

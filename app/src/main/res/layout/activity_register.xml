@@ -11,7 +11,7 @@
 
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="@string/register_phone_number"
@@ -21,7 +21,7 @@
 
         <EditText
                 style="@style/login_edit_text_style"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:id="@+id/register_account"
                 android:autofillHints="@string/input_phone_number"
                 android:inputType="number"
@@ -29,8 +29,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="22sp"
-                android:paddingStart="100dp"
-                android:paddingEnd="100dp"/>
+                android:paddingStart="80dp"
+                android:paddingEnd="80dp"/>
 
     </RelativeLayout>
 
@@ -47,7 +47,7 @@
 
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="@string/register_password"
@@ -57,7 +57,7 @@
 
         <EditText
                 style="@style/login_edit_text_style"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:id="@+id/register_password"
                 android:autofillHints="@string/login_password"
                 android:inputType="textPassword"
@@ -65,8 +65,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="22sp"
-                android:paddingStart="100dp"
-                android:paddingEnd="100dp"/>
+                android:paddingStart="80dp"
+                android:paddingEnd="80dp"/>
 
     </RelativeLayout>
 
@@ -82,7 +82,7 @@
 
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="@string/register_password"
@@ -92,7 +92,7 @@
 
         <EditText
                 style="@style/login_edit_text_style"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:id="@+id/register_re_password"
                 android:autofillHints="@string/re_input_password"
                 android:inputType="textPassword"
@@ -100,8 +100,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="22sp"
-                android:paddingStart="100dp"
-                android:paddingEnd="100dp"/>
+                android:paddingStart="80dp"
+                android:paddingEnd="80dp"/>
 
     </RelativeLayout>
 
