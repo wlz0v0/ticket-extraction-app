@@ -101,7 +101,8 @@ public class CabTicket {
      */
     public void writeToData() {
         FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile();
-        byte[] bytes = (unitPrice + " " + totalPrice + " " + distance + " " + date).getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = (unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").
+                getBytes(StandardCharsets.UTF_8);
         try {
             outputStream.write(bytes);
             outputStream.close();

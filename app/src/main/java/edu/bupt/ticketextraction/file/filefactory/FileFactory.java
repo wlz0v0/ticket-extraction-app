@@ -24,6 +24,7 @@ import java.util.Locale;
  */
 public abstract class FileFactory {
     public static String EXTERNAL_FILE_DIR;
+    public static String WALLETS_DIR;
 
     // 图像和视频文件
 

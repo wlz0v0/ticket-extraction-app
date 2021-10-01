@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -13,8 +14,10 @@ import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.WalletActivity;
+import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -120,15 +123,23 @@ public class WalletButtonFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
         builder.setView(R.layout.editable_dialog).
                 setPositiveButton("重命名", (dialog1, which1) -> {
-                    //TODO: rename
+                    File oldDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
                     EditText editText = fatherActivity.findViewById(R.id.dialog_et);
+                    //TODO: 这里会闪退
                     String newWalletName = editText.getText().toString();
                     // 新名称不能为空！
                     if (!newWalletName.isEmpty()){
                         Button walletBtn = fatherActivity.findViewById(R.id.wallet_btn);
-                        walletBtn.setText(newWalletName);
                         this.walletName = newWalletName;
-                        //TODO:修改相关文件夹名
+                        walletBtn.setText(walletName);
+                        WalletCheckBoxFragment checkBox = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+                        if (checkBox != null) {
+                            checkBox.setText(walletName);
+                        }
+                        File newDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
+                        // 忽略返回值
+                        //noinspection ResultOfMethodCallIgnored
+                        oldDir.renameTo(newDir);
                         dialog1.dismiss();
                         dialog.dismiss();
                     } else {

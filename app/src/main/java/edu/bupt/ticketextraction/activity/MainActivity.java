@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 获取外部存储绝对路径字符串
         FileFactory.EXTERNAL_FILE_DIR = getExternalFilesDir(null).getAbsolutePath();
+        FileFactory.WALLETS_DIR = FileFactory.EXTERNAL_FILE_DIR + "/wallets/";
 
         // 将main activity传入WalletManager
         WalletManager.setMainActivity(this);

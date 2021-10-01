@@ -24,6 +24,7 @@ import java.util.HashMap;
  * </pre>
  */
 public class WalletCheckBoxFragment extends Fragment {
+    private CheckBox checkBox;
     private final String walletName;
     private final MainActivity fatherActivity;
     // 创建此HashMap是为了通过钱包名得到对应的CheckBoxFragment
@@ -39,11 +40,15 @@ public class WalletCheckBoxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_in_export, container, false);
         // 绑定新建的check box
-        CheckBox checkBox = view.findViewById(R.id.wallet_check_box);
+        checkBox = view.findViewById(R.id.wallet_check_box);
         checkBox.setText(walletName);
         // 添加到checkBoxes中以供发邮件使用
         SendToEmailActivity.checkBoxes.add(checkBox);
         return view;
+    }
+
+    public void setText(String text) {
+        checkBox.setText(text);
     }
 
     public void hideWalletCheckBoxFragment() {
