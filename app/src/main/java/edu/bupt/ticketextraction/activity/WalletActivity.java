@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.wallet.Wallet;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -38,7 +39,7 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;

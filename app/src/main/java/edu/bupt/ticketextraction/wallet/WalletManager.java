@@ -5,6 +5,7 @@ import edu.bupt.ticketextraction.file.FileManager;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.fragment.WalletButtonFragment;
 import edu.bupt.ticketextraction.fragment.WalletCheckBoxFragment;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -64,7 +65,7 @@ public enum WalletManager {
      * @param walletName 钱包名
      * @return 是否创建成功
      **/
-    public boolean createWallet(String walletName) {
+    public boolean createWallet(@NotNull String walletName) {
         if (walletName.isEmpty()) {
             return false;
         }
@@ -164,7 +165,7 @@ public enum WalletManager {
      *
      * @param wallet 钱包实例
      **/
-    public void deleteWallet(Wallet wallet) {
+    public void deleteWallet(@NotNull Wallet wallet) {
         wallets.remove(wallet.getWalletName());
     }
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -29,7 +30,7 @@ public class AboutUsActivity extends AppCompatActivity {
     // 等号右侧必须是android.R.id.home
     // R.id.home会出现bug，可以运行但与getItemId()不相等
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;

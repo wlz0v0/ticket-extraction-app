@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.SendToEmailActivity;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -28,7 +29,7 @@ public class ExportFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_export, container, false);
         // 绑定默认check box
         CheckBox defaultCheckBox = view.findViewById(R.id.default_wallet_check_box);

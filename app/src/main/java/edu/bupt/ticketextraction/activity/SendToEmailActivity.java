@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.email.Email;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -92,7 +93,7 @@ public class SendToEmailActivity extends AppCompatActivity {
      * 获得一个弹窗，用于提高代码复用率
      * @param text 创建的弹窗的信息的字符串
      **/
-    private AlertDialog getAlertDialog(String text) {
+    private @NotNull AlertDialog getAlertDialog(String text) {
         // 先创建一个builder，再通过builder构造alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(text).

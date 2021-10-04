@@ -11,6 +11,7 @@ import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.WalletActivity;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -30,7 +31,7 @@ public class BillFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
 
         Wallet defaultWallet = new Wallet("默认");

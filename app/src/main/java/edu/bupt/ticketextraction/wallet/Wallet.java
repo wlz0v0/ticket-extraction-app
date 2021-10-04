@@ -3,6 +3,7 @@ package edu.bupt.ticketextraction.wallet;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -77,7 +78,7 @@ public class Wallet {
         //TODO
     }
 
-    private void writeToData(File file) {
+    private void writeToData(@NotNull File file) {
         String fileName = file.getName();
         //TODO
     }

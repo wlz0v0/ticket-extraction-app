@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.SendToEmailActivity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -37,7 +38,7 @@ public class WalletCheckBoxFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_in_export, container, false);
         // 绑定新建的check box
         checkBox = view.findViewById(R.id.wallet_check_box);

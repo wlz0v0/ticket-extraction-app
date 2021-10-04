@@ -16,6 +16,7 @@ import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.activity.WalletActivity;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.wallet.WalletManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class WalletButtonFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_in_bill, container, false);
         Button walletBtn = view.findViewById(R.id.wallet_btn);
         // 设置点击监听器
@@ -114,7 +115,7 @@ public class WalletButtonFragment extends Fragment {
     }
 
     // 取消按钮点击回调
-    private void neutralButtonCallback(DialogInterface dialog, int which) {
+    private void neutralButtonCallback(@NotNull DialogInterface dialog, int which) {
         dialog.dismiss();
     }
 

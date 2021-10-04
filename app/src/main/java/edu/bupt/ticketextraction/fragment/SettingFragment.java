@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.file.FileManager;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -27,7 +28,7 @@ public class SettingFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         Button settingJumpToLoginBtn = view.findViewById(R.id.setting_jump_to_login);

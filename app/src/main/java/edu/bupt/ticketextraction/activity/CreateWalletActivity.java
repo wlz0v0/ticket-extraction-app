@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.wallet.WalletManager;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -26,7 +27,7 @@ public class CreateWalletActivity extends AppCompatActivity {
     // 等号右侧必须是android.R.id.home
     // R.id.home会出现bug，可以运行但与getItemId()不相等
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -72,8 +73,8 @@ public class CreateWalletActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private AlertDialog getAlertDialog(String text,
-                                       DialogInterface.OnClickListener onClickListener) {
+    private @NotNull AlertDialog getAlertDialog(String text,
+                                                DialogInterface.OnClickListener onClickListener) {
         // 先创建一个builder，再通过builder构造alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(text).
