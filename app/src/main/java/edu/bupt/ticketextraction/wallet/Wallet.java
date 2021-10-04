@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.wallet;
 
+import edu.bupt.ticketextraction.extraction.CabTicket;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
@@ -25,6 +26,8 @@ public class Wallet {
     // 读取文件进入数组
     private final ArrayList<File> files;
 
+    private ArrayList<CabTicket> tickets;
+
     private final FileOutputStream walletDataFile;
 
     /**
@@ -36,6 +39,7 @@ public class Wallet {
         this.walletName = walletName;
         walletDataFile = new WalletDataFileFactory(walletName).createFile();
         files = new ArrayList<>();
+        tickets = new ArrayList<>();
     }
 
     /**
@@ -65,6 +69,10 @@ public class Wallet {
         files.add(file);
         writeToData(file);
         return file;
+    }
+
+    public void addTicket(CabTicket ticket) {
+        tickets.add(ticket);
     }
 
     // 从data文件中读取数据

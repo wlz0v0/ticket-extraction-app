@@ -153,6 +153,14 @@ public class CabTicket {
         return date;
     }
 
+    public String getSOURCE_NAME() {
+        return SOURCE_NAME;
+    }
+
+    public String getWALLET_NAME() {
+        return WALLET_NAME;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }

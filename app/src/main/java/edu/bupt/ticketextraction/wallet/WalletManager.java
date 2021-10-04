@@ -186,4 +186,19 @@ public enum WalletManager {
     public Wallet getWallet(String walletName) {
         return wallets.get(walletName);
     }
+
+    /**
+     * @param file 必须是FileFactory创建的文件！
+     * @return 从file中解析出的钱包名称
+     */
+    public String getWalletNameFromFile(@NotNull File file) {
+        // file格式为FileFactory.WALLETS_DIR + walletName + /image/ + fileName
+        String path = file.getAbsolutePath();
+        // 先去掉WALLETS_DIR
+        path = path.substring(FileFactory.WALLETS_DIR.length());
+        // 再去掉/image/ + fileName及之后的
+        int i = path.indexOf('/');
+        path = path.substring(0, i);
+        return path;
+    }
 }

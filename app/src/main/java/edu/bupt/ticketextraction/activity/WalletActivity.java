@@ -15,7 +15,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.extraction.Ocr;
 import edu.bupt.ticketextraction.wallet.Wallet;
+import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -97,6 +99,8 @@ public class WalletActivity extends AppCompatActivity {
                 // startActivityForResult已被弃用，但仍然选择使用它XD
                 // noinspection deprecation
                 startActivityForResult(intent, START_CAMERA);
+                // 调用OCR识别
+                Ocr.getInstance().extract(imageFile);
             }
         }
     }

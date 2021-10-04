@@ -1,5 +1,7 @@
 package edu.bupt.ticketextraction.extraction;
 
+import edu.bupt.ticketextraction.wallet.Wallet;
+import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -16,7 +18,21 @@ import java.io.File;
 public enum Ocr {
     INSTANCE;
 
-    public CabTicket callOcr(@NotNull File sourceFile, String walletName) {
+    public static Ocr getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * 识别相应资源文件
+     */
+    public void extract(File sourceFile) {
+        CabTicket cabTicket = callOcr(sourceFile);
+        Wallet wallet = WalletManager.getInstance().getWallet(cabTicket.getWALLET_NAME());
+        wallet.addTicket(cabTicket);
+    }
+
+    private CabTicket callOcr(@NotNull File sourceFile) {
+        String walletName = WalletManager.getInstance().getWalletNameFromFile(sourceFile);
         CabTicket.Builder builder = new CabTicket.Builder();
         builder.setSourceName(sourceFile.getAbsolutePath()).
                 setWalletName(walletName).
