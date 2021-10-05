@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
@@ -28,8 +30,12 @@ public class ExportFragment extends Fragment {
         this.fatherActivity = fatherActivity;
     }
 
+    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_export, container, false);
         // 绑定默认check box
         CheckBox defaultCheckBox = view.findViewById(R.id.default_wallet_check_box);

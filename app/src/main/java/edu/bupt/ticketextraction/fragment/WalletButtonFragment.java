@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,8 +39,12 @@ public class WalletButtonFragment extends Fragment {
         this.fatherActivity = fatherActivity;
     }
 
+    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_in_bill, container, false);
         Button walletBtn = view.findViewById(R.id.wallet_btn);
         // 设置点击监听器
