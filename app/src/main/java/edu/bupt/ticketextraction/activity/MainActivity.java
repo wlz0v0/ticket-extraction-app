@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.fragment.*;
+import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,11 +59,16 @@ public class MainActivity extends AppCompatActivity {
      **/
     public static LinkedHashMap<WalletCheckBoxFragment, Boolean> walletCheckBoxFragments;
 
-    // 跳转到钱包activity
-    public void jumpFromMainToWallet() {
+    /**
+     * 跳转到钱包activity
+     *
+     * @param wallet 跳转的钱包
+     */
+    public void jumpFromMainToWallet(Wallet wallet) {
         // 从发票fragment跳转
         beforeJumpFragmentId = R.id.bill;
         Intent intent = new Intent(MainActivity.this, WalletActivity.class);
+        intent.putExtra("wallet", wallet);
         startActivity(intent);
     }
 

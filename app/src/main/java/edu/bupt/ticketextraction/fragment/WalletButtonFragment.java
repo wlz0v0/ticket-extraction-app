@@ -48,10 +48,7 @@ public class WalletButtonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wallet_button, container, false);
         Button walletBtn = view.findViewById(R.id.wallet_btn);
         // 设置点击监听器
-        walletBtn.setOnClickListener(view1 -> {
-            WalletActivity.setWallet(WalletManager.getInstance().getWallet(walletName));
-            fatherActivity.jumpFromMainToWallet();
-        });
+        walletBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToWallet(WalletManager.getInstance().getWallet(walletName)));
         // 设置长按监听器
         walletBtn.setOnLongClickListener(this::onLongClickListenerCallback);
         walletBtn.setText(walletName);

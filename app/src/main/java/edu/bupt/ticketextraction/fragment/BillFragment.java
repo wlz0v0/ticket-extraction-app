@@ -43,13 +43,8 @@ public class BillFragment extends Fragment {
         Wallet defaultWallet = new Wallet("默认");
         WalletManager.getInstance().addWallet(defaultWallet);
 
-
         Button defaultWalletBtn = view.findViewById(R.id.default_wallet_btn);
-        defaultWalletBtn.setOnClickListener(view1 -> {
-            // TODO: 改用putExtra传Wallet
-            WalletActivity.setWallet(WalletManager.getInstance().getWallet("默认"));
-            fatherActivity.jumpFromMainToWallet();
-        });
+        defaultWalletBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToWallet(WalletManager.getInstance().getWallet("默认")));
 
         Button newWalletBtn = view.findViewById(R.id.new_wallet_btn);
         newWalletBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToCreateWallet());

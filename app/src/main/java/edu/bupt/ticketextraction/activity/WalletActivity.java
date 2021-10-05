@@ -15,15 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.extraction.CabTicket;
 import edu.bupt.ticketextraction.extraction.Ocr;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
+import edu.bupt.ticketextraction.fragment.SourceFragment;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * <pre>
@@ -35,13 +39,11 @@ import java.io.File;
  * </pre>
  */
 public class WalletActivity extends AppCompatActivity {
-    private static Wallet curWallet;
+    private Wallet wallet;
+
+    private final ArrayList<SourceFragment> sourceFragments = new ArrayList<>();
 
     private static final int START_CAMERA = 1;
-
-    public static void setWallet(Wallet Wallet) {
-        WalletActivity.curWallet = Wallet;
-    }
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
@@ -61,9 +63,11 @@ public class WalletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
 
+        wallet = (Wallet) getIntent().getSerializableExtra("wallet");
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(curWallet.getWalletName());
+            actionBar.setTitle(wallet.getWalletName());
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -104,7 +108,7 @@ public class WalletActivity extends AppCompatActivity {
     private void startShootCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            File imageFile = new ImageFileFactory(curWallet.getWalletName()).createFile();
+            File imageFile = new ImageFileFactory(wallet.getWalletName()).createFile();
             if (imageFile != null) {
                 Uri uri = FileProvider.getUriForFile(this,
                         "edu.bupt.ticketextraction.FileProvider",
@@ -125,7 +129,7 @@ public class WalletActivity extends AppCompatActivity {
     private void startVideoCamera() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            File videoFile = new VideoFileFactory(curWallet.getWalletName()).createFile();
+            File videoFile = new VideoFileFactory(wallet.getWalletName()).createFile();
             if (videoFile != null) {
                 Uri uri = FileProvider.getUriForFile(this,
                         "edu.bupt.ticketextraction.FileProvider",
@@ -139,15 +143,25 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     private void extractTicket(File file) {
-        CabTicket ticket = Ocr.getInstance().callOcr(file, curWallet.getWalletName());
-        curWallet.addTicket(ticket);
+        CabTicket ticket = Ocr.getInstance().callOcr(file, wallet.getWalletName());
+        wallet.addTicket(ticket);
     }
 
     // 在钱包中展示资源文件
     private void showSources() {
-        //TODO: 通过curWallet的属性展示资源
-        for (CabTicket ticket : curWallet.getTickets()) {
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // 需要先删除所有已添加的Fragment，再重新添加，不然会重复
+        Iterator<SourceFragment> iter = sourceFragments.iterator();
+        while (iter.hasNext()) {
+            transaction.remove(iter.next());
+            iter.remove();
         }
+        for (CabTicket ticket : wallet.getTickets()) {
+            // 将SourceFragment添加到WalletActivity中
+            SourceFragment fragment = new SourceFragment(ticket, this);
+            transaction.add(R.id.sources_fragment_container, fragment);
+            sourceFragments.add(fragment);
+        }
+        transaction.commitAllowingStateLoss();
     }
 }
