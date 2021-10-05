@@ -4,6 +4,7 @@ import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -17,10 +18,10 @@ import java.nio.charset.StandardCharsets;
  * </pre>
  */
 @SuppressWarnings({"Unus", "unused"})
-public class CabTicket {
-    private double unitPrice;
-    private double totalPrice;
-    private double distance;
+public class CabTicket implements Serializable {
+    private Double unitPrice;
+    private Double totalPrice;
+    private Double distance;
     private String date;
     private final String WALLET_NAME;
     private final String SOURCE_NAME;
@@ -31,9 +32,9 @@ public class CabTicket {
     // Builder类未使用返回值不做警告，因为一定会有一个返回值用不到
     @SuppressWarnings("UnusedReturnValue")
     public static class Builder {
-        private double unitPrice;
-        private double totalPrice;
-        private double distance;
+        private Double unitPrice;
+        private Double totalPrice;
+        private Double distance;
         private String date;
         private String walletName;
         private String sourceName;
@@ -137,15 +138,15 @@ public class CabTicket {
         this.SOURCE_NAME = sourceName;
     }
 
-    public double getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 

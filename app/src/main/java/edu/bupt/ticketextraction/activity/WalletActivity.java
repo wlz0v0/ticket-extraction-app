@@ -43,6 +43,10 @@ public class WalletActivity extends AppCompatActivity {
         WalletActivity.curWallet = Wallet;
     }
 
+    // 通过该回调函数监听返回键是否被点击
+    // 被点击则结束此activity并返回main activity
+    // 等号右侧必须是android.R.id.home
+    // R.id.home会出现bug，可以运行但与getItemId()不相等
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

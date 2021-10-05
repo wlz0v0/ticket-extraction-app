@@ -4,7 +4,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp">
 
-    <Button android:layout_width="match_parent"
+    <Button
+            android:id="@+id/source_button"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@color/white"
             android:layout_below="@id/distance"/>

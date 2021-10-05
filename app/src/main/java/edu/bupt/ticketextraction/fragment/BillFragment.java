@@ -46,6 +46,7 @@ public class BillFragment extends Fragment {
 
         Button defaultWalletBtn = view.findViewById(R.id.default_wallet_btn);
         defaultWalletBtn.setOnClickListener(view1 -> {
+            // TODO: 改用putExtra传Wallet
             WalletActivity.setWallet(WalletManager.getInstance().getWallet("默认"));
             fatherActivity.jumpFromMainToWallet();
         });

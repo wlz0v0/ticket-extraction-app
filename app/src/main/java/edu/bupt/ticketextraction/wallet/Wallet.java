@@ -5,6 +5,7 @@ import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  *     version: 0.0.1
  * </pre>
  */
-public class Wallet {
+public class Wallet implements Serializable {
     // 钱包名
     private final String walletName;
 
