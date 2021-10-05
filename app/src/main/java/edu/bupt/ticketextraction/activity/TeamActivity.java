@@ -2,6 +2,7 @@ package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
@@ -31,7 +32,7 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
 

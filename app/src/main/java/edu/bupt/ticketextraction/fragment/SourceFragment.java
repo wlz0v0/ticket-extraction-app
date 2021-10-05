@@ -20,6 +20,9 @@ import org.jetbrains.annotations.NotNull;
  * </pre>
  */
 public class SourceFragment extends Fragment {
+    // 资源文件是图片还是视频
+    private boolean isImage;
+
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override

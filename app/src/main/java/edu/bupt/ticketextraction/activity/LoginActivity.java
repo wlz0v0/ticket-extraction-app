@@ -2,6 +2,7 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.view.MenuItem;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (loginState) {
             showPersonalInfo();
