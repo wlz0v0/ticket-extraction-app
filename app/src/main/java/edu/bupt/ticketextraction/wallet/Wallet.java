@@ -3,7 +3,6 @@ package edu.bupt.ticketextraction.wallet;
 import edu.bupt.ticketextraction.extraction.CabTicket;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,10 +20,8 @@ import java.util.ArrayList;
 public class Wallet {
     // 钱包名
     private final String walletName;
-    // 读取文件进入数组
-    private final ArrayList<File> files;
 
-    private ArrayList<CabTicket> tickets;
+    private final ArrayList<CabTicket> tickets;
 
     /**
      * 创建一个钱包
@@ -33,7 +30,6 @@ public class Wallet {
      */
     public Wallet(String walletName) {
         this.walletName = walletName;
-        files = new ArrayList<>();
         tickets = new ArrayList<>();
     }
 

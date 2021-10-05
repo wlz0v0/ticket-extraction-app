@@ -1,7 +1,5 @@
 package edu.bupt.ticketextraction.extraction;
 
-import edu.bupt.ticketextraction.wallet.Wallet;
-import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

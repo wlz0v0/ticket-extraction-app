@@ -49,7 +49,7 @@ public class MaxHeightScrollView extends ScrollView {
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaxHeightScrollView);
-            //200 is a defualt value
+            //200 is a default value
             int DEFAULT_HEIGHT = 200;
             maxHeight = styledAttrs.getDimensionPixelSize(R.styleable.MaxHeightScrollView_max_height, DEFAULT_HEIGHT);
 

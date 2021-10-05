@@ -2,7 +2,6 @@ package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;

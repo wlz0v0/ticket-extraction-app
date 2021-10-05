@@ -20,7 +20,6 @@ import edu.bupt.ticketextraction.extraction.Ocr;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.wallet.Wallet;
-import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

@@ -1,12 +1,6 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
-import android.util.Log;
-
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * <pre>
