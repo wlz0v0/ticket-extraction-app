@@ -48,6 +48,13 @@ public class Wallet {
     }
 
     /**
+     * @return 存储发票信息的数组
+     */
+    public ArrayList<CabTicket> getTickets() {
+        return tickets;
+    }
+
+    /**
      * 从data文件中读取数据
      * TODO:数据存资源文件名
      */

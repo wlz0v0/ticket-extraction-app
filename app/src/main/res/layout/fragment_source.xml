@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/white"
+            android:layout_below="@id/distance"/>
+
+    <!--    <ImageView-->
+    <!--            android:id="@+id/thumbnail"-->
+    <!--            android:layout_width="60dp"-->
+    <!--            android:layout_height="60dp"-->
+    <!--            android:contentDescription="@string/app_name"-->
+    <!--            android:layout_centerVertical="true"/>-->
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="100dp"
+            android:text="@string/distance"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+
+    <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="160dp"
+            android:text=""
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="250dp"
+            android:text="@string/total_price"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+
+    <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="310dp"
+            android:text=""
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
 
 
-
-</LinearLayout>
+</RelativeLayout>

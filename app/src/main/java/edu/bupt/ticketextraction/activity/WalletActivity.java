@@ -68,8 +68,12 @@ public class WalletActivity extends AppCompatActivity {
 
         Button recordBtn = findViewById(R.id.camera_record_btn);
         recordBtn.setOnClickListener(this::recordBtnOnClickCallback);
+    }
 
-        showResources();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showSources();
     }
 
     private void shootBtnOnClickCallback(View view) {
@@ -136,7 +140,10 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     // 在钱包中展示资源文件
-    private void showResources() {
+    private void showSources() {
         //TODO: 通过curWallet的属性展示资源
+        for (CabTicket ticket : curWallet.getTickets()) {
+
+        }
     }
 }
