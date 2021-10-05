@@ -94,7 +94,7 @@ public enum WalletManager {
     /**
      * 将所有数据写入文件
      */
-    public void writeToData() {
+    public void writeWalletsToData() {
         // 检查是否存在WalletData目录
         // 不存在则先创建
         File file = new File(WALLETS_DATA_PATH);
@@ -119,18 +119,24 @@ public enum WalletManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // 把各钱包的数据写入文件
         for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
-            entry.getValue().writeToData();
+            this.writeWalletSourceToData(entry.getValue());
         }
+    }
+
+    /**
+     * 把钱包中保存的资源文件数据写入文件
+     */
+    public void writeWalletSourceToData(@NotNull Wallet wallet) {
+        // 把钱包的数据写入文件
+        wallet.writeToData();
     }
 
     /**
      * 将数据读入文件
      * TODO 读入各钱包数据
      */
-    public void readFromData() {
+    public void readWalletsFromData() {
         // 存所有wallet的name
         ArrayList<String> walletNames = new ArrayList<>();
         try {
@@ -157,6 +163,17 @@ public enum WalletManager {
                 createWallet(name);
             }
         }
+        for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
+            this.readWalletSourceFromData(entry.getValue());
+        }
+    }
+
+    /**
+     * 从文件中读取钱包的资源文件
+     */
+    public void readWalletSourceFromData(@NotNull Wallet wallet) {
+        // 把钱包的数据从文件中读取
+        wallet.readFromData();
     }
 
     /**

@@ -1,9 +1,6 @@
 package edu.bupt.ticketextraction.file.filefactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -62,7 +59,7 @@ public abstract class FileFactory {
      * @param isAppend  是否追加
      * @return 文件输出流，用于写入数据文件
      **/
-    protected FileOutputStream getDataStream(String directory, String prefix, boolean isAppend) {
+    protected FileOutputStream getOutDataStream(String directory, String prefix, boolean isAppend) {
         File file = new File(directory + prefix + ".dat");
         if (!file.exists()) {
             try {
@@ -74,6 +71,15 @@ public abstract class FileFactory {
         }
         try {
             return new FileOutputStream(directory + prefix + ".dat", isAppend);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected FileInputStream getInDataStream(String directory, String prefix) {
+        try {
+            return new FileInputStream(directory + prefix + ".dat");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

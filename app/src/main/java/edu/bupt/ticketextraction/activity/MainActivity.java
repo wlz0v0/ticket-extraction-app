@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         rgMenu.setOnCheckedChangeListener(this::bottomRadioGroupOnCheckedChangedCallback);
 
         // 从文件中读取wallets的数据
-        WalletManager.getInstance().readFromData();
+        WalletManager.getInstance().readWalletsFromData();
 
         // 设置跳转前fragment的checked为true以在初始界面展示
         RadioButton beforeJumpButton = findViewById(beforeJumpFragmentId);
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 将wallets中的数据保存到文件中
-        WalletManager.getInstance().writeToData();
+        WalletManager.getInstance().writeWalletsToData();
     }
 
     // 初始化所有static变量

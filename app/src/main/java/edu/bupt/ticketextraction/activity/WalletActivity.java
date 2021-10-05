@@ -23,6 +23,7 @@ import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.fragment.SourceFragment;
 import edu.bupt.ticketextraction.wallet.Wallet;
+import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -78,10 +79,19 @@ public class WalletActivity extends AppCompatActivity {
         recordBtn.setOnClickListener(this::recordBtnOnClickCallback);
     }
 
+    // onStart时读取资源数据并展示所有资源
     @Override
     protected void onStart() {
         super.onStart();
+        WalletManager.getInstance().readWalletSourceFromData(wallet);
         showSources();
+    }
+
+    // onStop时将数据写入文件
+    @Override
+    protected void onStop() {
+        super.onStop();
+        WalletManager.getInstance().writeWalletSourceToData(wallet);
     }
 
     private void shootBtnOnClickCallback(View view) {
@@ -144,6 +154,7 @@ public class WalletActivity extends AppCompatActivity {
 
     private void extractTicket(File file) {
         CabTicket ticket = Ocr.getInstance().callOcr(file, wallet.getWalletName());
+        // 将获取的信息添加到钱包中以展示
         wallet.addTicket(ticket);
     }
 
