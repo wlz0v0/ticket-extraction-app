@@ -37,12 +37,15 @@ public class SettingFragment extends Fragment {
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
+        // 从设置跳转到登录
         Button settingJumpToLoginBtn = view.findViewById(R.id.setting_jump_to_login);
         settingJumpToLoginBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToLogin());
 
+        // 清除缓存
         Button clearCacheBtn = view.findViewById(R.id.clear_cache);
         clearCacheBtn.setOnClickListener(view1 -> FileManager.getInstance().clearCache());
 
+        // 从设置跳转到关于
         Button aboutUsBtn = view.findViewById(R.id.about_us);
         aboutUsBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToAboutUs());
         return view;

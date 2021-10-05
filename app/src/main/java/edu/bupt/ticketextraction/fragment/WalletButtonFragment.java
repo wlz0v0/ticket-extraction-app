@@ -45,7 +45,7 @@ public class WalletButtonFragment extends Fragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet_in_bill, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet_button, container, false);
         Button walletBtn = view.findViewById(R.id.wallet_btn);
         // 设置点击监听器
         walletBtn.setOnClickListener(view1 -> {

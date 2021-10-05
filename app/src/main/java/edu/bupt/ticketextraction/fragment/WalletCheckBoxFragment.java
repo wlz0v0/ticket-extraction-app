@@ -45,7 +45,7 @@ public class WalletCheckBoxFragment extends Fragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet_in_export, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet_check_box, container, false);
         // 绑定新建的check box
         checkBox = view.findViewById(R.id.wallet_check_box);
         checkBox.setText(walletName);
