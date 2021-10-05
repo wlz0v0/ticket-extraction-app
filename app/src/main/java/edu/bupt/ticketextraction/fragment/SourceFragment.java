@@ -50,6 +50,7 @@ public class SourceFragment extends Fragment {
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_source, container, false);
         // 绑定按钮
+        //TODO: 按钮目前不可点击
         Button sourceBtn = view.findViewById(R.id.source_button);
         sourceBtn.setOnClickListener(view1 -> jumpFromWalletToTicket());
 

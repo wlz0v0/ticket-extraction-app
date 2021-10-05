@@ -33,14 +33,14 @@
             android:layout_height="80dp"
             android:layout_marginStart="160dp"
             android:text=""
-            android:textSize="22sp"
+            android:textSize="21sp"
             android:textStyle="bold"
             android:gravity="center_vertical"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginStart="250dp"
+            android:layout_marginStart="220dp"
             android:text="@string/total_price"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -50,9 +50,9 @@
             android:id="@+id/total_price"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginStart="310dp"
+            android:layout_marginStart="280dp"
             android:text=""
-            android:textSize="22sp"
+            android:textSize="21sp"
             android:textStyle="bold"
             android:gravity="center_vertical"/>
 
