@@ -27,9 +27,10 @@ public enum WalletManager {
     INSTANCE;
 
     /**
-     * key: wallet name string
-     * value: wallet
-     * 采用LinkedHashMap原因：在界面初始化时必须要根据原有输入顺序创建所有钱包fragment
+     * key: wallet name string <br>
+     * value: wallet <br>
+     * 采用LinkedHashMap原因：<br>
+     * 在界面初始化时必须要根据原有输入顺序创建所有钱包fragment
      * HashMap会打乱顺序，LinkedHashMap会保留原有输入顺序
      * 所以采用LinkedHashMap
      **/

@@ -23,16 +23,14 @@ public enum Ocr {
     }
 
     /**
-     * 识别相应资源文件
+     * 调用ocr识别
+     * TODO: 区分是图片还是视频
+     *
+     * @param sourceFile 资源文件，图片或视频
+     * @param walletName 资源文件所在钱包名
+     * @return 识别得到的发票信息
      */
-    public void extract(File sourceFile) {
-        CabTicket cabTicket = callOcr(sourceFile);
-        Wallet wallet = WalletManager.getInstance().getWallet(cabTicket.getWALLET_NAME());
-        wallet.addTicket(cabTicket);
-    }
-
-    private CabTicket callOcr(@NotNull File sourceFile) {
-        String walletName = WalletManager.getInstance().getWalletNameFromFile(sourceFile);
+    public CabTicket callOcr(@NotNull File sourceFile, String walletName) {
         CabTicket.Builder builder = new CabTicket.Builder();
         builder.setSourceName(sourceFile.getAbsolutePath()).
                 setWalletName(walletName).

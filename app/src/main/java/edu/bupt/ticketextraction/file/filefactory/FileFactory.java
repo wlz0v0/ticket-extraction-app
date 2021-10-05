@@ -26,15 +26,15 @@ public abstract class FileFactory {
     public static String EXTERNAL_FILE_DIR;
     public static String WALLETS_DIR;
 
-    // 图像和视频文件
-
     /**
+     * 图像和视频文件
+     *
      * @param directory 目录
      * @param prefix    文件名前缀
      * @param suffix    文件名后缀
      * @return File实例 图像或视频资源文件
      **/
-    public File getSourceFile(String directory, String prefix, String suffix) {
+    protected File getSourceFile(String directory, String prefix, String suffix) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
         try {
             File dir = new File(directory);
@@ -54,15 +54,15 @@ public abstract class FileFactory {
         return null;
     }
 
-    // 数据文件流
-
     /**
+     * 数据文件流
+     *
      * @param directory 目录
      * @param prefix    文件名前缀
      * @param isAppend  是否追加
      * @return 文件输出流，用于写入数据文件
      **/
-    public FileOutputStream getDataStream(String directory, String prefix, boolean isAppend) {
+    protected FileOutputStream getDataStream(String directory, String prefix, boolean isAppend) {
         File file = new File(directory + prefix + ".dat");
         if (!file.exists()) {
             try {

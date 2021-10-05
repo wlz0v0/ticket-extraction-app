@@ -50,33 +50,16 @@ public class Wallet {
     }
 
     /**
-     * @return 创建的图像文件
+     * @param ticket 添加的出租车发票信息
      */
-    public File createImage() {
-        File file = new ImageFileFactory(walletName).createFile();
-        // 断言文件创建成功
-        assert file != null;
-        files.add(file);
-        writeToData(file);
-        return file;
-    }
-
-    /**
-     * @return 创建的视频文件
-     */
-    public File createVideo() {
-        File file = new VideoFileFactory(walletName).createFile();
-        files.add(file);
-        writeToData(file);
-        return file;
-    }
-
     public void addTicket(CabTicket ticket) {
         tickets.add(ticket);
     }
 
-    // 从data文件中读取数据
-    // TODO:数据存资源文件名
+    /**
+     * 从data文件中读取数据
+     * TODO:数据存资源文件名
+     */
     public void readData() {
         //TODO
     }

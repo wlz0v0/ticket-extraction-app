@@ -15,7 +15,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.extraction.CabTicket;
 import edu.bupt.ticketextraction.extraction.Ocr;
+import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
+import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
@@ -87,10 +90,13 @@ public class WalletActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 调用相机拍照
+     */
     private void startShootCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            File imageFile = curWallet.createImage();
+            File imageFile = new ImageFileFactory(curWallet.getWalletName()).createFile();
             if (imageFile != null) {
                 Uri uri = FileProvider.getUriForFile(this,
                         "edu.bupt.ticketextraction.FileProvider",
@@ -100,15 +106,18 @@ public class WalletActivity extends AppCompatActivity {
                 // noinspection deprecation
                 startActivityForResult(intent, START_CAMERA);
                 // 调用OCR识别
-                Ocr.getInstance().extract(imageFile);
+                this.extractTicket(imageFile);
             }
         }
     }
 
+    /**
+     * 调用相机录视频
+     */
     private void startVideoCamera() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            File videoFile = curWallet.createVideo();
+            File videoFile = new VideoFileFactory(curWallet.getWalletName()).createFile();
             if (videoFile != null) {
                 Uri uri = FileProvider.getUriForFile(this,
                         "edu.bupt.ticketextraction.FileProvider",
@@ -119,6 +128,11 @@ public class WalletActivity extends AppCompatActivity {
                 startActivityForResult(intent, START_CAMERA);
             }
         }
+    }
+
+    private void extractTicket(File file) {
+        CabTicket ticket = Ocr.getInstance().callOcr(file, curWallet.getWalletName());
+        curWallet.addTicket(ticket);
     }
 
     // 在钱包中展示资源文件
