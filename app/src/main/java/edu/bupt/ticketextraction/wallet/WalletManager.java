@@ -92,10 +92,11 @@ public enum WalletManager {
     }
 
     /**
-     * 将数据写入文件
-     * TODO 写入各钱包的数据
+     * 将所有数据写入文件
      */
     public void writeToData() {
+        // 检查是否存在WalletData目录
+        // 不存在则先创建
         File file = new File(WALLETS_DATA_PATH);
         if (!file.exists()) {
             try {
@@ -105,6 +106,7 @@ public enum WalletManager {
                 e.printStackTrace();
             }
         }
+        // 把有哪些钱包写入文件
         FileOutputStream outputStream;
         try {
             outputStream = new FileOutputStream(WALLETS_DATA_PATH, false);
@@ -116,6 +118,11 @@ public enum WalletManager {
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // 把各钱包的数据写入文件
+        for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
+            entry.getValue().writeToData();
         }
     }
 

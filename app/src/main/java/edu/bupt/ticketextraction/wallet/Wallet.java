@@ -1,13 +1,11 @@
 package edu.bupt.ticketextraction.wallet;
 
 import edu.bupt.ticketextraction.extraction.CabTicket;
-import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
-import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -28,8 +26,6 @@ public class Wallet {
 
     private ArrayList<CabTicket> tickets;
 
-    private final FileOutputStream walletDataFile;
-
     /**
      * 创建一个钱包
      *
@@ -37,7 +33,6 @@ public class Wallet {
      */
     public Wallet(String walletName) {
         this.walletName = walletName;
-        walletDataFile = new WalletDataFileFactory(walletName).createFile();
         files = new ArrayList<>();
         tickets = new ArrayList<>();
     }
@@ -64,13 +59,22 @@ public class Wallet {
         //TODO
     }
 
-    // 将wallet展示在MainActivity中
-    public void show() {
-        //TODO
-    }
 
-    private void writeToData(@NotNull File file) {
-        String fileName = file.getName();
-        //TODO
+    /**
+     * 将钱包中的所有发票信息写入数据文件
+     * 包内访问权限
+     */
+    protected void writeToData() {
+        // 先清空数据文件
+        FileOutputStream outputStream = new WalletDataFileFactory(walletName).createFile();
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (CabTicket ticket : tickets) {
+            ticket.writeToData();
+        }
     }
 }

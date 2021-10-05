@@ -1,7 +1,6 @@
 package edu.bupt.ticketextraction.extraction;
 
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
-import org.jetbrains.annotations.Contract;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,6 +16,7 @@ import java.nio.charset.StandardCharsets;
  *     version: 0.0.1
  * </pre>
  */
+@SuppressWarnings({"Unus", "unused"})
 public class CabTicket {
     private double unitPrice;
     private double totalPrice;
@@ -124,11 +124,11 @@ public class CabTicket {
      * @param date       日期
      */
     private CabTicket(String walletName,
-                     String sourceName,
-                     double unitPrice,
-                     double totalPrice,
-                     double distance,
-                     String date) {
+                      String sourceName,
+                      double unitPrice,
+                      double totalPrice,
+                      double distance,
+                      String date) {
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
         this.distance = distance;
@@ -178,11 +178,11 @@ public class CabTicket {
     }
 
     /**
-     * 将发票数据写入文件中
+     * 将发票数据以append的形式写入文件中
      */
     public void writeToData() {
         FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile();
-        byte[] bytes = (SOURCE_NAME + " "+ unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").
+        byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").
                 getBytes(StandardCharsets.UTF_8);
         try {
             outputStream.write(bytes);
