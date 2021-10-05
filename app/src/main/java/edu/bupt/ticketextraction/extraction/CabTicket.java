@@ -135,7 +135,9 @@ public class CabTicket implements Serializable {
         this.distance = distance;
         this.date = date;
         this.WALLET_NAME = walletName;
-        this.SOURCE_NAME = sourceName;
+        // 资源名只取文件名，不要目录名了
+        int lastSlash = sourceName.lastIndexOf('/');
+        this.SOURCE_NAME = sourceName.substring(lastSlash);
     }
 
     public Double getDistance() {

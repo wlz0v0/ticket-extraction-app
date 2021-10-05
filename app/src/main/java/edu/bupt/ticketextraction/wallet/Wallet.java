@@ -6,7 +6,6 @@ import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * <pre>
