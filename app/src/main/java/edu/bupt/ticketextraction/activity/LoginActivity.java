@@ -79,6 +79,11 @@ public class LoginActivity extends AppCompatActivity {
         registerBtn.setClickable(true);
         registerBtn.setOnClickListener(view -> jumpFromLoginToRegister());
 
+        // 找回密码初始化及点击事件监听器设置
+        TextView retrievePassword = findViewById(R.id.retrieve_password_button);
+        retrievePassword.setClickable(true);
+        retrievePassword.setOnClickListener(view -> jumpFromLoginToRetrievePassword());
+
         // 登录按钮初始化及点击事件监听器设置
         Button loginBtn = findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(view -> {
@@ -137,6 +142,10 @@ public class LoginActivity extends AppCompatActivity {
     private void jumpFromLoginToRegister() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    private void jumpFromLoginToRetrievePassword() {
+
     }
 
     private @NotNull AlertDialog getAlertDialog(String text,

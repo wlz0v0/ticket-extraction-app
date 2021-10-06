@@ -33,6 +33,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:drawableStart="@drawable/lock_gray"/>
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
@@ -52,7 +53,6 @@
 
     </LinearLayout>
 
-
     <TextView
             android:id="@+id/jump_to_register_button"
             android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
             android:layout_alignParentStart="true"/>
 
     <TextView
-            android:id="@+id/find_password_button"
+            android:id="@+id/retrieve_password_button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="@string/find_password"
