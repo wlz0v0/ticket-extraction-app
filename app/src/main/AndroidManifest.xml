@@ -38,6 +38,7 @@
         <activity android:name=".activity.InstructionActivity"/>
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.TicketActivity"/>
+        <activity android:name=".activity.RetrievePasswordActivity"/>
         <provider android:authorities="edu.bupt.ticketextraction.FileProvider"
                   android:name="androidx.core.content.FileProvider"
                   android:exported="false"
