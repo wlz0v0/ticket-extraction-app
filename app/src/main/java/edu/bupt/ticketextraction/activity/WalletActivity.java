@@ -46,6 +46,14 @@ public class WalletActivity extends AppCompatActivity {
 
     private static final int START_CAMERA = 1;
 
+    public void removeCabTicket(CabTicket ticket) {
+        wallet.removeTicket(ticket);
+    }
+
+    public void removeSourceFragment(SourceFragment sourceFragment) {
+        sourceFragments.remove(sourceFragment);
+    }
+
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
     // 等号右侧必须是android.R.id.home
@@ -154,6 +162,9 @@ public class WalletActivity extends AppCompatActivity {
 
     private void extractTicket(File file) {
         CabTicket ticket = Ocr.getInstance().callOcr(file, wallet.getWalletName());
+        // 识别完直接删除
+        //noinspection ResultOfMethodCallIgnored
+        file.delete();
         // 将获取的信息添加到钱包中以展示
         wallet.addTicket(ticket);
     }

@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
-import edu.bupt.ticketextraction.activity.WalletActivity;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
@@ -76,30 +75,8 @@ public class WalletButtonFragment extends Fragment {
         builder.setMessage("确认要删除此钱包吗？一旦删除，发票信息无法恢复！").
                 setCancelable(false).
                 setPositiveButton("确认", (dialog1, which1) -> {
-                    // 删除目录
-                    WalletManager.getInstance().deleteWalletDirectory(walletName);
-
-                    // 删除对应Wallet实例
-                    WalletManager.getInstance().deleteWallet(WalletManager.getInstance().getWallet(walletName));
-
-                    // 隐藏对应WalletButtonFragment
-                    FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
-                    transaction.hide(this);
-                    transaction.commit();
-
-                    // 删除对应WalletButtonFragment
-                    MainActivity.walletButtonFragments.remove(this);
-
-                    WalletCheckBoxFragment cbFragment = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
-                    if (cbFragment != null) {
-                        // 隐藏对应WalletCheckBox
-                        cbFragment.hideWalletCheckBoxFragment();
-                        // 删除fragment
-                        MainActivity.walletCheckBoxFragments.remove(cbFragment);
-                        // 删除映射关系
-                        WalletCheckBoxFragment.checkBoxFragmentHashMap.remove(walletName);
-                    }
-
+                    // 删除钱包相关所有东西
+                    this.removeWallet();
                     // 关闭子弹窗
                     dialog1.dismiss();
                     // 关闭父弹窗
@@ -125,24 +102,15 @@ public class WalletButtonFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
         builder.setView(R.layout.editable_dialog).
                 setPositiveButton("重命名", (dialog1, which1) -> {
-                    File oldDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
                     EditText editText = fatherActivity.findViewById(R.id.dialog_et);
                     //TODO: 这里会闪退
                     String newWalletName = editText.getText().toString();
                     // 新名称不能为空！
-                    if (!newWalletName.isEmpty()){
-                        Button walletBtn = fatherActivity.findViewById(R.id.wallet_btn);
-                        this.walletName = newWalletName;
-                        walletBtn.setText(walletName);
-                        WalletCheckBoxFragment checkBox = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
-                        if (checkBox != null) {
-                            checkBox.setText(walletName);
-                        }
-                        File newDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
-                        // 忽略返回值
-                        //noinspection ResultOfMethodCallIgnored
-                        oldDir.renameTo(newDir);
+                    if (!newWalletName.isEmpty()) {
+                        this.renameWallet(newWalletName);
+                        // 关闭子弹窗
                         dialog1.dismiss();
+                        // 关闭父弹窗
                         dialog.dismiss();
                     } else {
                         // 弹出警告并重新输入新名称
@@ -159,5 +127,52 @@ public class WalletButtonFragment extends Fragment {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    /**
+     * 删除与钱包相关的所有东西
+     */
+    private void removeWallet() {
+        // 删除目录
+        WalletManager.getInstance().deleteWalletDirectory(walletName);
+
+        // 删除对应Wallet实例
+        WalletManager.getInstance().deleteWallet(WalletManager.getInstance().getWallet(walletName));
+
+        // 删除页面中的WalletButtonFragment
+        FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
+        transaction.remove(this);
+        transaction.commit();
+
+        // 删除容器中的WalletButtonFragment
+        MainActivity.walletButtonFragments.remove(this);
+
+        WalletCheckBoxFragment cbFragment = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+        if (cbFragment != null) {
+            // 删除页面中的对应WalletCheckBox
+            cbFragment.removeWalletCheckBoxFragment();
+            // 删除容器中的fragment
+            MainActivity.walletCheckBoxFragments.remove(cbFragment);
+            // 删除映射关系
+            WalletCheckBoxFragment.checkBoxFragmentHashMap.remove(walletName);
+        }
+    }
+
+    /**
+     * 重命名钱包
+     */
+    private void renameWallet(String newWalletName) {
+        File oldDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
+        Button walletBtn = fatherActivity.findViewById(R.id.wallet_btn);
+        this.walletName = newWalletName;
+        walletBtn.setText(walletName);
+        WalletCheckBoxFragment checkBox = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+        if (checkBox != null) {
+            checkBox.setText(walletName);
+        }
+        File newDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
+        // 忽略返回值
+        //noinspection ResultOfMethodCallIgnored
+        oldDir.renameTo(newDir);
     }
 }

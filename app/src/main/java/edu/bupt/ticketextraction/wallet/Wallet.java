@@ -47,6 +47,10 @@ public class Wallet implements Serializable {
         tickets.add(ticket);
     }
 
+    public void removeTicket(CabTicket ticket) {
+        tickets.remove(ticket);
+    }
+
     /**
      * @return 存储发票信息的数组
      */
@@ -84,8 +88,7 @@ public class Wallet implements Serializable {
                 // 添加到数组中
                 tickets.add(builder.create());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

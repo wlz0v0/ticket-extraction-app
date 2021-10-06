@@ -1,16 +1,19 @@
 package edu.bupt.ticketextraction.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.TicketActivity;
 import edu.bupt.ticketextraction.activity.WalletActivity;
@@ -49,10 +52,16 @@ public class SourceFragment extends Fragment {
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_source, container, false);
-        // 绑定按钮
+        // 设置包含文本框的RelativeLayout为可点击
+        // 把这个东西当做按钮
         //TODO: 按钮目前不可点击
-        Button sourceBtn = view.findViewById(R.id.source_button);
+        RelativeLayout sourceBtn = view.findViewById(R.id.source_button);
+        sourceBtn.setClickable(true);
+        sourceBtn.setLongClickable(true);
+        // 点击跳转到发票具体信息
         sourceBtn.setOnClickListener(view1 -> jumpFromWalletToTicket());
+        // 长按可删除发票
+        sourceBtn.setOnLongClickListener(this::onLongClickListenerCallback);
 
         // 设置相关文本
         TextView distance = view.findViewById(R.id.distance);
@@ -67,5 +76,62 @@ public class SourceFragment extends Fragment {
         Intent intent = new Intent(fatherActivity, TicketActivity.class);
         intent.putExtra("ticket", cabTicket);
         startActivity(intent);
+    }
+
+    private boolean onLongClickListenerCallback(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
+        // 设置弹窗，可以重命名或删除钱包
+        builder.setMessage("希望进行的操作").
+                setCancelable(false).
+                setPositiveButton("删除", this::positiveButtonCallback).
+                setNegativeButton("取消", this::negativeButtonCallback);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return true;
+    }
+
+    // 删除按钮点击回调
+    private void positiveButtonCallback(DialogInterface dialog, int which) {
+        // 设置确认弹窗，用户是否确认要删除该资源
+        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
+        builder.setMessage("确认要删除此发票吗？一旦删除，信息无法恢复！").
+                setCancelable(false).
+                setPositiveButton("确认", (dialog1, which1) -> {
+                    // 删除该资源相关所有东西
+                    removeSource();
+                    // 关闭子弹窗
+                    dialog1.dismiss();
+                    // 关闭父弹窗
+                    dialog.dismiss();
+                }).
+                setNegativeButton("取消", (dialog1, which1) -> {
+                    // 关闭子弹窗
+                    dialog1.dismiss();
+                    // 关闭父弹窗
+                    dialog.dismiss();
+                });
+        AlertDialog dialog1 = builder.create();
+        dialog1.show();
+    }
+
+    // 取消按钮点击回调
+    private void negativeButtonCallback(@NotNull DialogInterface dialog, int which) {
+        dialog.dismiss();
+    }
+
+    /**
+     * 删除该资源，包括对应的Fragment、钱包中的信息
+     */
+    private void removeSource() {
+        // 删除页面中的SourceFragment
+        FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
+        transaction.remove(this);
+        transaction.commit();
+
+        // 删除容器中的Fragment
+        fatherActivity.removeSourceFragment(this);
+
+        // 删除钱包中的信息
+        fatherActivity.removeCabTicket(this.cabTicket);
     }
 }

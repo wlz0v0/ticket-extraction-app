@@ -58,9 +58,9 @@ public class WalletCheckBoxFragment extends Fragment {
         checkBox.setText(text);
     }
 
-    public void hideWalletCheckBoxFragment() {
+    public void removeWalletCheckBoxFragment() {
         FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
-        transaction.hide(this);
+        transaction.remove(this);
         transaction.commitAllowingStateLoss();
     }
 }
