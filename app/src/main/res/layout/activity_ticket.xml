@@ -4,4 +4,67 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/ticket_info_constant"
+                android:text="@string/unit_price"/>
+
+        <TextView
+                android:id="@+id/unit_price_textview"
+                style="@style/ticket_info_variable"
+                android:text=""/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/ticket_info_constant"
+                android:text="@string/distance"
+        />
+
+        <TextView
+                android:id="@+id/distance_textview"
+                style="@style/ticket_info_variable"
+                android:text=""/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/ticket_info_constant"
+                android:text="@string/total_price"/>
+
+        <TextView
+                android:id="@+id/total_price_textview"
+                style="@style/ticket_info_variable"
+                android:text=""/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                style="@style/ticket_info_constant"
+                android:text="@string/date"/>
+
+        <TextView
+                android:id="@+id/date_textview"
+                style="@style/ticket_info_variable"
+                android:text=""/>
+    </RelativeLayout>
+
 </LinearLayout>

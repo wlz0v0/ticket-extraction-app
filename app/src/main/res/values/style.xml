@@ -80,4 +80,24 @@
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
 
+    <style name="ticket_info_constant">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:background">@drawable/setting_button_bkg</item>
+    </style>
+
+    <style name="ticket_info_variable">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:layout_marginStart">80dp</item>
+    </style>
+
 </resources>

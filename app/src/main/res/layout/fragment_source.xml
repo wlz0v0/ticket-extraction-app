@@ -23,40 +23,44 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="85dp"
             android:text="@string/distance"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
 
     <TextView
             android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginStart="160dp"
+            android:layout_marginStart="145dp"
             android:text=""
             android:textSize="21sp"
             android:textStyle="bold"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginStart="220dp"
+            android:layout_marginStart="205dp"
             android:text="@string/total_price"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
 
     <TextView
             android:id="@+id/total_price"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginStart="280dp"
+            android:layout_marginStart="265dp"
             android:text=""
             android:textSize="21sp"
             android:textStyle="bold"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
 
 
 </RelativeLayout>

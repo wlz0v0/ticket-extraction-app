@@ -1,7 +1,9 @@
 package edu.bupt.ticketextraction.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,7 @@ public class TicketActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,5 +49,15 @@ public class TicketActivity extends AppCompatActivity {
         // 获取对应ticket
         CabTicket ticket = (CabTicket) getIntent().getSerializableExtra("ticket");
         // TODO：根据ticket显示信息
+        // 绑定所有TextView
+        assert ticket != null;
+        TextView unitPrice = findViewById(R.id.unit_price_textview);
+        TextView distance = findViewById(R.id.distance_textview);
+        TextView totalPrice = findViewById(R.id.total_price_textview);
+        TextView date = findViewById(R.id.date_textview);
+        unitPrice.setText(ticket.getUnitPrice().toString());
+        distance.setText(ticket.getDistance().toString());
+        totalPrice.setText(ticket.getTotalPrice().toString());
+        date.setText(ticket.getDate());
     }
 }

@@ -36,7 +36,8 @@
     <string name="re_input_password">请重复输入密码</string>
     <string name="register_phone_number">手机号</string>
     <string name="register_password">密码</string>
-    <string name="distance">里程:</string>
-    <string name="total_price">总价:</string>
-
+    <string name="distance">&#160;&#160;里程:</string>
+    <string name="total_price">&#160;&#160;总价:</string>
+    <string name="unit_price">&#160;&#160;单价:</string>
+    <string name="date">&#160;&#160;日期:</string>
 </resources>
