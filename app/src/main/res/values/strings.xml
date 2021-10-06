@@ -31,7 +31,7 @@
     <string name="record">录制</string>
     <string name="input_new_name">请输入新名称</string>
     <string name="action_instruction">使用说明</string>
-    <string name="register_button">注册</string>
+    <string name="register_button">注册新账号</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="re_input_password">请重复输入密码</string>
     <string name="register_phone_number">手机号</string>
@@ -40,4 +40,5 @@
     <string name="total_price">&#160;&#160;总价:</string>
     <string name="unit_price">&#160;&#160;单价:</string>
     <string name="date">&#160;&#160;日期:</string>
+    <string name="find_password">找回密码</string>
 </resources>

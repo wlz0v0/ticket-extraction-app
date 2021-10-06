@@ -2,6 +2,7 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.view.MenuItem;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import android.content.DialogInterface;
@@ -74,7 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         accountInfo = new HashMap<>();
         accountInfo.put("18863238727", "123456");
         // 注册按钮初始化及点击事件监听器设置
-        Button registerBtn = findViewById(R.id.jump_to_register_button);
+        TextView registerBtn = findViewById(R.id.jump_to_register_button);
+        registerBtn.setClickable(true);
         registerBtn.setOnClickListener(view -> jumpFromLoginToRegister());
 
         // 登录按钮初始化及点击事件监听器设置

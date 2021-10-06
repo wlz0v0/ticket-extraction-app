@@ -48,8 +48,8 @@ public class TicketActivity extends AppCompatActivity {
 
         // 获取对应ticket
         CabTicket ticket = (CabTicket) getIntent().getSerializableExtra("ticket");
-        // TODO：根据ticket显示信息
         // 绑定所有TextView
+        // 断言ticket非空
         assert ticket != null;
         TextView unitPrice = findViewById(R.id.unit_price_textview);
         TextView distance = findViewById(R.id.distance_textview);
