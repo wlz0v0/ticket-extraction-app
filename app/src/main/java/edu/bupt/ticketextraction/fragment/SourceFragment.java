@@ -32,14 +32,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SourceFragment extends Fragment {
     // 资源文件是图片还是视频
-    private final boolean isImage;
+    // private final boolean isImage;
     // 对应发票
     private final CabTicket cabTicket;
     // 父Activity
     private final WalletActivity fatherActivity;
 
     public SourceFragment(CabTicket cabTicket, WalletActivity fatherActivity) {
-        isImage = true;
+        // isImage = true;
         this.cabTicket = cabTicket;
         this.fatherActivity = fatherActivity;
     }
@@ -54,7 +54,6 @@ public class SourceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_source, container, false);
         // 设置包含文本框的RelativeLayout为可点击
         // 把这个东西当做按钮
-        //TODO: 按钮目前不可点击
         RelativeLayout sourceBtn = view.findViewById(R.id.source_button);
         sourceBtn.setClickable(true);
         sourceBtn.setLongClickable(true);
