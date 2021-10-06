@@ -145,7 +145,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void jumpFromLoginToRetrievePassword() {
-
+        Intent intent = new Intent(this, RetrievePasswordActivity.class);
+        startActivity(intent);
     }
 
     private @NotNull AlertDialog getAlertDialog(String text,
