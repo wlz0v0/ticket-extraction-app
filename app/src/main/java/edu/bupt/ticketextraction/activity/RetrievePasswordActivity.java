@@ -25,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 public class RetrievePasswordActivity extends AppCompatActivity {
     private Fragment verificationFragment;
     private Fragment resetFragment;
+    private RadioButton step1;
+    private RadioButton step2;
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
     // 等号右侧必须是android.R.id.home
@@ -48,10 +50,8 @@ public class RetrievePasswordActivity extends AppCompatActivity {
         transaction.commitAllowingStateLoss();
 
         // 设置第一步为没被点击状态
-        RadioButton step1 = findViewById(R.id.step1_radio_button);
         step1.setChecked(false);
         //设置第二步为被点击状态
-        RadioButton step2 = findViewById(R.id.step2_radio_button);
         step2.setChecked(true);
     }
 
@@ -68,8 +68,13 @@ public class RetrievePasswordActivity extends AppCompatActivity {
             actionBar.setTitle("找回密码");
         }
 
+        // 绑定按钮
+        step1 = findViewById(R.id.step1_radio_button);
+        step2 = findViewById(R.id.step2_radio_button);
+        // 设置不可点击
+        step1.setClickable(false);
+        step2.setClickable(false);
         // 设置第一步为被点击状态
-        RadioButton step1 = findViewById(R.id.step1_radio_button);
         step1.setChecked(true);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

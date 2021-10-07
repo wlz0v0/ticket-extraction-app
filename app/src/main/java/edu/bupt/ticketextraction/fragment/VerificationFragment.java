@@ -15,6 +15,8 @@ import edu.bupt.ticketextraction.activity.RetrievePasswordActivity;
 import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.MessageFormat;
+
 /**
  * <pre>
  *     author : 武连增
@@ -27,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class VerificationFragment extends Fragment {
     private EditText phoneNumberEt;
     private EditText verificationCodeEt;
+    private Button getVerificationBtn;
     private final RetrievePasswordActivity fatherActivity;
 
     public VerificationFragment(RetrievePasswordActivity fatherActivity) {
@@ -43,8 +46,8 @@ public class VerificationFragment extends Fragment {
         // 绑定所有控件
         phoneNumberEt = view.findViewById(R.id.retrieve_account);
         verificationCodeEt = view.findViewById(R.id.retrieve_verification);
+        getVerificationBtn = view.findViewById(R.id.get_verification_button);
         Button nextStepBtn = view.findViewById(R.id.next_step_button);
-        Button getVerificationBtn = view.findViewById(R.id.get_verification_button);
 
         // 设置按钮点击监听器
         nextStepBtn.setOnClickListener(this::onClickListenerCallback);
@@ -76,7 +79,28 @@ public class VerificationFragment extends Fragment {
      * 获取验证码
      */
     private void getVerificationCode() {
-        //TODO: 做一个90s之后重新发送的东东
+        // 设置重新发送短信的时间间隔
+        Thread countdown = new Thread(() -> {
+            // 两条短信之间的间隔时间
+            int nextMessageInterval = 90;
+            // 设置按钮不可点击
+            getVerificationBtn.setClickable(false);
+            // 开始计时
+            while (nextMessageInterval != 0) {
+                try {
+                    // 倒计时并展示
+                    getVerificationBtn.setText(MessageFormat.format("{0}s后重新发送", nextMessageInterval));
+                    Thread.sleep(1000);
+                    --nextMessageInterval;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            // 可以重新发送短信了
+            getVerificationBtn.setText(R.string.get_verification_code);
+            getVerificationBtn.setClickable(true);
+        });
+        countdown.start();
         Server.callVerificationSending(phoneNumberEt.getText().toString());
     }
 }

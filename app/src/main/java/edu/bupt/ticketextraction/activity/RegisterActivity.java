@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
  * </pre>
  */
 public class RegisterActivity extends AppCompatActivity {
+    // TODO: 增加一个验证码
     // 手机账号默认正确，不做判断
     private TextView passwordWarning;
     private TextView rePasswordWarning;
