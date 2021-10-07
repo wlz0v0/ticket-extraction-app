@@ -61,7 +61,6 @@ public class Wallet implements Serializable {
     /**
      * 从data文件中读取数据
      * 包内访问权限
-     * TODO:数据存资源文件名
      */
     protected void readFromData() {
         // 构造BufferReader来读取一行

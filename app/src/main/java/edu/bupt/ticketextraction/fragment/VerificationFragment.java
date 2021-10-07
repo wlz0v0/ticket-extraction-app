@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.RetrievePasswordActivity;
+import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -55,7 +56,9 @@ public class VerificationFragment extends Fragment {
      * @param view Do NOT use the param
      */
     private void onClickListenerCallback(View view) {
-        if (isVerified()) {
+        if (Server.callAccountVerification(
+                phoneNumberEt.getText().toString(),
+                verificationCodeEt.getText().toString())) {
             // 成功则转到密码重置
             fatherActivity.showResetFragment();
         } else {
@@ -64,17 +67,9 @@ public class VerificationFragment extends Fragment {
             builder.setMessage("验证码错误！").
                     setCancelable(false).
                     // 关闭弹窗
-                    setPositiveButton("确认", (dialog, which) -> dialog.dismiss());
+                            setPositiveButton("确认", (dialog, which) -> dialog.dismiss());
             builder.create().show();
         }
-    }
-
-    /**
-     * 验证手机号和验证码是否匹配
-     */
-    private boolean isVerified() {
-        // TODO: 调用服务端验证
-        return true;
     }
 
     /**
@@ -82,5 +77,6 @@ public class VerificationFragment extends Fragment {
      */
     private void getVerificationCode() {
         //TODO: 做一个90s之后重新发送的东东
+        Server.callVerificationSending(phoneNumberEt.getText().toString());
     }
 }

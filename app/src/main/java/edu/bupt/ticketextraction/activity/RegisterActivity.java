@@ -8,8 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
@@ -72,7 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
         Button registerBtn = findViewById(R.id.register_button);
         registerBtn.setOnClickListener(view -> {
             if (isValid()) {
-                callServerRegister();
+                boolean isSuccess = Server.callRegister(
+                        phoneNumberEt.getText().toString(),
+                        passWordEt.getText().toString(),
+                        passWordEt.getText().toString());
+                // 断言注册成功，但估摸着可能会因为与服务器之间的连接出问题
+                assert isSuccess;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("注册成功").
+                        setCancelable(false).
+                        setPositiveButton("确认", (dialog, which) -> dialog.dismiss());
             }
         });
     }
@@ -94,11 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
         String rePassword = rePassWordEt.getText().toString();
         return password.isEmpty() && rePassword.isEmpty()
                 && isPasswordValid() && isRePasswordValid();
-    }
-
-    private void callServerRegister() {
-        //TODO:调用用户管理系统进行注册
-        String phoneNumber = phoneNumberEt.getText().toString();
     }
 
     private boolean isPasswordValid() {
@@ -132,6 +138,5 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             rePasswordWarning.setText("两次密码不匹配！");
         }
-
     }
 }

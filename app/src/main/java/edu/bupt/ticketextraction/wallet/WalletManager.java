@@ -134,7 +134,6 @@ public enum WalletManager {
 
     /**
      * 将数据读入文件
-     * TODO 读入各钱包数据
      */
     public void readWalletsFromData() {
         // 存所有wallet的name

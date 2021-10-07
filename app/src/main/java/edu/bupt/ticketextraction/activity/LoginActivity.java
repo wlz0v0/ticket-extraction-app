@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -26,6 +27,8 @@ import java.util.HashMap;
  * </pre>
  */
 public class LoginActivity extends AppCompatActivity {
+    //TODO: 应当使用两个Activity，一个登录，一个展示个人信息，而非一个
+
     // true 展示登录后的个人信息
     // false 展示登录界面
     public static boolean loginState = false;
@@ -90,11 +93,9 @@ public class LoginActivity extends AppCompatActivity {
             // 获取输入的账号和密码
             account = accountEt.getText().toString();
             password = passwordEt.getText().toString();
-            if (isMatch()) {
-                //TODO:登录成功
+            if (Server.callLogin(account, password)) {
                 loginSuccessful();
             } else {
-                //TODO:登录失败
                 loginFailed();
             }
         });
@@ -109,13 +110,6 @@ public class LoginActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("个人信息");
         }
-        //TODO
-    }
-
-    private boolean isMatch() {
-        //TODO:数据库存用户名密码，去数据库中查询
-        String inputPwd = accountInfo.get(account);
-        return inputPwd != null && inputPwd.equals(password);
     }
 
     private void loginSuccessful() {
