@@ -16,7 +16,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="@string/register_phone_number"
                 android:gravity="center_vertical"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
         <EditText
@@ -28,7 +28,7 @@
                 android:hint="@string/input_phone_number"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:paddingStart="80dp"
                 android:paddingEnd="80dp"/>
 
@@ -45,7 +45,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="@string/verification_code"
                 android:gravity="center_vertical"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
         <EditText
@@ -53,20 +53,20 @@
                 android:layout_height="70dp"
                 android:id="@+id/retrieve_verification"
                 android:autofillHints="@string/input_verification"
-                android:inputType="textPassword"
+                android:inputType="number"
                 android:hint="@string/input_verification"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:paddingStart="80dp"
                 android:paddingEnd="80dp"/>
 
         <Button
                 android:id="@+id/get_verification_button"
-                android:layout_width="120dp"
+                android:layout_width="110dp"
                 android:layout_height="45dp"
                 android:text="@string/get_verification_code"
-                android:textSize="19sp"
+                android:textSize="15sp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_alignParentEnd="true"

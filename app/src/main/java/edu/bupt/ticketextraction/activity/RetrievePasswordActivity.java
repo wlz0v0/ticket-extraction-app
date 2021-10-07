@@ -2,6 +2,7 @@ package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.RadioButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,27 +39,27 @@ public class RetrievePasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * 展示验证Fragment
-     */
-    public void showVerificationFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.show(verificationFragment);
-        transaction.commitAllowingStateLoss();
-    }
-
-    /**
      * 展示重置密码Fragment
      */
     public void showResetFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(verificationFragment);
         transaction.show(resetFragment);
         transaction.commitAllowingStateLoss();
+
+        // 设置第一步为没被点击状态
+        RadioButton step1 = findViewById(R.id.step1_radio_button);
+        step1.setChecked(false);
+        //设置第二步为被点击状态
+        RadioButton step2 = findViewById(R.id.step2_radio_button);
+        step2.setChecked(true);
     }
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_password);
+
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
@@ -66,10 +67,15 @@ public class RetrievePasswordActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("找回密码");
         }
+
+        // 设置第一步为被点击状态
+        RadioButton step1 = findViewById(R.id.step1_radio_button);
+        step1.setChecked(true);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // 先进行手机号验证，再重置密码
         // 把验证fragment添加到Activity中
-        verificationFragment = new VerificationFragment();
+        verificationFragment = new VerificationFragment(this);
         transaction.add(R.id.retrieve_fragment_container, verificationFragment);
         // 把重置fragment添加到Activity中
         resetFragment = new ResetPasswordFragment();

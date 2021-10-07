@@ -12,7 +12,7 @@
     <RelativeLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:background="@color/shallow_gray"
             android:orientation="vertical">
 
@@ -26,6 +26,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/white"
                 android:orientation="horizontal">
+
         <RadioButton
                 style="@style/radio_button_style"
                 android:id="@+id/bill"
