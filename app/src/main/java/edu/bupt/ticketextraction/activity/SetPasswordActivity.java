@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.fragment.ResetPasswordFragment;
+import edu.bupt.ticketextraction.fragment.SetPasswordFragment;
 import edu.bupt.ticketextraction.fragment.VerificationFragment;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,15 +18,20 @@ import org.jetbrains.annotations.NotNull;
  *     author : 武连增
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2021/10/06
- *     desc   : 找回密码Activity
+ *     desc   : 设置密码Activity
+ *              支持注册账号、找回密码、修改密码
  *     version: 0.0.1
  * </pre>
  */
-public class RetrievePasswordActivity extends AppCompatActivity {
+public class SetPasswordActivity extends AppCompatActivity {
     private Fragment verificationFragment;
     private Fragment resetFragment;
     private RadioButton step1;
     private RadioButton step2;
+    public String phoneNumber;
+    public static String title;
+    public static String setPasswordButtonText;
+
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
     // 等号右侧必须是android.R.id.home
@@ -65,7 +70,7 @@ public class RetrievePasswordActivity extends AppCompatActivity {
         if (actionBar != null) {
             // 设置返回键
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("找回密码");
+            actionBar.setTitle(title);
         }
 
         // 绑定按钮
@@ -83,7 +88,7 @@ public class RetrievePasswordActivity extends AppCompatActivity {
         verificationFragment = new VerificationFragment(this);
         transaction.add(R.id.retrieve_fragment_container, verificationFragment);
         // 把重置fragment添加到Activity中
-        resetFragment = new ResetPasswordFragment();
+        resetFragment = new SetPasswordFragment(this);
         transaction.add(R.id.retrieve_fragment_container, resetFragment);
         // 展示验证fragment
         transaction.hide(resetFragment);

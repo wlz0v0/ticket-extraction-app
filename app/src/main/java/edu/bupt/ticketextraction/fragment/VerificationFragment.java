@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.activity.RetrievePasswordActivity;
+import edu.bupt.ticketextraction.activity.SetPasswordActivity;
 import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,9 +30,9 @@ public class VerificationFragment extends Fragment {
     private EditText phoneNumberEt;
     private EditText verificationCodeEt;
     private Button getVerificationBtn;
-    private final RetrievePasswordActivity fatherActivity;
+    private final SetPasswordActivity fatherActivity;
 
-    public VerificationFragment(RetrievePasswordActivity fatherActivity) {
+    public VerificationFragment(SetPasswordActivity fatherActivity) {
         this.fatherActivity = fatherActivity;
     }
 
@@ -62,7 +62,8 @@ public class VerificationFragment extends Fragment {
         if (Server.callAccountVerification(
                 phoneNumberEt.getText().toString(),
                 verificationCodeEt.getText().toString())) {
-            // 成功则转到密码重置
+            // 成功则转到密码重置 还要设置一下手机号
+            fatherActivity.phoneNumber = phoneNumberEt.getText().toString();
             fatherActivity.showResetFragment();
         } else {
             // 失败则弹出提示

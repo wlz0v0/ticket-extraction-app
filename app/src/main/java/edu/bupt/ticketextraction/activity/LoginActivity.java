@@ -134,12 +134,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void jumpFromLoginToRegister() {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, SetPasswordActivity.class);
+        SetPasswordActivity.title = "注册账号";
+        SetPasswordActivity.setPasswordButtonText = "注册";
         startActivity(intent);
     }
 
     private void jumpFromLoginToRetrievePassword() {
-        Intent intent = new Intent(this, RetrievePasswordActivity.class);
+        Intent intent = new Intent(this, SetPasswordActivity.class);
+        SetPasswordActivity.title = "找回密码";
+        SetPasswordActivity.setPasswordButtonText = "重置密码";
         startActivity(intent);
     }
 

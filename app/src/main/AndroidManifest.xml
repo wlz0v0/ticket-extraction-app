@@ -36,9 +36,8 @@
         <activity android:name=".activity.CreateWalletActivity"/>
         <activity android:name=".activity.WalletActivity"/>
         <activity android:name=".activity.InstructionActivity"/>
-        <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.TicketActivity"/>
-        <activity android:name=".activity.RetrievePasswordActivity"/>
+        <activity android:name=".activity.SetPasswordActivity"/>
         <provider android:authorities="edu.bupt.ticketextraction.FileProvider"
                   android:name="androidx.core.content.FileProvider"
                   android:exported="false"
