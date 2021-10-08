@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.extraction;
+package edu.bupt.ticketextraction.tickets;
 
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
@@ -18,34 +18,36 @@ import java.nio.charset.StandardCharsets;
  * </pre>
  */
 @SuppressWarnings({"Unus", "unused"})
-public class CabTicket implements Serializable {
+public class CabTicket extends AbstractTicket implements Serializable {
     private Double unitPrice;
     private Double totalPrice;
     private Double distance;
     private String date;
-    private final String WALLET_NAME;
-    private final String SOURCE_NAME;
 
     /**
      * CabTicket的构造器
      */
     // Builder类未使用返回值不做警告，因为一定会有一个返回值用不到
     @SuppressWarnings("UnusedReturnValue")
-    public static class Builder {
+    public static class Builder extends AbstractTicket.Builder<Builder>{
         private Double unitPrice;
         private Double totalPrice;
         private Double distance;
         private String date;
-        private String walletName;
-        private String sourceName;
+        private final String walletName;
+        private final String sourceName;
 
-        public Builder() {
+        /**
+         * @param walletName 钱包名
+         * @param sourceName 资源文件名
+         */
+        public Builder(String walletName, String sourceName) {
             unitPrice = 0.0;
             totalPrice = 0.0;
             distance = 0.0;
             date = "\0";
-            walletName = "\0";
-            sourceName = "\0";
+            this.walletName = walletName;
+            this.sourceName = sourceName;
         }
 
         /**
@@ -89,28 +91,9 @@ public class CabTicket implements Serializable {
         }
 
         /**
-         * 设置出租车发票对应的资源文件的名称
-         *
-         * @param sourceName 资源文件名
-         */
-        public Builder setSourceName(String sourceName) {
-            this.sourceName = sourceName;
-            return this;
-        }
-
-        /**
-         * 设置出租车发票对应的钱包名称
-         *
-         * @param walletName 钱包名
-         */
-        public Builder setWalletName(String walletName) {
-            this.walletName = walletName;
-            return this;
-        }
-
-        /**
          * 通过定义的Builder创建一个CabTicket实例
          */
+        @Override
         public CabTicket create() {
             return new CabTicket(walletName, sourceName, unitPrice, totalPrice, distance, date);
         }
@@ -130,14 +113,11 @@ public class CabTicket implements Serializable {
                       double totalPrice,
                       double distance,
                       String date) {
+        super(walletName, sourceName);
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
         this.distance = distance;
         this.date = date;
-        this.WALLET_NAME = walletName;
-        // 资源名只取文件名，不要目录名了
-        int lastSlash = sourceName.lastIndexOf('/');
-        this.SOURCE_NAME = sourceName.substring(lastSlash);
     }
 
     public Double getDistance() {
@@ -183,6 +163,7 @@ public class CabTicket implements Serializable {
     /**
      * 将发票数据以append的形式写入文件中
      */
+    @Override
     public void writeToData() {
         FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile();
         byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").

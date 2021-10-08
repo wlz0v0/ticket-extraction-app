@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.TicketActivity;
 import edu.bupt.ticketextraction.activity.WalletActivity;
-import edu.bupt.ticketextraction.extraction.CabTicket;
+import edu.bupt.ticketextraction.tickets.CabTicket;
 import org.jetbrains.annotations.NotNull;
 
 /**

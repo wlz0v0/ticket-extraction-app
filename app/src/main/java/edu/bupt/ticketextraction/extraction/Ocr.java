@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.extraction;
 
+import edu.bupt.ticketextraction.tickets.CabTicket;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -29,10 +30,8 @@ public enum Ocr {
      * @return 识别得到的发票信息
      */
     public CabTicket callOcr(@NotNull File sourceFile, String walletName) {
-        CabTicket.Builder builder = new CabTicket.Builder();
-        builder.setSourceName(sourceFile.getAbsolutePath()).
-                setWalletName(walletName).
-                setUnitPrice(3.0).
+        CabTicket.Builder builder = new CabTicket.Builder(walletName, sourceFile.getAbsolutePath());
+        builder.setUnitPrice(3.0).
                 setTotalPrice(11.0).
                 setDate("2021.10.4").
                 setDistance(3.0);

@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void jumpFromLoginToRegister() {
         Intent intent = new Intent(this, SetPasswordActivity.class);
+        // 设置注册的文本内容
         SetPasswordActivity.title = "注册账号";
         SetPasswordActivity.setPasswordButtonText = "注册";
         startActivity(intent);
@@ -142,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void jumpFromLoginToRetrievePassword() {
         Intent intent = new Intent(this, SetPasswordActivity.class);
+        // 设置找回密码的文本内容
         SetPasswordActivity.title = "找回密码";
         SetPasswordActivity.setPasswordButtonText = "重置密码";
         startActivity(intent);

@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     // 跳转到login activity
     public void jumpFromMainToLogin() {
+        //TODO: 应当使用两个Activity，一个登录，一个展示个人信息，而非一个
+
         // 从设置fragment跳转
         beforeJumpFragmentId = R.id.setting;
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);

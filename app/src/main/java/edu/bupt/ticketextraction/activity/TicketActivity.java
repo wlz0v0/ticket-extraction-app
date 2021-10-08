@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.extraction.CabTicket;
+import edu.bupt.ticketextraction.tickets.CabTicket;
 import org.jetbrains.annotations.NotNull;
 
 /**

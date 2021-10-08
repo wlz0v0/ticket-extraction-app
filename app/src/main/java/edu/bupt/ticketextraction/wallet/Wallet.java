@@ -1,6 +1,6 @@
 package edu.bupt.ticketextraction.wallet;
 
-import edu.bupt.ticketextraction.extraction.CabTicket;
+import edu.bupt.ticketextraction.tickets.CabTicket;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 
 import java.io.*;
@@ -77,10 +77,8 @@ public class Wallet implements Serializable {
                 // 按照空格切割得到发票的各个信息
                 String[] info = line.split(" ");
                 // 构建发票
-                CabTicket.Builder builder = new CabTicket.Builder();
-                builder.setWalletName(walletName).
-                        setSourceName(info[0]).
-                        setUnitPrice(Double.parseDouble(info[1])).
+                CabTicket.Builder builder = new CabTicket.Builder(walletName, info[0]);
+                builder.setUnitPrice(Double.parseDouble(info[1])).
                         setTotalPrice(Double.parseDouble(info[2])).
                         setDistance(Double.parseDouble(info[3])).
                         setDate(info[4]);

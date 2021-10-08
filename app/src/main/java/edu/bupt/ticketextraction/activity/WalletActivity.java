@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.extraction.CabTicket;
+import edu.bupt.ticketextraction.tickets.CabTicket;
 import edu.bupt.ticketextraction.extraction.Ocr;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
