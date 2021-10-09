@@ -41,10 +41,9 @@ import java.util.Iterator;
  */
 public class WalletActivity extends AppCompatActivity {
     private Wallet wallet;
-
     private final ArrayList<SourceFragment> sourceFragments = new ArrayList<>();
-
     private static final int START_CAMERA = 1;
+    public final static String WALLET_EXTRA = "wallet";
 
     public void removeCabTicket(CabTicket ticket) {
         wallet.removeTicket(ticket);
@@ -72,7 +71,7 @@ public class WalletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
 
-        wallet = (Wallet) getIntent().getSerializableExtra("wallet");
+        wallet = (Wallet) getIntent().getSerializableExtra(WALLET_EXTRA);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

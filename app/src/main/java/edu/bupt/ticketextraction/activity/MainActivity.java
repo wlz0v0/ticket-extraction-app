@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // 从发票fragment跳转
         beforeJumpFragmentId = R.id.bill;
         Intent intent = new Intent(MainActivity.this, WalletActivity.class);
-        intent.putExtra("wallet", wallet);
+        intent.putExtra(WalletActivity.WALLET_EXTRA, wallet);
         startActivity(intent);
     }
 

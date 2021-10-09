@@ -18,11 +18,11 @@ public class Server {
      *
      * @param phoneNumber 账号
      * @param password    密码
-     * @return 登录成功与否
+     * @return 1-登录成功, 0-密码错误, -1-用户名不存在
      */
     @Contract(pure = true)
-    public static boolean callLogin(String phoneNumber, String password) {
-        return true;
+    public static int callLogin(String phoneNumber, String password) {
+        return 1;
     }
 
     /**

@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.RadioButton;
@@ -12,6 +13,8 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.fragment.SetPasswordFragment;
 import edu.bupt.ticketextraction.fragment.VerificationFragment;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 
 /**
  * <pre>
@@ -30,17 +33,20 @@ public class SetPasswordActivity extends AppCompatActivity {
     private RadioButton step1;
     private RadioButton step2;
     public String phoneNumber;
+    public final static String TITLE_EXTRA = "title";
+    public final static String BUTTON_TEXT_EXTRA = "button_text";
     // 要显示的标题：注册账号、找回密码、修改密码
-    public static Titles title;
+    public Titles title;
     // 按钮显示的文本：注册、重置密码
-    public static ButtonTexts setPasswordButtonText;
+    public ButtonTexts setPasswordButtonText;
 
     /**
+     * 为了在Activity间传递，实现了Serializable接口<br>
      * 定义标题内容枚举类<br>
      * 包括注册账号、找回密码、修改密码<br>
      */
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    public enum Titles {
+    public enum Titles implements Serializable {
         REGISTER("注册账号"),
         RETRIEVE("找回密码"),
         CHANGE("修改密码");
@@ -53,11 +59,12 @@ public class SetPasswordActivity extends AppCompatActivity {
     }
 
     /**
+     * 为了在Activity间传递，实现了Serializable接口<br>
      * 定义按钮内容枚举类<br>
      * 包括注册、重置密码<br>
      */
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    public enum ButtonTexts {
+    public enum ButtonTexts implements Serializable {
         REGISTER("注册"),
         RETRIEVE("重置密码"),
         CHANGE("重置密码");
@@ -93,7 +100,7 @@ public class SetPasswordActivity extends AppCompatActivity {
 
         // 设置第一步为没被点击状态
         step1.setChecked(false);
-        //设置第二步为被点击状态
+        // 设置第二步为被点击状态
         step2.setChecked(true);
     }
 
@@ -109,6 +116,11 @@ public class SetPasswordActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(String.valueOf(title));
         }
+
+        // 获取AccountActivity传入变量
+        Intent intent = getIntent();
+        title = (Titles) intent.getSerializableExtra(TITLE_EXTRA);
+        setPasswordButtonText = (ButtonTexts) intent.getSerializableExtra(BUTTON_TEXT_EXTRA);
 
         // 绑定按钮
         step1 = findViewById(R.id.step1_radio_button);

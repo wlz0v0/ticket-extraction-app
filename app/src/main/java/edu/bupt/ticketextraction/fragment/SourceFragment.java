@@ -73,7 +73,7 @@ public class SourceFragment extends Fragment {
     // 从钱包Activity跳转到票据Activity
     private void jumpFromWalletToTicket() {
         Intent intent = new Intent(fatherActivity, TicketActivity.class);
-        intent.putExtra("ticket", cabTicket);
+        intent.putExtra(TicketActivity.TICKET_EXTRA, cabTicket);
         startActivity(intent);
     }
 

@@ -2,20 +2,15 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.view.MenuItem;
-import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.server.Server;
+import edu.bupt.ticketextraction.fragment.LoginFragment;
+import edu.bupt.ticketextraction.fragment.PersonInfoFragment;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
 
 /**
  * <pre>
@@ -27,15 +22,11 @@ import java.util.HashMap;
  * </pre>
  */
 public class AccountActivity extends AppCompatActivity {
-    //TODO: 应当使用两个Activity，一个登录，一个展示个人信息，而非一个
-
-    // true 展示登录后的个人信息
-    // false 展示登录界面
+    /**
+     * true 展示登录后的个人信息 <br>
+     * false 展示登录界面
+     */
     public static boolean loginState = false;
-
-    private String account;
-    private String password;
-    private HashMap<String, String> accountInfo;
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
@@ -50,18 +41,35 @@ public class AccountActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 从AccountActivity跳转到SetPasswordActivity，完成注册
+     */
+    public void jumpFromAccountToRegister() {
+        Intent intent = new Intent(this, SetPasswordActivity.class);
+        // 设置注册的文本内容
+        // 通过putExtra传递变量
+        intent.putExtra(SetPasswordActivity.TITLE_EXTRA, SetPasswordActivity.Titles.REGISTER);
+        intent.putExtra(SetPasswordActivity.BUTTON_TEXT_EXTRA, SetPasswordActivity.ButtonTexts.REGISTER);
+        startActivity(intent);
+    }
+
+    /**
+     * 从AccountActivity跳转到SetPasswordActivity，完成找回密码
+     */
+    public void jumpFromAccountToRetrievePassword() {
+        Intent intent = new Intent(this, SetPasswordActivity.class);
+        // 设置找回密码的文本内容
+        // 通过putExtra传递变量
+        intent.putExtra(SetPasswordActivity.TITLE_EXTRA, SetPasswordActivity.Titles.RETRIEVE);
+        intent.putExtra(SetPasswordActivity.BUTTON_TEXT_EXTRA, SetPasswordActivity.ButtonTexts.RETRIEVE);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (loginState) {
-            showPersonalInfo();
-        } else {
-            showLogin();
-        }
-    }
-
-    private void showLogin() {
         setContentView(R.layout.activity_account);
+
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
@@ -70,93 +78,10 @@ public class AccountActivity extends AppCompatActivity {
             String title = loginState ? "个人信息" : "登录";
             actionBar.setTitle(title);
         }
-        //TODO:登录界面
 
-        // 绑定编辑文本框
-        EditText accountEt = findViewById(R.id.account);
-        EditText passwordEt = findViewById(R.id.password);
-
-        accountInfo = new HashMap<>();
-        accountInfo.put("18863238727", "123456");
-        // 注册按钮初始化及点击事件监听器设置
-        TextView registerBtn = findViewById(R.id.jump_to_register_button);
-        registerBtn.setClickable(true);
-        registerBtn.setOnClickListener(view -> jumpFromLoginToRegister());
-
-        // 找回密码初始化及点击事件监听器设置
-        TextView retrievePassword = findViewById(R.id.retrieve_password_button);
-        retrievePassword.setClickable(true);
-        retrievePassword.setOnClickListener(view -> jumpFromLoginToRetrievePassword());
-
-        // 登录按钮初始化及点击事件监听器设置
-        Button loginBtn = findViewById(R.id.login_btn);
-        loginBtn.setOnClickListener(view -> {
-            // 获取输入的账号和密码
-            account = accountEt.getText().toString();
-            password = passwordEt.getText().toString();
-            if (Server.callLogin(account, password)) {
-                loginSuccessful();
-            } else {
-                loginFailed();
-            }
-        });
-    }
-
-    private void showPersonalInfo() {
-        setContentView(R.layout.fragment_personal_info);
-        // 创建顶部导航栏
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            // 设置返回键
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("个人信息");
-        }
-    }
-
-    private void loginSuccessful() {
-        loginState = true;
-        // 通过调用finish结束LoginActivity，登录成功
-        getAlertDialog("登录成功",
-                (dialogInterface, i) -> finish())
-                .show();
-    }
-
-    private void loginFailed() {
-        loginState = false;
-        String builderMsg;
-        String inputPwd = accountInfo.get(account);
-        // input_pwd为空则是查询不到用户名
-        // 否则是密码与账号不匹配
-        builderMsg = inputPwd == null ? "用户名不存在!" : "密码错误!";
-        // 登录失败，关闭提示框
-        getAlertDialog(builderMsg,
-                (dialogInterface, i) -> dialogInterface.dismiss())
-                .show();
-    }
-
-    private void jumpFromLoginToRegister() {
-        Intent intent = new Intent(this, SetPasswordActivity.class);
-        // 设置注册的文本内容
-        SetPasswordActivity.title = SetPasswordActivity.Titles.REGISTER;
-        SetPasswordActivity.setPasswordButtonText = SetPasswordActivity.ButtonTexts.REGISTER;
-        startActivity(intent);
-    }
-
-    private void jumpFromLoginToRetrievePassword() {
-        Intent intent = new Intent(this, SetPasswordActivity.class);
-        // 设置找回密码的文本内容
-        SetPasswordActivity.title = SetPasswordActivity.Titles.RETRIEVE;
-        SetPasswordActivity.setPasswordButtonText = SetPasswordActivity.ButtonTexts.RETRIEVE;
-        startActivity(intent);
-    }
-
-    private @NotNull AlertDialog getAlertDialog(String text,
-                                                DialogInterface.OnClickListener onClickListener) {
-        // 先创建一个builder，再通过builder构造alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(text).
-                setCancelable(false).
-                setPositiveButton("确认", onClickListener);
-        return builder.create();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.account_fragment_container,
+                loginState ? new PersonInfoFragment() : new LoginFragment(this));
+        transaction.commitAllowingStateLoss();
     }
 }

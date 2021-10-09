@@ -2,16 +2,19 @@ package edu.bupt.ticketextraction.tickets;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  *     author : 武连增
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2021/10/08
  *     desc   : 票据抽象基类
+ *              实现Serializable接口可在Activity间传递
  *     version: 0.0.1
  * </pre>
  */
-public abstract class AbstractTicket {
+public abstract class AbstractTicket implements Serializable {
     protected final String WALLET_NAME;
     protected final String SOURCE_NAME;
     protected final String TICKET_TYPE;

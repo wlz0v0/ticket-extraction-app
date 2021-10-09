@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -19,7 +18,7 @@ import java.nio.charset.StandardCharsets;
  * </pre>
  */
 @SuppressWarnings({"Unus", "unused"})
-public class CabTicket extends AbstractTicket implements Serializable {
+public class CabTicket extends AbstractTicket {
     private Double unitPrice;
     private Double totalPrice;
     private Double distance;

@@ -21,6 +21,8 @@ import org.jetbrains.annotations.NotNull;
  * </pre>
  */
 public class TicketActivity extends AppCompatActivity {
+    public final static String TICKET_EXTRA = "ticket";
+
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回wallet activity
     // 等号右侧必须是android.R.id.home
@@ -47,7 +49,7 @@ public class TicketActivity extends AppCompatActivity {
         }
 
         // 获取对应ticket
-        CabTicket ticket = (CabTicket) getIntent().getSerializableExtra("ticket");
+        CabTicket ticket = (CabTicket) getIntent().getSerializableExtra(TICKET_EXTRA);
         // 绑定所有TextView
         // 断言ticket非空
         assert ticket != null;
