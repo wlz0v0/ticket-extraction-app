@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--    本xml文件为登录成功后再次点击账号管理后弹出的个人信息activity布局文件 -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/shallow_gray">
+
+    <!-- 设置最大长度！   -->
+    <!--   个人信息  -->
+    <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:max_height="150dp"
+            android:background="@color/white">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/contact_fragment_container"
+                android:orientation="vertical">
+
+            <!--  我的联系人  -->
+            <Button
+                    style="@style/person_info_button"
+                    android:id="@+id/my_contacts_button"
+                    android:text="@string/my_contacts"/>
+
+        </LinearLayout>
+
+    </edu.bupt.ticketextraction.customviews.MaxHeightScrollView>
+
+    <!--  修改密码  -->
+    <Button
+            style="@style/person_info_button"
+            android:id="@+id/change_password_button"
+            android:text="@string/change_password"/>
+
+    <!--  切换账号  -->
+    <Button
+            style="@style/person_info_button"
+            android:id="@+id/change_account_button"
+            android:text="@string/change_account"/>
+
+    <!--  注销  -->
+    <Button
+            style="@style/person_info_button"
+            android:id="@+id/logoff_button"
+            android:text="@string/logoff"/>
+
+    <!--  退出  -->
+    <Button
+            style="@style/person_info_button"
+            android:id="@+id/exit_button"
+            android:text="@string/exit"/>
+
+</LinearLayout>

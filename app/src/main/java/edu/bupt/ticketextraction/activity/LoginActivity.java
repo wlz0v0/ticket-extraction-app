@@ -1,19 +1,15 @@
-package edu.bupt.ticketextraction.fragment;
+package edu.bupt.ticketextraction.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.activity.AccountActivity;
 import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,36 +22,57 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class LoginFragment extends Fragment {
-    private final AccountActivity fatherActivity;
+public class LoginActivity extends AppCompatActivity {
+    /**
+     * true 展示登录后的个人信息 <br>
+     * false 展示登录界面
+     */
+    public static boolean loginState = false;
 
-    public LoginFragment(AccountActivity fatherActivity) {
-        this.fatherActivity = fatherActivity;
+    /**
+     * 从AccountActivity跳转到SetPasswordActivity，完成注册
+     */
+    public void jumpFromAccountToRegister() {
+        Intent intent = new Intent(this, SetPasswordActivity.class);
+        // 设置注册的文本内容
+        // 通过putExtra传递变量
+        intent.putExtra(SetPasswordActivity.TITLE_EXTRA, SetPasswordActivity.Titles.REGISTER);
+        intent.putExtra(SetPasswordActivity.BUTTON_TEXT_EXTRA, SetPasswordActivity.ButtonTexts.REGISTER);
+        startActivity(intent);
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
+    /**
+     * 从AccountActivity跳转到SetPasswordActivity，完成找回密码
+     */
+    public void jumpFromAccountToRetrievePassword() {
+        Intent intent = new Intent(this, SetPasswordActivity.class);
+        // 设置找回密码的文本内容
+        // 通过putExtra传递变量
+        intent.putExtra(SetPasswordActivity.TITLE_EXTRA, SetPasswordActivity.Titles.RETRIEVE);
+        intent.putExtra(SetPasswordActivity.BUTTON_TEXT_EXTRA, SetPasswordActivity.ButtonTexts.RETRIEVE);
+        startActivity(intent);
+    }
+
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         // 绑定编辑文本框
-        EditText accountEt = view.findViewById(R.id.account);
-        EditText passwordEt = view.findViewById(R.id.password);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        EditText accountEt = findViewById(R.id.account);
+        EditText passwordEt = findViewById(R.id.password);
 
         // 注册按钮初始化及点击事件监听器设置
-        TextView registerBtn = view.findViewById(R.id.jump_to_register_button);
+        TextView registerBtn = findViewById(R.id.jump_to_register_button);
         registerBtn.setClickable(true);
-        registerBtn.setOnClickListener(view1 -> fatherActivity.jumpFromAccountToRegister());
+        registerBtn.setOnClickListener(view1 -> jumpFromAccountToRegister());
 
         // 找回密码初始化及点击事件监听器设置
-        TextView retrievePassword = view.findViewById(R.id.retrieve_password_button);
+        TextView retrievePassword = findViewById(R.id.retrieve_password_button);
         retrievePassword.setClickable(true);
-        retrievePassword.setOnClickListener(view1 -> fatherActivity.jumpFromAccountToRetrievePassword());
+        retrievePassword.setOnClickListener(view1 -> jumpFromAccountToRetrievePassword());
 
         // 登录按钮初始化及点击事件监听器设置
-        Button loginBtn = view.findViewById(R.id.login_btn);
+        Button loginBtn = findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(view1 -> {
             // 获取输入的账号和密码
             String account = accountEt.getText().toString();
@@ -67,19 +84,21 @@ public class LoginFragment extends Fragment {
                 loginFailed(loginRet);
             }
         });
-        return view;
     }
 
     private void loginSuccessful() {
-        AccountActivity.loginState = true;
+        loginState = true;
         // 通过调用finish结束LoginActivity，登录成功
         getAlertDialog("登录成功",
-                (dialogInterface, i) -> fatherActivity.finish())
+                (dialogInterface, i) -> {
+                    finish();
+                    
+                })
                 .show();
     }
 
     private void loginFailed(int errorCode) {
-        AccountActivity.loginState = false;
+        loginState = false;
         String builderMsg;
         // input_pwd为空则是查询不到用户名
         // 否则是密码与账号不匹配
@@ -93,7 +112,7 @@ public class LoginFragment extends Fragment {
     private @NotNull AlertDialog getAlertDialog(String text,
                                                 DialogInterface.OnClickListener onClickListener) {
         // 先创建一个builder，再通过builder构造alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(text).
                 setCancelable(false).
                 setPositiveButton("确认", onClickListener);

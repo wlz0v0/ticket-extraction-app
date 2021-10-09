@@ -48,4 +48,9 @@
     <string name="reset_password">重置密码</string>
     <string name="one">1</string>
     <string name="two">2</string>
+    <string name="my_contacts">我的联系人</string>
+    <string name="change_password">修改密码</string>
+    <string name="change_account">切换账号</string>
+    <string name="logoff">注销</string>
+    <string name="exit">退出</string>
 </resources>

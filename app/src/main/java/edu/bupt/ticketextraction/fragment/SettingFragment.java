@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.activity.LoginActivity;
 import edu.bupt.ticketextraction.activity.MainActivity;
 import edu.bupt.ticketextraction.file.FileManager;
 import org.jetbrains.annotations.NotNull;
@@ -37,9 +38,9 @@ public class SettingFragment extends Fragment {
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        // 从设置跳转到登录
+        // 从设置跳转到用户管理
         Button settingJumpToLoginBtn = view.findViewById(R.id.setting_jump_to_login);
-        settingJumpToLoginBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToLogin());
+        settingJumpToLoginBtn.setOnClickListener(this::accountManageOnClickCallback);
 
         // 清除缓存
         Button clearCacheBtn = view.findViewById(R.id.clear_cache);
@@ -49,5 +50,14 @@ public class SettingFragment extends Fragment {
         Button aboutUsBtn = view.findViewById(R.id.about_us);
         aboutUsBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToAboutUs());
         return view;
+    }
+
+    private void accountManageOnClickCallback(View view) {
+        // 根据登录状态跳转到相应Activity
+        if (LoginActivity.loginState) {
+            fatherActivity.jumpFromMainToPersonInfo();
+        } else {
+            fatherActivity.jumpFromMainToLogin();
+        }
     }
 }

@@ -20,18 +20,18 @@
     </style>
 
     <style name="setting_button_style">
-        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/setting_button_bkg</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:drawableEnd">@drawable/right_arrow</item>
-        <item name="android:paddingStart">15dp</item>
-        <item name="android:paddingEnd">15dp</item>
         <item name="android:gravity">start|center_vertical</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:drawableEnd">@drawable/right_arrow</item>
+        <item name="android:background">@drawable/setting_button_bkg</item>
     </style>
 
     <style name="introduction_style">
@@ -98,6 +98,19 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginEnd">15dp</item>
         <item name="android:layout_marginStart">80dp</item>
+    </style>
+
+    <style name="person_info_button">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:background">@color/white</item>
     </style>
 
 </resources>

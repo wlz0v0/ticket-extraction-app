@@ -33,7 +33,6 @@ import java.util.Map;
  *     version: 0.0.1
  * </pre>
  */
-
 public class MainActivity extends AppCompatActivity {
     // 用于创建FragmentTransaction，以展示fragment
     private FragmentManager fgMng;
@@ -72,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 跳转到创建钱包activity
+    /**
+     * 跳转到创建钱包activity
+     */
     public void jumpFromMainToCreateWallet() {
         // 从发票fragment跳转
         beforeJumpFragmentId = R.id.bill;
@@ -80,17 +81,28 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 跳转到login activity
+    /**
+     * 跳转到LoginActivity
+     */
     public void jumpFromMainToLogin() {
-        //TODO: 应当使用两个Activity，一个登录，一个展示个人信息，而非一个
-
         // 从设置fragment跳转
         beforeJumpFragmentId = R.id.setting;
-        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
-    // 跳转到send to email activity
+    /**
+     * 跳转到PersonInfoActivity
+     */
+    public void jumpFromMainToPersonInfo() {
+        beforeJumpFragmentId = R.id.setting;
+        Intent intent = new Intent(MainActivity.this, PersonInfoActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 跳转到SendToEmailActivity
+     */
     public void jumpFromMainToEmail() {
         // 从导出fragment跳转
         beforeJumpFragmentId = R.id.export;
@@ -98,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 跳转到about us activity
+    /**
+     * 跳转到AboutUsActivity
+     */
     public void jumpFromMainToAboutUs() {
         // 从设置fragment跳转
         beforeJumpFragmentId = R.id.setting;
@@ -106,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 跳转到使用说明activity
+    /**
+     * 跳转到InstructionActivity
+     */
     public void jumpFromMainToInstruction() {
         // 无需设置跳转id，因为所有fragment都能跳转过去
         Intent intent = new Intent(MainActivity.this, InstructionActivity.class);

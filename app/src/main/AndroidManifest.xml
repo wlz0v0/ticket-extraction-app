@@ -29,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AccountActivity"/>
         <activity android:name=".activity.SendToEmailActivity"/>
         <activity android:name=".activity.AboutUsActivity"/>
         <activity android:name=".activity.TeamActivity"/>
