@@ -83,6 +83,7 @@ public class SetPasswordActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            ActivityStack.getInstance().popActivity();
             finish();
             return true;
         }
@@ -108,6 +109,9 @@ public class SetPasswordActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_password);
+
+        // 将SetPasswordActivity压入栈中
+        ActivityStack.getInstance().pushActivity(this);
 
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();

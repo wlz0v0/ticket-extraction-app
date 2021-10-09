@@ -25,6 +25,7 @@ public class InstructionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            ActivityStack.getInstance().popActivity();
             finish();
             return true;
         }
@@ -35,6 +36,9 @@ public class InstructionActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction);
+
+        // 将InstructionActivity压入栈中
+        ActivityStack.getInstance().pushActivity(this);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -33,6 +33,14 @@ public class PersonInfoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * 跳转到LoginActivity
+     */
+    public void jumpFromPersonInfoToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
     // 等号右侧必须是android.R.id.home
@@ -40,6 +48,7 @@ public class PersonInfoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            ActivityStack.getInstance().popActivity();
             finish();
             return true;
         }
@@ -50,6 +59,9 @@ public class PersonInfoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
+
+        // 将PersonInfoActivity压入栈中
+        ActivityStack.getInstance().pushActivity(this);
 
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
@@ -71,10 +83,11 @@ public class PersonInfoActivity extends AppCompatActivity {
         // 设置点击监听器
         changePasswordBtn.setOnClickListener(view1 -> jumpFromPersonInfoToChangePassword());
         changeAccountBtn.setOnClickListener(this::changeAccountOnClickListenerCallback);
+        logoffBtn.setOnClickListener(view1 -> jumpFromPersonInfoToLogin());
+        exitBtn.setOnClickListener(view1 -> ActivityStack.getInstance().finishAllActivities());
     }
 
     private void changeAccountOnClickListenerCallback(View view) {
-        LoginActivity.loginState = false;
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

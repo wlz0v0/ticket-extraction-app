@@ -33,6 +33,8 @@ public class AboutUsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // 结束Activity并弹出栈
+            ActivityStack.getInstance().popActivity();
             finish();
             return true;
         }

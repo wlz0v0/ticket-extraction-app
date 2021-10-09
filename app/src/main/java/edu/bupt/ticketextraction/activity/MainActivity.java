@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // 将MainActivity压入栈中
+        ActivityStack.getInstance().pushActivity(this);
 
         // 首先初始化所有static变量
         initStaticVars();

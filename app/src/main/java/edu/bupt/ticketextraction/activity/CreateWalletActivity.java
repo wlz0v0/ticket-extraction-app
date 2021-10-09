@@ -30,6 +30,8 @@ public class CreateWalletActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // 结束Activity并弹出栈
+            ActivityStack.getInstance().popActivity();
             finish();
             return true;
         }
@@ -64,7 +66,11 @@ public class CreateWalletActivity extends AppCompatActivity {
 
     private void createSuccessful() {
         AlertDialog alertDialog = getAlertDialog("创建成功",
-                (dialog, which) -> finish());
+                (dialog, which) -> {
+                    // 结束Activity并弹出栈
+                    ActivityStack.getInstance().popActivity();
+                    finish();
+                });
         alertDialog.show();
     }
 
