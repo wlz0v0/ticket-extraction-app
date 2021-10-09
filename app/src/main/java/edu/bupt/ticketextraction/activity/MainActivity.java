@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 从设置fragment跳转
         beforeJumpFragmentId = R.id.setting;
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
         startActivity(intent);
     }
 

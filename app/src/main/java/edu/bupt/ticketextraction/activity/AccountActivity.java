@@ -26,7 +26,7 @@ import java.util.HashMap;
  *     version: 0.0.1
  * </pre>
  */
-public class LoginActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity {
     //TODO: 应当使用两个Activity，一个登录，一个展示个人信息，而非一个
 
     // true 展示登录后的个人信息
@@ -61,13 +61,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showLogin() {
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_account);
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
             // 设置返回键
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("登录");
+            String title = loginState ? "个人信息" : "登录";
+            actionBar.setTitle(title);
         }
         //TODO:登录界面
 
@@ -102,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showPersonalInfo() {
-        setContentView(R.layout.activity_personal_info);
+        setContentView(R.layout.fragment_personal_info);
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
@@ -136,16 +137,16 @@ public class LoginActivity extends AppCompatActivity {
     private void jumpFromLoginToRegister() {
         Intent intent = new Intent(this, SetPasswordActivity.class);
         // 设置注册的文本内容
-        SetPasswordActivity.title = "注册账号";
-        SetPasswordActivity.setPasswordButtonText = "注册";
+        SetPasswordActivity.title = SetPasswordActivity.Titles.REGISTER;
+        SetPasswordActivity.setPasswordButtonText = SetPasswordActivity.ButtonTexts.REGISTER;
         startActivity(intent);
     }
 
     private void jumpFromLoginToRetrievePassword() {
         Intent intent = new Intent(this, SetPasswordActivity.class);
         // 设置找回密码的文本内容
-        SetPasswordActivity.title = "找回密码";
-        SetPasswordActivity.setPasswordButtonText = "重置密码";
+        SetPasswordActivity.title = SetPasswordActivity.Titles.RETRIEVE;
+        SetPasswordActivity.setPasswordButtonText = SetPasswordActivity.ButtonTexts.RETRIEVE;
         startActivity(intent);
     }
 

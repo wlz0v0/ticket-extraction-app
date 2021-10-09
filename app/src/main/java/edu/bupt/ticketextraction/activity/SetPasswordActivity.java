@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
  *     time   : 2021/10/06
  *     desc   : 设置密码Activity
  *              支持注册账号、找回密码、修改密码
+ *              TODO:Fragment切换动画
  *     version: 0.0.1
  * </pre>
  */
@@ -29,8 +30,44 @@ public class SetPasswordActivity extends AppCompatActivity {
     private RadioButton step1;
     private RadioButton step2;
     public String phoneNumber;
-    public static String title;
-    public static String setPasswordButtonText;
+    // 要显示的标题：注册账号、找回密码、修改密码
+    public static Titles title;
+    // 按钮显示的文本：注册、重置密码
+    public static ButtonTexts setPasswordButtonText;
+
+    /**
+     * 定义标题内容枚举类<br>
+     * 包括注册账号、找回密码、修改密码<br>
+     */
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    public enum Titles {
+        REGISTER("注册账号"),
+        RETRIEVE("找回密码"),
+        CHANGE("修改密码");
+
+        private final String title;
+
+        Titles(String title) {
+            this.title = title;
+        }
+    }
+
+    /**
+     * 定义按钮内容枚举类<br>
+     * 包括注册、重置密码<br>
+     */
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    public enum ButtonTexts {
+        REGISTER("注册"),
+        RETRIEVE("重置密码"),
+        CHANGE("重置密码");
+
+        private final String buttonText;
+
+        ButtonTexts(String buttonText) {
+            this.buttonText = buttonText;
+        }
+    }
 
     // 通过该回调函数监听返回键是否被点击
     // 被点击则结束此activity并返回main activity
@@ -70,7 +107,7 @@ public class SetPasswordActivity extends AppCompatActivity {
         if (actionBar != null) {
             // 设置返回键
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(title);
+            actionBar.setTitle(String.valueOf(title));
         }
 
         // 绑定按钮
@@ -82,9 +119,9 @@ public class SetPasswordActivity extends AppCompatActivity {
         // 设置第一步为被点击状态
         step1.setChecked(true);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // 先进行手机号验证，再重置密码
         // 把验证fragment添加到Activity中
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         verificationFragment = new VerificationFragment(this);
         transaction.add(R.id.retrieve_fragment_container, verificationFragment);
         // 把重置fragment添加到Activity中

@@ -1,6 +1,7 @@
 package edu.bupt.ticketextraction.tickets;
 
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -94,7 +95,7 @@ public class CabTicket extends AbstractTicket implements Serializable {
          * 通过定义的Builder创建一个CabTicket实例
          */
         @Override
-        public CabTicket create() {
+        public @NotNull CabTicket create() {
             return new CabTicket(walletName, sourceName, unitPrice, totalPrice, distance, date);
         }
     }
@@ -113,7 +114,7 @@ public class CabTicket extends AbstractTicket implements Serializable {
                       double totalPrice,
                       double distance,
                       String date) {
-        super(walletName, sourceName);
+        super(walletName, sourceName, "出租车发票");
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
         this.distance = distance;

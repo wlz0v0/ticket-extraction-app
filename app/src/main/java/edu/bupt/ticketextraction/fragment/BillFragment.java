@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
-import edu.bupt.ticketextraction.activity.WalletActivity;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;

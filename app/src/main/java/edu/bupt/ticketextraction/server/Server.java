@@ -59,4 +59,9 @@ public class Server {
     public static void callVerificationSending(String phoneNumber) {
 
     }
+
+    @Contract(pure = true)
+    public static void callCheckTicketValid() {
+
+    }
 }

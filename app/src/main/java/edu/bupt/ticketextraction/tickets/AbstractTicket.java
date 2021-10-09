@@ -14,19 +14,24 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractTicket {
     protected final String WALLET_NAME;
     protected final String SOURCE_NAME;
-
+    protected final String TICKET_TYPE;
 
     /**
      * @param walletName 钱包名
      * @param sourceName 资源文件名
+     * @param ticketType 发票类型
      */
-    protected AbstractTicket(@NotNull String walletName, @NotNull String sourceName) {
+    protected AbstractTicket(@NotNull String walletName, @NotNull String sourceName, @NotNull String ticketType) {
         this.WALLET_NAME = walletName;
+        this.TICKET_TYPE = ticketType;
         // 资源名只取文件名，不要目录名了
         int lastSlash = sourceName.lastIndexOf('/');
         this.SOURCE_NAME = sourceName.substring(lastSlash);
     }
 
+    /**
+     * 发票构造器抽象基类
+     */
     @SuppressWarnings("unused")
     public abstract static class Builder<T extends Builder<T>> {
         abstract AbstractTicket create();
