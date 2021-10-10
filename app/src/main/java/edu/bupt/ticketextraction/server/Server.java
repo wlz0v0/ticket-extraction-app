@@ -61,7 +61,17 @@ public class Server {
     }
 
     @Contract(pure = true)
-    public static void callCheckTicketValid() {
+    public static void generateExcel() {
+        //TODO 生成表格
+    }
 
+    @Contract(pure = true)
+    public static void sendEmail() {
+        //TODO 发送邮件
+    }
+
+    @Contract(pure = true)
+    public static void callCheckTicketValid() {
+        //TODO 验真
     }
 }
