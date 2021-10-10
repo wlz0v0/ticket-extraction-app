@@ -8,7 +8,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,7 +32,7 @@ import java.util.Map;
  *     version: 0.0.1
  * </pre>
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AutoPushPopActivity {
     // 用于创建FragmentTransaction，以展示fragment
     private FragmentManager fgMng;
 
@@ -142,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // 将MainActivity压入栈中
-        ActivityStack.getInstance().pushActivity(this);
 
         // 首先初始化所有static变量
         initStaticVars();

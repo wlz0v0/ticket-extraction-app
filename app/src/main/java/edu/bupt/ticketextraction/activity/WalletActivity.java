@@ -6,25 +6,22 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.tickets.CabTicket;
 import edu.bupt.ticketextraction.extraction.Ocr;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.fragment.SourceFragment;
+import edu.bupt.ticketextraction.tickets.CabTicket;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ import java.util.Iterator;
  *     version: 0.0.1
  * </pre>
  */
-public class WalletActivity extends AppCompatActivity {
+public class WalletActivity extends AutoPushPopActivity {
     private Wallet wallet;
     private final ArrayList<SourceFragment> sourceFragments = new ArrayList<>();
     private static final int START_CAMERA = 1;
@@ -53,27 +50,10 @@ public class WalletActivity extends AppCompatActivity {
         sourceFragments.remove(sourceFragment);
     }
 
-    // 通过该回调函数监听返回键是否被点击
-    // 被点击则结束此activity并返回main activity
-    // 等号右侧必须是android.R.id.home
-    // R.id.home会出现bug，可以运行但与getItemId()不相等
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            ActivityStack.getInstance().popActivity();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-
-        // 将WalletActivity压入栈中
-        ActivityStack.getInstance().pushActivity(this);
 
         wallet = (Wallet) getIntent().getSerializableExtra(WALLET_EXTRA);
 

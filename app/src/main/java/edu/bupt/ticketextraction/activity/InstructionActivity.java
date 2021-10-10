@@ -1,12 +1,9 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -17,28 +14,11 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class InstructionActivity extends AppCompatActivity {
-    // 通过该回调函数监听返回键是否被点击
-    // 被点击则结束此activity并返回main activity
-    // 等号右侧必须是android.R.id.home
-    // R.id.home会出现bug，可以运行但与getItemId()不相等
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            ActivityStack.getInstance().popActivity();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
+public class InstructionActivity extends AutoPushPopActivity {
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction);
-
-        // 将InstructionActivity压入栈中
-        ActivityStack.getInstance().pushActivity(this);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -53,4 +53,12 @@ public enum ActivityStack {
             activityStack.pop();
         }
     }
+
+    /**
+     * 结束栈顶Activity
+     */
+    public void finishActivity() {
+        activityStack.peek().finish();
+        activityStack.pop();
+    }
 }

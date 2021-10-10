@@ -2,14 +2,11 @@ package edu.bupt.ticketextraction.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.tickets.CabTicket;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -20,31 +17,14 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class TicketActivity extends AppCompatActivity {
+public class TicketActivity extends AutoPushPopActivity {
     public final static String TICKET_EXTRA = "ticket";
-
-    // 通过该回调函数监听返回键是否被点击
-    // 被点击则结束此activity并返回wallet activity
-    // 等号右侧必须是android.R.id.home
-    // R.id.home会出现bug，可以运行但与getItemId()不相等
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            ActivityStack.getInstance().popActivity();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
-
-        // 将TicketActivity压入栈中
-        ActivityStack.getInstance().pushActivity(this);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

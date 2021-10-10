@@ -4,14 +4,11 @@ package edu.bupt.ticketextraction.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -22,24 +19,9 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class AboutUsActivity extends AppCompatActivity {
+public class AboutUsActivity extends AutoPushPopActivity {
     // 配套网站地址
     private final String address = "https://www.baidu.com";
-
-    // 通过该回调函数监听返回键是否被点击
-    // 被点击则结束此activity并返回main activity
-    // 等号右侧必须是android.R.id.home
-    // R.id.home会出现bug，可以运行但与getItemId()不相等
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            // 结束Activity并弹出栈
-            ActivityStack.getInstance().popActivity();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void jumpFromAboutUsToTeam() {
         Intent intent = new Intent(AboutUsActivity.this, TeamActivity.class);

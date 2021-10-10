@@ -3,14 +3,12 @@ package edu.bupt.ticketextraction.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.server.Server;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AutoPushPopActivity {
     /**
      * true 展示登录后的个人信息 <br>
      * false 展示登录界面
@@ -55,28 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // 通过该回调函数监听返回键是否被点击
-    // 被点击则结束此activity并返回main activity
-    // 等号右侧必须是android.R.id.home
-    // R.id.home会出现bug，可以运行但与getItemId()不相等
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            ActivityStack.getInstance().popActivity();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         // 绑定编辑文本框
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // 将LoginActivity压入栈中
-        ActivityStack.getInstance().pushActivity(this);
 
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
@@ -120,8 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         getAlertDialog("登录成功",
                 (dialogInterface, i) -> {
                     // 结束Activity并弹出栈
-                    ActivityStack.getInstance().popActivity();
-                    finish();
+                    ActivityStack.getInstance().finishActivity();
                 })
                 .show();
     }

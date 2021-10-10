@@ -2,15 +2,12 @@ package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.email.Email;
 import org.jetbrains.annotations.NotNull;
@@ -27,33 +24,16 @@ import java.util.ArrayList;
  * </pre>
  */
 
-public class SendToEmailActivity extends AppCompatActivity {
+public class SendToEmailActivity extends AutoPushPopActivity {
     private String emailAddress;
 
     // checkBoxes用于发送email时确定哪些需要被发送
     public static ArrayList<CheckBox> checkBoxes;
 
-    // 通过该回调函数监听返回键是否被点击
-    // 被点击则结束此activity并返回main activity
-    // 等号右侧必须是android.R.id.home
-    // R.id.home会出现bug，可以运行但与getItemId()不相等
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            ActivityStack.getInstance().popActivity();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_to_email);
-
-        // 将SendToEmailActivity压入栈中
-        ActivityStack.getInstance().pushActivity(this);
 
         // 创建顶部导航栏
         ActionBar actionBar = getSupportActionBar();
