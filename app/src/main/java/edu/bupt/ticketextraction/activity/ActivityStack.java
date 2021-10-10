@@ -50,7 +50,7 @@ public enum ActivityStack {
     public void finishAllActivities() {
         while (!activityStack.empty()) {
             activityStack.peek().finish();
-            activityStack.pop();
+            this.popActivity();
         }
     }
 
@@ -59,6 +59,6 @@ public enum ActivityStack {
      */
     public void finishActivity() {
         activityStack.peek().finish();
-        activityStack.pop();
+        this.popActivity();
     }
 }
