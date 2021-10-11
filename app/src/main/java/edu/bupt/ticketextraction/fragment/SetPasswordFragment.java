@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.SetPasswordActivity;
-import edu.bupt.ticketextraction.server.Server;
+import edu.bupt.ticketextraction.utils.Server;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  *     version: 0.0.1
  * </pre>
  */
-public class SetPasswordFragment extends Fragment {
+public final class SetPasswordFragment extends Fragment {
     private TextView passwordWarning;
     private TextView rePasswordWarning;
     private EditText passwordEt;
@@ -42,12 +42,10 @@ public class SetPasswordFragment extends Fragment {
         this.fatherActivity = fatherActivity;
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set_password, container, false);
         // 绑定控件
         // 错误提醒文本框

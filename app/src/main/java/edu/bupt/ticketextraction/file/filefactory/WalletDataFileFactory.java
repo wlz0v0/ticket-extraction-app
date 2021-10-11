@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
  *     version: 0.0.1
  * </pre>
  */
-public class WalletDataFileFactory extends FileFactory {
+public final class WalletDataFileFactory extends FileFactory {
     // 发票数据文件目录
     private final String DATA_DIRECTORY;
     // 发票数据文件前缀

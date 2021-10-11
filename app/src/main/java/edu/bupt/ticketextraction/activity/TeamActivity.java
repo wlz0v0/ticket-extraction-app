@@ -14,7 +14,7 @@ import edu.bupt.ticketextraction.R;
  *     version: 0.0.1
  * </pre>
  */
-public class TeamActivity extends AutoPushPopActivity {
+public final class TeamActivity extends AutoPushPopActivity {
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

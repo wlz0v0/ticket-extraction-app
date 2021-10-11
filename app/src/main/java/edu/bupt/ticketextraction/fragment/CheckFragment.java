@@ -20,19 +20,17 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class CheckFragment extends Fragment {
+public final class CheckFragment extends Fragment {
     private final String content;
 
     public CheckFragment(String content) {
         this.content = content;
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check, container, false);
         TextView txtContent = view.findViewById(R.id.txt_content);
         txtContent.setText(content);

@@ -1,7 +1,8 @@
 package edu.bupt.ticketextraction.wallet;
 
-import edu.bupt.ticketextraction.tickets.CabTicket;
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
+import edu.bupt.ticketextraction.tickets.CabTicket;
+import edu.bupt.ticketextraction.utils.Writable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  *     version: 0.0.1
  * </pre>
  */
-public class Wallet implements Serializable {
+public class Wallet implements Serializable, Writable {
     // 钱包名
     private final String walletName;
 
@@ -95,7 +96,8 @@ public class Wallet implements Serializable {
      * 将钱包中的所有发票信息写入数据文件
      * 包内访问权限
      */
-    protected void writeToData() {
+    @Override
+    public void writeToData() {
         // 先清空数据文件
         FileOutputStream outputStream = new WalletDataFileFactory(walletName).createFile();
         try {

@@ -24,7 +24,7 @@ import java.io.Serializable;
  *     version: 0.0.1
  * </pre>
  */
-public class SetPasswordActivity extends AutoPushPopActivity {
+public final class SetPasswordActivity extends AutoPushPopActivity {
     private Fragment verificationFragment;
     private Fragment resetFragment;
     private RadioButton step1;

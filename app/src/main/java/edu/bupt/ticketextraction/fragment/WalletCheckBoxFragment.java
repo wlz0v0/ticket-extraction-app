@@ -26,7 +26,7 @@ import java.util.HashMap;
  *     version:
  * </pre>
  */
-public class WalletCheckBoxFragment extends Fragment {
+public final class WalletCheckBoxFragment extends Fragment {
     private CheckBox checkBox;
     private final String walletName;
     private final MainActivity fatherActivity;
@@ -39,12 +39,10 @@ public class WalletCheckBoxFragment extends Fragment {
         this.fatherActivity = fatherActivity;
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_check_box, container, false);
         // 绑定新建的check box
         checkBox = view.findViewById(R.id.wallet_check_box);

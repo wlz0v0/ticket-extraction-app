@@ -23,19 +23,17 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class SettingFragment extends Fragment {
+public final class SettingFragment extends Fragment {
     private final MainActivity fatherActivity;
 
     public SettingFragment(MainActivity fatherActivity) {
         this.fatherActivity = fatherActivity;
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         // 从设置跳转到用户管理

@@ -11,7 +11,7 @@ import java.io.File;
  *     version: 0.0.1
  * </pre>
  */
-public class VideoFileFactory extends FileFactory {
+public final class VideoFileFactory extends FileFactory {
     // 视频目录
     private final String VIDEO_DIRECTORY;
     // 视频前缀

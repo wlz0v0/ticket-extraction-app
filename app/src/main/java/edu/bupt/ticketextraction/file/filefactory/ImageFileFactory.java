@@ -11,7 +11,7 @@ import java.io.File;
  *     version: 0.0.1
  * </pre>
  */
-public class ImageFileFactory extends FileFactory {
+public final class ImageFileFactory extends FileFactory {
     // 图像目录
     private final String IMAGE_DIRECTORY;
     // 图像前缀

@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
  * </pre>
  */
 @SuppressWarnings({"Unus", "unused"})
-public class CabTicket extends AbstractTicket {
+public final class CabTicket extends AbstractTicket {
     private Double unitPrice;
     private Double totalPrice;
     private Double distance;

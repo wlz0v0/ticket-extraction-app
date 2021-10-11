@@ -11,7 +11,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.utils.ActivityStack;
-import edu.bupt.ticketextraction.server.Server;
+import edu.bupt.ticketextraction.utils.Server;
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -17,7 +17,7 @@ import edu.bupt.ticketextraction.tickets.CabTicket;
  *     version: 0.0.1
  * </pre>
  */
-public class TicketActivity extends AutoPushPopActivity {
+public final class TicketActivity extends AutoPushPopActivity {
     public final static String TICKET_EXTRA = "ticket";
 
     @SuppressLint("SetTextI18n")

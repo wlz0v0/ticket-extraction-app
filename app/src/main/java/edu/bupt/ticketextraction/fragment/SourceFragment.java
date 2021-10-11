@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class SourceFragment extends Fragment {
+public final class SourceFragment extends Fragment {
     // 资源文件是图片还是视频
     // private final boolean isImage;
     // 对应发票
@@ -45,12 +45,10 @@ public class SourceFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_source, container, false);
         // 设置包含文本框的RelativeLayout为可点击
         // 把这个东西当做按钮

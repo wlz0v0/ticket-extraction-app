@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * </pre>
  */
 
-public class SendToEmailActivity extends AutoPushPopActivity {
+public final class SendToEmailActivity extends AutoPushPopActivity {
     private String emailAddress;
 
     // checkBoxes用于发送email时确定哪些需要被发送

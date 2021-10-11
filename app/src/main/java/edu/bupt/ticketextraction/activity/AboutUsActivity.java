@@ -19,7 +19,7 @@ import edu.bupt.ticketextraction.R;
  *     version: 0.0.1
  * </pre>
  */
-public class AboutUsActivity extends AutoPushPopActivity {
+public final class AboutUsActivity extends AutoPushPopActivity {
     // 配套网站地址
     private final String address = "https://www.baidu.com";
 

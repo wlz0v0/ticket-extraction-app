@@ -32,7 +32,7 @@ import java.util.Map;
  *     version: 0.0.1
  * </pre>
  */
-public class MainActivity extends AutoPushPopActivity {
+public final class MainActivity extends AutoPushPopActivity {
     // 用于创建FragmentTransaction，以展示fragment
     private FragmentManager fgMng;
 

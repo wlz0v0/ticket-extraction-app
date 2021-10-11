@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.SetPasswordActivity;
-import edu.bupt.ticketextraction.server.Server;
+import edu.bupt.ticketextraction.utils.Server;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
@@ -26,7 +26,7 @@ import java.text.MessageFormat;
  *     version: 0.0.1
  * </pre>
  */
-public class VerificationFragment extends Fragment {
+public final class VerificationFragment extends Fragment {
     private EditText phoneNumberEt;
     private EditText verificationCodeEt;
     private Button getVerificationBtn;
@@ -36,12 +36,10 @@ public class VerificationFragment extends Fragment {
         this.fatherActivity = fatherActivity;
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_verification, container, false);
         // 绑定所有控件
         phoneNumberEt = view.findViewById(R.id.retrieve_account);

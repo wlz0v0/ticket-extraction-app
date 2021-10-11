@@ -18,7 +18,7 @@ import edu.bupt.ticketextraction.utils.ActivityStack;
  *     version: 0.0.1
  * </pre>
  */
-public class PersonInfoActivity extends AutoPushPopActivity {
+public final class PersonInfoActivity extends AutoPushPopActivity {
     /**
      * 跳转到ChangePasswordActivity
      */

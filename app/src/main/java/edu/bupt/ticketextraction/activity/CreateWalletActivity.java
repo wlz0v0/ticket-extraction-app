@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class CreateWalletActivity extends AutoPushPopActivity {
+public final class CreateWalletActivity extends AutoPushPopActivity {
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

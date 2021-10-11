@@ -15,11 +15,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.extraction.Ocr;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.fragment.SourceFragment;
 import edu.bupt.ticketextraction.tickets.CabTicket;
+import edu.bupt.ticketextraction.utils.Ocr;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 
@@ -36,7 +36,7 @@ import java.util.Iterator;
  *     version: 0.0.1
  * </pre>
  */
-public class WalletActivity extends AutoPushPopActivity {
+public final class WalletActivity extends AutoPushPopActivity {
     private Wallet wallet;
     private final ArrayList<SourceFragment> sourceFragments = new ArrayList<>();
     private static final int START_CAMERA = 1;
@@ -144,10 +144,7 @@ public class WalletActivity extends AutoPushPopActivity {
     }
 
     private void extractTicket(File file) {
-        CabTicket ticket = Ocr.getInstance().callOcr(file, wallet.getWalletName());
-        // 识别完直接删除
-        //noinspection ResultOfMethodCallIgnored
-        file.delete();
+        CabTicket ticket = Ocr.extract(file, wallet.getWalletName());
         // 将获取的信息添加到钱包中以展示
         wallet.addTicket(ticket);
     }

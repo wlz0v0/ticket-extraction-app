@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.server;
+package edu.bupt.ticketextraction.utils;
 
 import org.jetbrains.annotations.Contract;
 
@@ -7,12 +7,12 @@ import org.jetbrains.annotations.Contract;
  *     author : 武连增
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2021/10/07
- *     desc   : 本类用于调用服务端API
+ *     desc   : Server工具类，用于调用服务端API，不可实例化
  *     version: 0.0.1
  * </pre>
  */
 @SuppressWarnings("unused")
-public class Server {
+public final class Server {
     /**
      * 调用登录服务
      *
@@ -73,5 +73,19 @@ public class Server {
     @Contract(pure = true)
     public static void callCheckTicketValid() {
         //TODO 验真
+    }
+
+    @Contract(pure = true)
+    public static void callOcr() {
+        //TODO 识别
+    }
+
+    /**
+     * Server工具类，请不要实例化此类！
+     *
+     * @throws InstantiationException 实例化异常，因为该类不可实例化
+     */
+    private Server() throws InstantiationException{
+        throw new InstantiationException();
     }
 }

@@ -29,7 +29,7 @@ import java.io.File;
  *     version: 0.0.1
  * </pre>
  */
-public class WalletButtonFragment extends Fragment {
+public final class WalletButtonFragment extends Fragment {
     private String walletName;
     private final MainActivity fatherActivity;
 
@@ -38,12 +38,10 @@ public class WalletButtonFragment extends Fragment {
         this.fatherActivity = fatherActivity;
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
+                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_button, container, false);
         Button walletBtn = view.findViewById(R.id.wallet_btn);
         // 设置点击监听器

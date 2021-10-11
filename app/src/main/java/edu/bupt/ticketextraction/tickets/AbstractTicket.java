@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.tickets;
 
+import edu.bupt.ticketextraction.utils.Writable;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.io.Serializable;
  *     version: 0.0.1
  * </pre>
  */
-public abstract class AbstractTicket implements Serializable {
+public abstract class AbstractTicket implements Serializable, Writable {
     protected final String WALLET_NAME;
     protected final String SOURCE_NAME;
     protected final String TICKET_TYPE;
@@ -39,6 +40,4 @@ public abstract class AbstractTicket implements Serializable {
     public abstract static class Builder<T extends Builder<T>> {
         abstract AbstractTicket create();
     }
-
-    protected abstract void writeToData();
 }
