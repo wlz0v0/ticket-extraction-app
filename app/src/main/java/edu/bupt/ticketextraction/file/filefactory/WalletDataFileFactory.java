@@ -48,6 +48,11 @@ public class WalletDataFileFactory extends FileFactory {
         return getOutDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX, true);
     }
 
+    /**
+     * 根据钱包名创建文件读入流
+     *
+     * @return 钱包数据文件读入流
+     */
     public FileInputStream getInputStream() {
         return getInDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX);
     }

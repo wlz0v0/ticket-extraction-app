@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import edu.bupt.ticketextraction.utils.ActivityStack;
 import org.jetbrains.annotations.NotNull;
 
 /**

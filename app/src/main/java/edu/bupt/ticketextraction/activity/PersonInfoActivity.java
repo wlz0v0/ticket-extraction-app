@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.utils.ActivityStack;
 
 /**
  * <pre>

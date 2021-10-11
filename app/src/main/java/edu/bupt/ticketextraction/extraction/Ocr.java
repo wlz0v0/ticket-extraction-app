@@ -29,7 +29,7 @@ public enum Ocr {
      * @param walletName 资源文件所在钱包名
      * @return 识别得到的发票信息
      */
-    public CabTicket callOcr(@NotNull File sourceFile, String walletName) {
+    public @NotNull CabTicket callOcr(@NotNull File sourceFile, String walletName) {
         CabTicket.Builder builder = new CabTicket.Builder(walletName, sourceFile.getAbsolutePath());
         builder.setUnitPrice(3.0).
                 setTotalPrice(11.0).

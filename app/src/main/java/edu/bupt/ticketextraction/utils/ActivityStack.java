@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.activity;
+package edu.bupt.ticketextraction.utils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
