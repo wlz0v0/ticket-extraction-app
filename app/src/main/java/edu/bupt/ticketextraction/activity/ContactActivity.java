@@ -25,8 +25,10 @@ public final class ContactActivity extends AutoPushPopActivity {
         String name = intent.getStringExtra("name");
         String email = intent.getStringExtra("email");
 
+        // 绑定文本框
         TextView nameTextView = findViewById(R.id.contact_name);
         TextView emailTextView = findViewById(R.id.contact_email);
+        // 设置文本内容
         nameTextView.setText(name);
         emailTextView.setText(email);
     }

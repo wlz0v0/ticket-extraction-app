@@ -4,27 +4,57 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp">
 
-        <TextView android:layout_width="match_parent" android:layout_height="80dp"/>
+        <TextView
+                android:background="@drawable/setting_button_bkg"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="@string/name"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"/>
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:id="@+id/contact_name"
-                android:text=""/>
+                android:text=""
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_marginStart="100dp"/>
 
     </RelativeLayout>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
 
-        <TextView android:layout_width="match_parent" android:layout_height="80dp"/>
+        <TextView
+                android:background="@drawable/setting_button_bkg"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="@string/email"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"/>
 
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:id="@+id/contact_email"
-                android:text=""/>
+                android:text=""
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_marginStart="100dp"/>
 
     </RelativeLayout>
 
