@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public class LoginActivity extends AutoPushPopActivity {
+public final class LoginActivity extends AutoPushPopActivity {
     /**
      * true 展示登录后的个人信息 <br>
      * false 展示登录界面
@@ -66,7 +66,7 @@ public class LoginActivity extends AutoPushPopActivity {
             // 设置返回键
             actionBar.setDisplayHomeAsUpEnabled(true);
             // 设置标题
-            actionBar.setTitle("个人信息");
+            actionBar.setTitle("登录");
         }
         EditText accountEt = findViewById(R.id.account);
         EditText passwordEt = findViewById(R.id.password);
@@ -87,8 +87,8 @@ public class LoginActivity extends AutoPushPopActivity {
             // 获取输入的账号和密码
             String account = accountEt.getText().toString();
             String password = passwordEt.getText().toString();
-            int loginRet;
-            if ((loginRet = Server.callLogin(account, password)) == 1) {
+            int loginRet = Server.callLogin(account, password);
+            if (loginRet == 1) {
                 loginSuccessful();
             } else {
                 loginFailed(loginRet);

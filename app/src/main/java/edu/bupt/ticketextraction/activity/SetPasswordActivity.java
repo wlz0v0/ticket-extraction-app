@@ -33,7 +33,7 @@ public final class SetPasswordActivity extends AutoPushPopActivity {
     public final static String TITLE_EXTRA = "title";
     public final static String BUTTON_TEXT_EXTRA = "button_text";
     // 要显示的标题：注册账号、找回密码、修改密码
-    public Titles title;
+    public Titles activityTitle;
     // 按钮显示的文本：注册、重置密码
     public ButtonTexts setPasswordButtonText;
 
@@ -53,6 +53,14 @@ public final class SetPasswordActivity extends AutoPushPopActivity {
         Titles(String title) {
             this.title = title;
         }
+
+        /**
+         * @return 该枚举对应文本
+         */
+        @Override
+        public String toString() {
+            return title;
+        }
     }
 
     /**
@@ -70,6 +78,14 @@ public final class SetPasswordActivity extends AutoPushPopActivity {
 
         ButtonTexts(String buttonText) {
             this.buttonText = buttonText;
+        }
+
+        /**
+         * @return 该枚举对应文本
+         */
+        @Override
+        public String toString() {
+            return buttonText;
         }
     }
 
@@ -93,18 +109,18 @@ public final class SetPasswordActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_password);
 
+        // 获取AccountActivity传入变量
+        Intent intent = getIntent();
+        activityTitle = (Titles) intent.getSerializableExtra(TITLE_EXTRA);
+        setPasswordButtonText = (ButtonTexts) intent.getSerializableExtra(BUTTON_TEXT_EXTRA);
+
         // 创建顶部导航栏
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
             // 设置返回键
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(String.valueOf(title));
+            actionBar.setTitle(String.valueOf(activityTitle.toString()));
         }
-
-        // 获取AccountActivity传入变量
-        Intent intent = getIntent();
-        title = (Titles) intent.getSerializableExtra(TITLE_EXTRA);
-        setPasswordButtonText = (ButtonTexts) intent.getSerializableExtra(BUTTON_TEXT_EXTRA);
 
         // 绑定按钮
         step1 = findViewById(R.id.step1_radio_button);

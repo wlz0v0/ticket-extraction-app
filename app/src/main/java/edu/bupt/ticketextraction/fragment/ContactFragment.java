@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.PersonInfoActivity;
+import edu.bupt.ticketextraction.data.Contact;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -25,14 +26,11 @@ public final class ContactFragment extends Fragment {
     // 父Activity
     private final PersonInfoActivity fatherActivity;
     // 联系人姓名
-    private final String contactName;
-    // 联系人邮箱
-    private final String contactEmail;
+    private final Contact contact;
 
-    public ContactFragment(PersonInfoActivity fatherActivity, String contactName, String contactEmail) {
+    public ContactFragment(PersonInfoActivity fatherActivity, Contact contact) {
         this.fatherActivity = fatherActivity;
-        this.contactName = contactName;
-        this.contactEmail = contactEmail;
+        this.contact = contact;
     }
 
     @Override
@@ -42,9 +40,9 @@ public final class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         Button contactBtn = view.findViewById(R.id.contact_button);
         // 设置联系人姓名
-        contactBtn.setText(contactName);
+        contactBtn.setText(contact.name);
         // 设置点击跳转
-        contactBtn.setOnClickListener(view1 -> fatherActivity.jumpFromPersonInfoToContact(contactName, contactEmail));
+        contactBtn.setOnClickListener(view1 -> fatherActivity.jumpFromPersonInfoToContact(contact));
         return view;
     }
 }

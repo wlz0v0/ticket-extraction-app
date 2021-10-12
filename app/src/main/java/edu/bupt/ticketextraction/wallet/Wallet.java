@@ -1,7 +1,7 @@
 package edu.bupt.ticketextraction.wallet;
 
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
-import edu.bupt.ticketextraction.tickets.CabTicket;
+import edu.bupt.ticketextraction.data.tickets.CabTicket;
 import edu.bupt.ticketextraction.utils.Writable;
 
 import java.io.*;

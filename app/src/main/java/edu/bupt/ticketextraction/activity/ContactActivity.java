@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.data.Contact;
 
 /**
  * <pre>
@@ -16,20 +18,33 @@ import edu.bupt.ticketextraction.R;
  * </pre>
  */
 public final class ContactActivity extends AutoPushPopActivity {
+    public final static String CONTACT = "contact";
+
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         Intent intent = getIntent();
-        // 获取传入的姓名和邮箱
-        String name = intent.getStringExtra("name");
-        String email = intent.getStringExtra("email");
+        // 获取传入的联系人
+        Contact contact = (Contact) intent.getSerializableExtra(CONTACT);
+        // contact不应该为空
+        assert contact != null;
+
+        // 创建顶部导航栏
+        ActionBar actionBar = this.getSupportActionBar();
+        if (actionBar != null) {
+            // 设置返回键
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            // 设置标题
+
+            actionBar.setTitle(contact.name);
+        }
 
         // 绑定文本框
         TextView nameTextView = findViewById(R.id.contact_name);
         TextView emailTextView = findViewById(R.id.contact_email);
         // 设置文本内容
-        nameTextView.setText(name);
-        emailTextView.setText(email);
+        nameTextView.setText(contact.name);
+        emailTextView.setText(contact.email);
     }
 }

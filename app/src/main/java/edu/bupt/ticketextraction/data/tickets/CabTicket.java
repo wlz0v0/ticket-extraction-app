@@ -1,4 +1,4 @@
-package edu.bupt.ticketextraction.tickets;
+package edu.bupt.ticketextraction.data.tickets;
 
 import edu.bupt.ticketextraction.file.filefactory.WalletDataFileFactory;
 import org.jetbrains.annotations.NotNull;

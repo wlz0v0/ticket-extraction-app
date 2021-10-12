@@ -18,7 +18,7 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.fragment.SourceFragment;
-import edu.bupt.ticketextraction.tickets.CabTicket;
+import edu.bupt.ticketextraction.data.tickets.CabTicket;
 import edu.bupt.ticketextraction.utils.Ocr;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;

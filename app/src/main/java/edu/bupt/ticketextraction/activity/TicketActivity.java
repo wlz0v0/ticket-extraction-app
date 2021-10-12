@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.tickets.CabTicket;
+import edu.bupt.ticketextraction.data.tickets.CabTicket;
 
 /**
  * <pre>

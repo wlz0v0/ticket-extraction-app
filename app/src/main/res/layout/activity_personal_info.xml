@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:max_height="250dp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:layout_marginBottom="30dp">
         <!--  250dp = 3*联系人 + 我的联系人 + 新增联系人-->
         <LinearLayout
                 android:layout_width="match_parent"
@@ -23,21 +24,28 @@
                 android:orientation="vertical">
 
             <!--  我的联系人  -->
-            <Button
+            <TextView
                     style="@style/person_info_button"
-                    android:id="@+id/my_contacts_button"
-                    android:text="@string/my_contacts"/>
+                    android:id="@+id/my_contacts"
+                    android:text="@string/my_contacts"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"/>
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:id="@+id/contact_fragment_container"
-                          android:orientation="vertical"
-            />
+                          android:orientation="vertical"/>
 
             <Button
                     style="@style/person_info_button"
                     android:id="@+id/add_contact_button"
-                    android:text="@string/add_contact"/>
+                    android:drawableStart="@drawable/add_circle_outline_black"
+                    android:drawablePadding="10dp"
+                    android:textStyle=""
+                    android:text="@string/add_contact"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"/>
 
         </LinearLayout>
 

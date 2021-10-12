@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.data.Contact;
 import edu.bupt.ticketextraction.fragment.ContactFragment;
 import edu.bupt.ticketextraction.utils.ActivityStack;
 
@@ -29,13 +30,11 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
     /**
      * 跳转到ContactActivity
      *
-     * @param name 联系人姓名
-     * @param email 联系人邮箱
+     * @param contact 联系人
      */
-    public void jumpFromPersonInfoToContact(String name, String email) {
+    public void jumpFromPersonInfoToContact(Contact contact) {
         Intent intent = new Intent(this, ContactActivity.class);
-        intent.putExtra("name", name);
-        intent.putExtra("email", email);
+        intent.putExtra(ContactActivity.CONTACT, contact);
         startActivity(intent);
     }
 
@@ -74,6 +73,8 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
         }
 
         //TODO 创建ContactFragment
+        ContactFragment fragment = new ContactFragment(this, new Contact("wlz", "1228393790@qq.com"));
+        fragments.add(fragment);
 
         // 添加联系人
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -83,13 +84,10 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
         transaction.commitAllowingStateLoss();
 
         // 绑定控件
-        Button myContactsBtn = findViewById(R.id.my_contacts_button);
         Button changePasswordBtn = findViewById(R.id.change_password_button);
         Button changeAccountBtn = findViewById(R.id.change_account_button);
         Button logoffBtn = findViewById(R.id.logoff_button);
         Button exitBtn = findViewById(R.id.exit_button);
-        // 我的联系人不需要点击，只是为了样式一样设置为按钮
-        myContactsBtn.setClickable(false);
         // 设置点击监听器
         changePasswordBtn.setOnClickListener(view1 -> jumpFromPersonInfoToChangePassword());
         changeAccountBtn.setOnClickListener(this::changeAccountOnClickListenerCallback);

@@ -57,7 +57,7 @@ public final class SetPasswordFragment extends Fragment {
         // 设置按钮点击监听器
         Button setPasswordBtn = view.findViewById(R.id.set_password_button);
         // 根据当前修改密码的类型来设置按钮文字提示
-        setPasswordBtn.setText(String.valueOf(fatherActivity.setPasswordButtonText));
+        setPasswordBtn.setText(String.valueOf(fatherActivity.setPasswordButtonText.toString()));
         setPasswordBtn.setOnClickListener(view1 -> {
             if (isValid()) {
                 boolean isSuccess = Server.callRegister(
