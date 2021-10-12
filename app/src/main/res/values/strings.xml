@@ -53,4 +53,5 @@
     <string name="change_account">切换账号</string>
     <string name="logoff">注销</string>
     <string name="exit">退出</string>
+    <string name="add_contact">新增联系人</string>
 </resources>

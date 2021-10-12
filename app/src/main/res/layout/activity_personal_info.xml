@@ -14,13 +14,12 @@
     <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:max_height="150dp"
+            app:max_height="250dp"
             android:background="@color/white">
-
+        <!--  250dp = 3*联系人 + 我的联系人 + 新增联系人-->
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/contact_fragment_container"
                 android:orientation="vertical">
 
             <!--  我的联系人  -->
@@ -28,6 +27,17 @@
                     style="@style/person_info_button"
                     android:id="@+id/my_contacts_button"
                     android:text="@string/my_contacts"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/contact_fragment_container"
+                          android:orientation="vertical"
+            />
+
+            <Button
+                    style="@style/person_info_button"
+                    android:id="@+id/add_contact_button"
+                    android:text="@string/add_contact"/>
 
         </LinearLayout>
 

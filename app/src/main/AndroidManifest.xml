@@ -39,6 +39,7 @@
         <activity android:name=".activity.SetPasswordActivity"/>
         <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.PersonInfoActivity"/>
+        <activity android:name=".activity.ContactActivity"/>
         <provider android:authorities="edu.bupt.ticketextraction.FileProvider"
                   android:name="androidx.core.content.FileProvider"
                   android:exported="false"

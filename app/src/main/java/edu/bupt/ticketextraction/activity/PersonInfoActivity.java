@@ -6,8 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.fragment.ContactFragment;
 import edu.bupt.ticketextraction.utils.ActivityStack;
+
+import java.util.ArrayList;
 
 /**
  * <pre>
@@ -19,6 +24,21 @@ import edu.bupt.ticketextraction.utils.ActivityStack;
  * </pre>
  */
 public final class PersonInfoActivity extends AutoPushPopActivity {
+    private final ArrayList<ContactFragment> fragments = new ArrayList<>();
+
+    /**
+     * 跳转到ContactActivity
+     *
+     * @param name 联系人姓名
+     * @param email 联系人邮箱
+     */
+    public void jumpFromPersonInfoToContact(String name, String email) {
+        Intent intent = new Intent(this, ContactActivity.class);
+        intent.putExtra("name", name);
+        intent.putExtra("email", email);
+        startActivity(intent);
+    }
+
     /**
      * 跳转到ChangePasswordActivity
      */
@@ -52,6 +72,15 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
             // 设置标题
             actionBar.setTitle("个人信息");
         }
+
+        //TODO 创建ContactFragment
+
+        // 添加联系人
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        for (Fragment fg : fragments) {
+            transaction.add(R.id.contact_fragment_container, fg);
+        }
+        transaction.commitAllowingStateLoss();
 
         // 绑定控件
         Button myContactsBtn = findViewById(R.id.my_contacts_button);
