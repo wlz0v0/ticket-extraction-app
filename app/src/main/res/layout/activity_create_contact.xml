@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 本layout被CreateContactActivity和ChangeContactActivity共用！ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="80dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/name"
+                android:gravity="center_vertical"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+        <EditText
+                style="@style/login_edit_text_style"
+                android:layout_height="70dp"
+                android:id="@+id/create_contact_name_et"
+                android:autofillHints="@string/input_name"
+                android:inputType="textPassword"
+                android:hint="@string/input_name"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="22sp"
+                android:paddingStart="80dp"
+                android:paddingEnd="80dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/email"
+                android:gravity="center_vertical"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+        <EditText
+                style="@style/login_edit_text_style"
+                android:layout_height="70dp"
+                android:id="@+id/create_contact_email_et"
+                android:inputType="textEmailAddress"
+                android:autofillHints="@string/input_email"
+                android:hint="@string/input_email"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="22sp"
+                android:paddingStart="80dp"
+                android:paddingEnd="80dp"/>
+
+    </RelativeLayout>
+
+    <Button
+            style="@style/normal_button_style"
+            android:id="@+id/create_contact_button"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text=""
+            android:textSize="23sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:gravity="center"/>
+
+</LinearLayout>

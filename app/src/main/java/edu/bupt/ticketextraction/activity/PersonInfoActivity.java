@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
@@ -63,14 +62,8 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
 
-        // 创建顶部导航栏
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            // 设置返回键
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            // 设置标题
-            actionBar.setTitle("个人信息");
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "个人信息");
 
         //TODO 创建ContactFragment
         ContactFragment fragment = new ContactFragment(this, new Contact("wlz", "1228393790@qq.com"));

@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.email.Email;
@@ -35,13 +34,8 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_to_email);
 
-        // 创建顶部导航栏
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // 设置返回键
-            actionBar.setTitle("发送到邮箱");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "发送到邮件");
 
         EditText emailEt = findViewById(R.id.email_address_et);
 

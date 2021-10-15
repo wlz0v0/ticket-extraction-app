@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
@@ -114,13 +113,8 @@ public final class SetPasswordActivity extends AutoPushPopActivity {
         activityTitle = (Titles) intent.getSerializableExtra(TITLE_EXTRA);
         setPasswordButtonText = (ButtonTexts) intent.getSerializableExtra(BUTTON_TEXT_EXTRA);
 
-        // 创建顶部导航栏
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            // 设置返回键
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(String.valueOf(activityTitle.toString()));
-        }
+        // 设置ActionBar
+        super.setActionBar(this, String.valueOf(activityTitle.toString()));
 
         // 绑定按钮
         step1 = findViewById(R.id.step1_radio_button);

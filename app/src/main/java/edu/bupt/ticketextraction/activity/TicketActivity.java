@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.data.tickets.CabTicket;
 
@@ -26,11 +25,8 @@ public final class TicketActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("发票信息");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "发票信息");
 
         // 获取对应ticket
         CabTicket ticket = (CabTicket) getIntent().getSerializableExtra(TICKET_EXTRA);

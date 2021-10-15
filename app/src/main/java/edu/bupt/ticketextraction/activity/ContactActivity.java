@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.data.Contact;
 
@@ -31,15 +30,8 @@ public final class ContactActivity extends AutoPushPopActivity {
         // contact不应该为空
         assert contact != null;
 
-        // 创建顶部导航栏
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            // 设置返回键
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            // 设置标题
-
-            actionBar.setTitle(contact.name);
-        }
+        // 设置ActionBar
+        super.setActionBar(this, contact.name);
 
         // 绑定文本框
         TextView nameTextView = findViewById(R.id.contact_name);

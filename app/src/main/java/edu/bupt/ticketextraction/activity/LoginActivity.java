@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.utils.ActivityStack;
@@ -60,14 +59,8 @@ public final class LoginActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 创建顶部导航栏
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            // 设置返回键
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            // 设置标题
-            actionBar.setTitle("登录");
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "登录");
         EditText accountEt = findViewById(R.id.account);
         EditText passwordEt = findViewById(R.id.password);
 

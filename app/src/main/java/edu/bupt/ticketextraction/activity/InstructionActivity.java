@@ -2,7 +2,6 @@ package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
 
 /**
@@ -20,10 +19,7 @@ public final class InstructionActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("使用说明");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "使用说明");
     }
 }

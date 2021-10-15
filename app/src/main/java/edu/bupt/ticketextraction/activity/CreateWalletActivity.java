@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.utils.ActivityStack;
@@ -27,13 +26,8 @@ public final class CreateWalletActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_wallet);
 
-        ActionBar actionBar = this.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("创建钱包");
-            // 设置返回键
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+        // 设置ActionBar
+        super.setActionBar(this, "创建钱包");
 
         EditText walletNameEt = findViewById(R.id.wallet_name_et);
 

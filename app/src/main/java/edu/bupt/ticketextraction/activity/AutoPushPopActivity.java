@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.utils.ActivityStack;
 import org.jetbrains.annotations.NotNull;
@@ -57,5 +58,21 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // 将自身压入栈中
         ActivityStack.getInstance().pushActivity(this);
+    }
+
+    /**
+     * 本函数用于设置Activity的返回键和标题
+     *
+     * @param activity 要设置的Activity，在相应的Activity中传this就行
+     * @param title Activity标题
+     */
+    protected void setActionBar(@NotNull AutoPushPopActivity activity, String title) {
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            // 设置标题
+            actionBar.setTitle(title);
+            // 设置返回键
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 }

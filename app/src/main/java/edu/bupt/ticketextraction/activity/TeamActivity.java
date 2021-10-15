@@ -2,7 +2,6 @@ package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
 
 /**
@@ -20,10 +19,7 @@ public final class TeamActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("团队介绍");
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "团队介绍");
     }
 }

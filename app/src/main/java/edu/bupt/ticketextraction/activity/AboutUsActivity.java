@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import edu.bupt.ticketextraction.R;
 
 /**
@@ -33,11 +32,8 @@ public final class AboutUsActivity extends AutoPushPopActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("关于");
-        }
+        // 设置ActionBar
+        super.setActionBar(this, "关于");
 
         TextView textView = findViewById(R.id.version_textview);
         // 当前版本

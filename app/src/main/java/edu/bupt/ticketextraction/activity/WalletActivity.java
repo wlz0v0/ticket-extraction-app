@@ -9,16 +9,15 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.data.tickets.CabTicket;
 import edu.bupt.ticketextraction.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.fragment.SourceFragment;
-import edu.bupt.ticketextraction.data.tickets.CabTicket;
 import edu.bupt.ticketextraction.utils.Ocr;
 import edu.bupt.ticketextraction.wallet.Wallet;
 import edu.bupt.ticketextraction.wallet.WalletManager;
@@ -57,11 +56,9 @@ public final class WalletActivity extends AutoPushPopActivity {
 
         wallet = (Wallet) getIntent().getSerializableExtra(WALLET_EXTRA);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(wallet.getWalletName());
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        // 设置ActionBar
+        assert wallet != null;
+        super.setActionBar(this, wallet.getWalletName());
 
         Button shootBtn = findViewById(R.id.camera_shoot_btn);
         shootBtn.setOnClickListener(this::shootBtnOnClickCallback);
