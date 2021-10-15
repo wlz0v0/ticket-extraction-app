@@ -1,6 +1,11 @@
 package edu.bupt.ticketextraction.utils;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <pre>
@@ -22,6 +27,8 @@ public final class Server {
      */
     @Contract(pure = true)
     public static int callLogin(String phoneNumber, String password) {
+        // 加密密码
+        String cipherText = Server.passwordEncrypt(password);
         return 1;
     }
 
@@ -35,6 +42,8 @@ public final class Server {
      */
     @Contract(pure = true)
     public static boolean callRegister(String phoneNumber, String password, String verificationCode) {
+        // 加密密码
+        String cipherText = Server.passwordEncrypt(password);
         return true;
     }
 
@@ -85,7 +94,26 @@ public final class Server {
      *
      * @throws InstantiationException 实例化异常，因为该类不可实例化
      */
-    private Server() throws InstantiationException{
+    private Server() throws InstantiationException {
         throw new InstantiationException();
+    }
+
+    /**
+     * 获得加密后的密码
+     *
+     * @param plainText 明文
+     * @return 密文
+     */
+    private static @NotNull String passwordEncrypt(@NotNull String plainText) {
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("sha");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // messageDigest必不为空，因为输入的算法一定是正确的
+        assert messageDigest != null;
+        messageDigest.update(plainText.getBytes());
+        return new BigInteger(messageDigest.digest()).toString(32);
     }
 }
