@@ -48,7 +48,7 @@
 
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:id="@+id/contact_email"
                 android:text=""
                 android:textSize="22sp"
@@ -57,5 +57,15 @@
                 android:layout_marginStart="100dp"/>
 
     </RelativeLayout>
+
+    <Button
+            style="@style/normal_button_style"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:id="@+id/change_contact_info_button"
+            android:text="@string/change_contact_info"
+            android:textSize="23sp"/>
 
 </LinearLayout>

@@ -84,11 +84,18 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
         transaction.commitAllowingStateLoss();
 
         // 绑定控件
+        // 添加联系人
+        Button addContactBtn = findViewById(R.id.add_contact_button);
+        // 修改密码
         Button changePasswordBtn = findViewById(R.id.change_password_button);
+        // 切换账号
         Button changeAccountBtn = findViewById(R.id.change_account_button);
+        // 注销
         Button logoffBtn = findViewById(R.id.logoff_button);
+        // 退出
         Button exitBtn = findViewById(R.id.exit_button);
         // 设置点击监听器
+        addContactBtn.setOnClickListener(view1 -> {});
         changePasswordBtn.setOnClickListener(view1 -> jumpFromPersonInfoToChangePassword());
         changeAccountBtn.setOnClickListener(this::changeAccountOnClickListenerCallback);
         logoffBtn.setOnClickListener(view1 -> jumpFromPersonInfoToLogin());

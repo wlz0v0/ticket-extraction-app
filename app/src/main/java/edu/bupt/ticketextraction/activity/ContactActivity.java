@@ -2,6 +2,7 @@ package edu.bupt.ticketextraction.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -46,5 +47,12 @@ public final class ContactActivity extends AutoPushPopActivity {
         // 设置文本内容
         nameTextView.setText(contact.name);
         emailTextView.setText(contact.email);
+
+        // 绑定按钮
+        Button changeInfoBtn = findViewById(R.id.change_contact_info_button);
+        // 设置点击监听器
+        changeInfoBtn.setOnClickListener(view -> {
+            //TODO
+        });
     }
 }
