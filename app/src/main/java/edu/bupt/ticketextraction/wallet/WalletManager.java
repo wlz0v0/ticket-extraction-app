@@ -34,7 +34,7 @@ public enum WalletManager {
      * HashMap会打乱顺序，LinkedHashMap会保留原有输入顺序
      * 所以采用LinkedHashMap
      **/
-    private final LinkedHashMap<String, Wallet> wallets = new LinkedHashMap<>();
+    private LinkedHashMap<String, Wallet> wallets = new LinkedHashMap<>();
 
     private final static String WALLETS_DATA_PATH = FileFactory.EXTERNAL_FILE_DIR + "/wallets/WalletsData.dat";
 
@@ -186,6 +186,31 @@ public enum WalletManager {
     }
 
     /**
+     * 修改钱包名
+     *
+     * @param oldName 原钱包名
+     * @param newName 新钱包名
+     */
+    public void setWalletName(String oldName, String newName) {
+        Wallet wallet = wallets.get(oldName);
+        // wallet不应为null
+        assert wallet != null;
+        wallet.setWalletName(newName);
+        // 遍历旧的Map，将除了要修改Key的Entry添加到新的Map中
+        // 修改Key的Entry则把新名作为Key在原来的位置添加到新的Map中
+        LinkedHashMap<String, Wallet> temp = new LinkedHashMap<>();
+        for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
+            // 找到目标Entry则插入新名称
+            if (entry.getKey().equals(oldName)) {
+                temp.put(newName, wallet);
+                continue;
+            }
+            temp.put(entry.getKey(), entry.getValue());
+        }
+        wallets = temp;
+    }
+
+    /**
      * 删除一个钱包
      *
      * @param wallet 钱包实例
@@ -216,6 +241,7 @@ public enum WalletManager {
      * @param file 必须是FileFactory创建的文件！
      * @return 从file中解析出的钱包名称
      */
+    @SuppressWarnings("unused")
     public String getWalletNameFromFile(@NotNull File file) {
         // file格式为FileFactory.WALLETS_DIR + walletName + /image/ + fileName
         String path = file.getAbsolutePath();

@@ -34,6 +34,7 @@ import java.io.File;
  */
 public final class WalletButtonFragment extends Fragment {
     private String walletName;
+    private Button walletBtn;
     private final MainActivity fatherActivity;
     private final ActivityResultLauncher<Intent> launcher;
     public final static String NEW_WALLET_NAME = "new wallet name";
@@ -62,17 +63,21 @@ public final class WalletButtonFragment extends Fragment {
                                       @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                                       @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wallet_button, container, false);
-        Button walletBtn = view.findViewById(R.id.wallet_btn);
+        walletBtn = view.findViewById(R.id.wallet_btn);
         // 设置点击监听器
         walletBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToWallet(WalletManager.getInstance().getWallet(walletName)));
         // 设置长按监听器
         walletBtn.setOnLongClickListener(this::onLongClickListenerCallback);
-        walletBtn.setText(walletName);
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        walletBtn.setText(walletName);
+    }
+
     private boolean onLongClickListenerCallback(View v) {
-        //TODO 添加重命名和删除钱包操作
         AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
         // 设置弹窗，可以重命名或删除钱包
         builder.setMessage("希望进行的操作").
@@ -157,16 +162,20 @@ public final class WalletButtonFragment extends Fragment {
      */
     private void renameWallet(String newWalletName) {
         File oldDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
-        Button walletBtn = fatherActivity.findViewById(R.id.wallet_btn);
+        // 修改钱包名
+        WalletManager.getInstance().setWalletName(walletName, newWalletName);
         this.walletName = newWalletName;
+        // 修改WalletButtonFragment显示的钱包名
         walletBtn.setText(walletName);
+        // 修改WalletCheckBoxFragment显示的钱包名
         WalletCheckBoxFragment checkBox = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
         if (checkBox != null) {
             checkBox.setText(walletName);
         }
+        // 修改目录名
         File newDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
         // 忽略返回值
-        //noinspection ResultOfMethodCallIgnored
+        // noinspection ResultOfMethodCallIgnored
         oldDir.renameTo(newDir);
         // 提示信息
         fatherActivity.showBottomToast(fatherActivity, "重命名成功", 5);

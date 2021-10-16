@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class Wallet implements Serializable, Writable {
     // 钱包名
-    private final String walletName;
+    private String walletName;
 
     private final ArrayList<CabTicket> tickets;
 
@@ -39,6 +39,13 @@ public class Wallet implements Serializable, Writable {
      */
     public String getWalletName() {
         return walletName;
+    }
+
+    /**
+     * @param walletName 钱包名
+     */
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
     }
 
     /**

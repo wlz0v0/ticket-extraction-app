@@ -34,6 +34,7 @@ public final class RenameWalletActivity extends AutoPushPopActivity {
             Intent intent = new Intent();
             // 将新钱包名传回去
             intent.putExtra(WalletButtonFragment.NEW_WALLET_NAME, name.getText().toString());
+            setResult(0, intent);
             // 结束当前Activity
             ActivityStack.getInstance().finishActivity();
         });
