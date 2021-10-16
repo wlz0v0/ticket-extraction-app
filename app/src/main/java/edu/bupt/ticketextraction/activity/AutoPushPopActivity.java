@@ -1,8 +1,10 @@
 package edu.bupt.ticketextraction.activity;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,5 +76,18 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
             // 设置返回键
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    /**
+     * 展示Toast
+     *
+     * @param activity 要展示Toast的Activity
+     * @param message  Toast要展示的消息
+     * @param time     Toast要展示的时间
+     */
+    public void showBottomToast(AutoPushPopActivity activity, String message, int time) {
+        Toast toast = Toast.makeText(activity, message, time);
+        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }

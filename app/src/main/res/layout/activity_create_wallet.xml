@@ -17,7 +17,7 @@
 
     <Button
             style="@style/normal_button_style"
-            android:id="@+id/create_btn"
+            android:id="@+id/create_wallet_btn"
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:text="@string/create_btn"

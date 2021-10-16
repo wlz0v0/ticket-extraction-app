@@ -15,7 +15,7 @@ import edu.bupt.ticketextraction.R;
  *     version: 0.0.1
  * </pre>
  */
-public class ChangeContactActivity extends AutoPushPopActivity {
+public final class ChangeContactActivity extends AutoPushPopActivity {
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

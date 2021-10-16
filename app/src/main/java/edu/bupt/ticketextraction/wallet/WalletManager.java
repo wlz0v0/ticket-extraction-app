@@ -75,7 +75,8 @@ public enum WalletManager {
         }
         // 新建一个wallet并添加到wallets中管理
         Wallet wallet = new Wallet(walletName);
-        WalletManager.getInstance().addWallet(wallet);
+        this.addWallet(wallet);
+        this.writeWalletsToData();
 
         // 新建一个wallet button fragment并将其添加到对应的container中
         WalletButtonFragment fgBtnWallet = new WalletButtonFragment(walletName, mainActivity);

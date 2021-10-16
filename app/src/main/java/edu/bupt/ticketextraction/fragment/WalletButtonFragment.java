@@ -1,12 +1,14 @@
 package edu.bupt.ticketextraction.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.activity.MainActivity;
+import edu.bupt.ticketextraction.activity.RenameWalletActivity;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.wallet.WalletManager;
 import org.jetbrains.annotations.NotNull;
@@ -32,10 +35,26 @@ import java.io.File;
 public final class WalletButtonFragment extends Fragment {
     private String walletName;
     private final MainActivity fatherActivity;
+    private final ActivityResultLauncher<Intent> launcher;
+    public final static String NEW_WALLET_NAME = "new wallet name";
 
     public WalletButtonFragment(String walletName, MainActivity fatherActivity) {
         this.walletName = walletName;
         this.fatherActivity = fatherActivity;
+        this.launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            Intent intent = result.getData();
+            // intent不应为空
+            assert intent != null;
+            String newWalletName = intent.getStringExtra(NEW_WALLET_NAME);
+            // 新钱包名不应为空
+            assert newWalletName != null;
+            if (newWalletName.isEmpty()) {
+                fatherActivity.showBottomToast(fatherActivity, "钱包名不能为空！", 5);
+            } else {
+                // 重命名钱包
+                this.renameWallet(newWalletName);
+            }
+        });
     }
 
     @Override
@@ -79,6 +98,7 @@ public final class WalletButtonFragment extends Fragment {
                     dialog1.dismiss();
                     // 关闭父弹窗
                     dialog.dismiss();
+                    fatherActivity.showBottomToast(fatherActivity, "删除成功！", 5);
                 }).
                 setNegativeButton("取消", (dialog1, which1) -> {
                     // 关闭子弹窗
@@ -96,35 +116,10 @@ public final class WalletButtonFragment extends Fragment {
     }
 
     // 重命名按钮点击回调
-    private void negativeButtonCallback(DialogInterface dialog, int which) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-        builder.setView(R.layout.editable_dialog).
-                setPositiveButton("重命名", (dialog1, which1) -> {
-                    EditText editText = fatherActivity.findViewById(R.id.dialog_et);
-                    //TODO: 这里会闪退
-                    String newWalletName = editText.getText().toString();
-                    // 新名称不能为空！
-                    if (!newWalletName.isEmpty()) {
-                        this.renameWallet(newWalletName);
-                        // 关闭子弹窗
-                        dialog1.dismiss();
-                        // 关闭父弹窗
-                        dialog.dismiss();
-                    } else {
-                        // 弹出警告并重新输入新名称
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(fatherActivity);
-                        builder1.setMessage("钱包名不能为空！").
-                                setPositiveButton("确认", (dialog2, which2) -> dialog2.dismiss());
-                    }
-                }).
-                setNegativeButton("取消", (dialog1, which1) -> {
-                    // 关闭子弹窗
-                    dialog1.dismiss();
-                    // 关闭父弹窗
-                    dialog.dismiss();
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    private void negativeButtonCallback(@NotNull DialogInterface dialog, int which) {
+        launcher.launch(new Intent(this.fatherActivity, RenameWalletActivity.class));
+        // 关闭弹窗
+        dialog.dismiss();
     }
 
     /**
@@ -136,6 +131,7 @@ public final class WalletButtonFragment extends Fragment {
 
         // 删除对应Wallet实例
         WalletManager.getInstance().deleteWallet(WalletManager.getInstance().getWallet(walletName));
+        WalletManager.getInstance().writeWalletsToData();
 
         // 删除页面中的WalletButtonFragment
         FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
@@ -172,5 +168,7 @@ public final class WalletButtonFragment extends Fragment {
         // 忽略返回值
         //noinspection ResultOfMethodCallIgnored
         oldDir.renameTo(newDir);
+        // 提示信息
+        fatherActivity.showBottomToast(fatherActivity, "重命名成功", 5);
     }
 }

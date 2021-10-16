@@ -31,7 +31,7 @@ public final class CreateWalletActivity extends AutoPushPopActivity {
 
         EditText walletNameEt = findViewById(R.id.wallet_name_et);
 
-        Button createBtn = findViewById(R.id.create_btn);
+        Button createBtn = findViewById(R.id.create_wallet_btn);
         createBtn.setOnClickListener(view -> {
             String walletName = walletNameEt.getText().toString();
             if (WalletManager.getInstance().createWallet(walletName)) {

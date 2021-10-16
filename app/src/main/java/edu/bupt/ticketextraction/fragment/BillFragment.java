@@ -39,6 +39,7 @@ public final class BillFragment extends Fragment {
 
         Wallet defaultWallet = new Wallet("默认");
         WalletManager.getInstance().addWallet(defaultWallet);
+        WalletManager.getInstance().writeWalletsToData();
 
         Button defaultWalletBtn = view.findViewById(R.id.default_wallet_btn);
         defaultWalletBtn.setOnClickListener(view1 -> fatherActivity.jumpFromMainToWallet(WalletManager.getInstance().getWallet("默认")));

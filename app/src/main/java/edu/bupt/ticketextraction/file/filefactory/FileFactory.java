@@ -58,11 +58,15 @@ public abstract class FileFactory {
      * @param isAppend  是否追加
      * @return 文件输出流，用于写入数据文件
      **/
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     protected FileOutputStream getOutDataStream(String directory, String prefix, boolean isAppend) {
+        File fileDir = new File(directory);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
         File file = new File(directory + prefix + ".dat");
         if (!file.exists()) {
             try {
-                //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -76,6 +80,11 @@ public abstract class FileFactory {
         return null;
     }
 
+    /**
+     * @param directory 目录
+     * @param prefix 文件名
+     * @return 文件输入流
+     */
     protected FileInputStream getInDataStream(String directory, String prefix) {
         try {
             return new FileInputStream(directory + prefix + ".dat");

@@ -42,6 +42,7 @@
         <activity android:name=".activity.ContactActivity"/>
         <activity android:name=".activity.CreateContactActivity"/>
         <activity android:name=".activity.ChangeContactActivity"/>
+        <activity android:name=".activity.RenameWalletActivity"/>
         <provider android:authorities="edu.bupt.ticketextraction.FileProvider"
                   android:name="androidx.core.content.FileProvider"
                   android:exported="false"
