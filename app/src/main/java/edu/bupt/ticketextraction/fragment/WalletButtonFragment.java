@@ -36,6 +36,10 @@ public final class WalletButtonFragment extends Fragment {
     private String walletName;
     private Button walletBtn;
     private final MainActivity fatherActivity;
+    /**
+     * 启动RenameWalletActivity，并获取其返回的name<br>
+     * 这个Launcher必须要定义在字段中
+     */
     private final ActivityResultLauncher<Intent> launcher;
     public final static String NEW_WALLET_NAME = "new wallet name";
 

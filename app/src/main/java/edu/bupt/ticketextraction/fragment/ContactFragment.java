@@ -28,7 +28,7 @@ public final class ContactFragment extends Fragment {
     // 联系人姓名
     private final Contact contact;
 
-    public ContactFragment(PersonInfoActivity fatherActivity, Contact contact) {
+    public ContactFragment(PersonInfoActivity fatherActivity, @NotNull Contact contact) {
         this.fatherActivity = fatherActivity;
         this.contact = contact;
     }

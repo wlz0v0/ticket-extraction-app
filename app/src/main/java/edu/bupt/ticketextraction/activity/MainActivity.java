@@ -28,7 +28,7 @@ import java.util.Map;
  *     author : 武连增
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2021/08/03
- *     desc   : 主activity，包含四个菜单栏，对应四个fragment
+ *     desc   : 根Activity，包含四个菜单栏，对应四个fragment
  *     version: 0.0.1
  * </pre>
  */
@@ -245,8 +245,8 @@ public final class MainActivity extends AutoPushPopActivity {
 
     /**
      * 注：在MainActivity中展示是因为
-     * 如果在CreateWalletActivity中使用FragmentTransaction添加fragment
-     * 由于未知原因app会崩掉
+     * 如果在CreateWalletActivity中使用FragmentTransaction添加fragment<br>
+     * 由于未知原因app会崩掉<br>
      * 猜测：添加fragment时必须处于该fragment所处于的activity中，否则会出现问题
      */
     private void showWalletButtonFragments() {
