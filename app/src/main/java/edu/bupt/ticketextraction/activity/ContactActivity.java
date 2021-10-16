@@ -32,14 +32,15 @@ public final class ContactActivity extends AutoPushPopActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 Intent intent = result.getData();
-                // intent不应为null
-                assert intent != null;
-                // 获取返回字符串
-                String name = intent.getStringExtra(PersonInfoActivity.NEW_NAME);
-                String email = intent.getStringExtra(PersonInfoActivity.NEW_EMAIL);
-                // 设置对应文本内容
-                nameTextView.setText(name);
-                emailTextView.setText(email);
+                // 当用户不点击按钮而是直接返回的情况下，intent为null
+                if (intent != null) {
+                    // 获取返回字符串
+                    String name = intent.getStringExtra(PersonInfoActivity.NEW_NAME);
+                    String email = intent.getStringExtra(PersonInfoActivity.NEW_EMAIL);
+                    // 设置对应文本内容
+                    nameTextView.setText(name);
+                    emailTextView.setText(email);
+                }
             });
 
     @Override

@@ -42,12 +42,13 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 Intent intent = result.getData();
-                // intent不应为null
-                assert intent != null;
-                String name = intent.getStringExtra(NEW_NAME);
-                String email = intent.getStringExtra(NEW_EMAIL);
-                ContactFragment fragment = new ContactFragment(this, new Contact(name, email));
-                fragments.put(fragment, false);
+                // 当用户不点击按钮而是直接返回的情况下，intent为null
+                if (intent != null) {
+                    String name = intent.getStringExtra(NEW_NAME);
+                    String email = intent.getStringExtra(NEW_EMAIL);
+                    ContactFragment fragment = new ContactFragment(this, new Contact(name, email));
+                    fragments.put(fragment, false);
+                }
             });
 
     /**

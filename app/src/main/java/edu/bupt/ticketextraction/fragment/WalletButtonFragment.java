@@ -48,16 +48,17 @@ public final class WalletButtonFragment extends Fragment {
         this.fatherActivity = fatherActivity;
         this.launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             Intent intent = result.getData();
-            // intent不应为空
-            assert intent != null;
-            String newWalletName = intent.getStringExtra(NEW_WALLET_NAME);
-            // 新钱包名不应为空
-            assert newWalletName != null;
-            if (newWalletName.isEmpty()) {
-                fatherActivity.showBottomToast(fatherActivity, "钱包名不能为空！", 5);
-            } else {
-                // 重命名钱包
-                this.renameWallet(newWalletName);
+            // 当用户不点击按钮而是直接返回的情况下，intent为null
+            if (intent != null) {
+                String newWalletName = intent.getStringExtra(NEW_WALLET_NAME);
+                // 新钱包名不应为空
+                assert newWalletName != null;
+                if (newWalletName.isEmpty()) {
+                    fatherActivity.showBottomToast(fatherActivity, "钱包名不能为空！", 5);
+                } else {
+                    // 重命名钱包
+                    this.renameWallet(newWalletName);
+                }
             }
         });
     }
@@ -168,14 +169,14 @@ public final class WalletButtonFragment extends Fragment {
         File oldDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
         // 修改钱包名
         WalletManager.getInstance().setWalletName(walletName, newWalletName);
-        this.walletName = newWalletName;
-        // 修改WalletButtonFragment显示的钱包名
-        walletBtn.setText(walletName);
         // 修改WalletCheckBoxFragment显示的钱包名
         WalletCheckBoxFragment checkBox = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+        this.walletName = newWalletName;
         if (checkBox != null) {
-            checkBox.setText(walletName);
+            checkBox.setWalletName(walletName);
         }
+        // 修改WalletButtonFragment显示的钱包名
+        walletBtn.setText(walletName);
         // 修改目录名
         File newDir = new File(FileFactory.WALLETS_DIR + walletName + "/");
         // 忽略返回值

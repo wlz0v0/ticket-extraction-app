@@ -28,7 +28,7 @@ import java.util.HashMap;
  */
 public final class WalletCheckBoxFragment extends Fragment {
     private CheckBox checkBox;
-    private final String walletName;
+    private String walletName;
     private final MainActivity fatherActivity;
     // 创建此HashMap是为了通过钱包名得到对应的CheckBoxFragment
     // 目前只用于删除WalletCheckBox
@@ -52,8 +52,14 @@ public final class WalletCheckBoxFragment extends Fragment {
         return view;
     }
 
-    public void setText(String text) {
-        checkBox.setText(text);
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkBox.setText(walletName);
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
     }
 
     public void removeWalletCheckBoxFragment() {
