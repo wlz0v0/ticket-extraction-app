@@ -14,7 +14,6 @@ import java.util.ArrayList;
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2021/09/01
  *     desc   : 钱包类，定义钱包属性
- *              TODO 所有钱包共用一个activity，这个activity通过钱包的设置进行加载
  *     version: 0.0.1
  * </pre>
  */

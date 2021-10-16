@@ -147,7 +147,6 @@ public final class WalletActivity extends AutoPushPopActivity {
     }
 
     // 在钱包中展示资源文件
-    // TODO：定一下最多存放几张图片
     private void showSources() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // 需要先删除所有已添加的Fragment，再重新添加，不然会重复

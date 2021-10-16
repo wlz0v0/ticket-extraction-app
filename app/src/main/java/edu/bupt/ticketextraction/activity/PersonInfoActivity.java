@@ -49,7 +49,8 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
                     ContactFragment fragment = new ContactFragment(this, new Contact(name, email));
                     fragments.put(fragment, false);
                 }
-            });
+            }
+    );
 
     /**
      * 跳转到CreateContactActivity

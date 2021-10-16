@@ -9,7 +9,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:max_height="560dp">
+            app:max_height="480dp">
+        <!-- 最多同时显示6张  -->
 
         <LinearLayout
                 android:id="@+id/sources_fragment_container"
