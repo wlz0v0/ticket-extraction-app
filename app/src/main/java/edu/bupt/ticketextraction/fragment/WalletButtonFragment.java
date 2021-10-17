@@ -23,6 +23,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
+import static edu.bupt.ticketextraction.fragment.WalletCheckBoxFragment.checkBoxFragmentHashMap;
+
 /**
  * <pre>
  *     author : 武连增
@@ -33,15 +35,15 @@ import java.io.File;
  * </pre>
  */
 public final class WalletButtonFragment extends Fragment {
-    private String walletName;
-    private Button walletBtn;
+    public final static String NEW_WALLET_NAME = "new wallet name";
     private final MainActivity fatherActivity;
     /**
      * 启动RenameWalletActivity，并获取其返回的name<br>
      * 这个Launcher必须要定义在字段中
      */
     private final ActivityResultLauncher<Intent> launcher;
-    public final static String NEW_WALLET_NAME = "new wallet name";
+    private String walletName;
+    private Button walletBtn;
 
     public WalletButtonFragment(String walletName, MainActivity fatherActivity) {
         this.walletName = walletName;
@@ -58,6 +60,7 @@ public final class WalletButtonFragment extends Fragment {
                 } else {
                     // 重命名钱包
                     this.renameWallet(newWalletName);
+                    fatherActivity.showBottomToast(fatherActivity, "重命名成功！", 5);
                 }
             }
         });
@@ -151,14 +154,14 @@ public final class WalletButtonFragment extends Fragment {
         // 删除容器中的WalletButtonFragment
         MainActivity.walletButtonFragments.remove(this);
 
-        WalletCheckBoxFragment cbFragment = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+        WalletCheckBoxFragment cbFragment = checkBoxFragmentHashMap.get(walletName);
         if (cbFragment != null) {
             // 删除页面中的对应WalletCheckBox
             cbFragment.removeWalletCheckBoxFragment();
             // 删除容器中的fragment
             MainActivity.walletCheckBoxFragments.remove(cbFragment);
             // 删除映射关系
-            WalletCheckBoxFragment.checkBoxFragmentHashMap.remove(walletName);
+            checkBoxFragmentHashMap.remove(walletName);
         }
     }
 
@@ -170,7 +173,11 @@ public final class WalletButtonFragment extends Fragment {
         // 修改钱包名
         WalletManager.getInstance().setWalletName(walletName, newWalletName);
         // 修改WalletCheckBoxFragment显示的钱包名
-        WalletCheckBoxFragment checkBox = WalletCheckBoxFragment.checkBoxFragmentHashMap.get(walletName);
+        WalletCheckBoxFragment checkBox = checkBoxFragmentHashMap.get(walletName);
+        // 移除旧钱包的键值对
+        checkBoxFragmentHashMap.remove(walletName);
+        // 添加新钱包的键值对
+        checkBoxFragmentHashMap.put(newWalletName, checkBox);
         this.walletName = newWalletName;
         if (checkBox != null) {
             checkBox.setWalletName(walletName);

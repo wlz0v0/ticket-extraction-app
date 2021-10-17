@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.bupt.ticketextraction.utils.ActivityStack;
 import org.jetbrains.annotations.NotNull;
@@ -89,5 +91,22 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(activity, message, time);
         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
+    }
+
+    /**
+     * 展示AlertDialog
+     *
+     * @param text 要展示的文本
+     * @param onClickListener PositiveButton的回调函数
+     * @return 对应AlertDialog
+     */
+    public @NotNull AlertDialog getAlertDialog(String text,
+                                                DialogInterface.OnClickListener onClickListener) {
+        // 先创建一个builder，再通过builder构造alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(text).
+                setCancelable(false).
+                setPositiveButton("确认", onClickListener);
+        return builder.create();
     }
 }

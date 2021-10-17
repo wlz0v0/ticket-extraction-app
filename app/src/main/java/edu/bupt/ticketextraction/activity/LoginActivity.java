@@ -1,17 +1,14 @@
 package edu.bupt.ticketextraction.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.utils.ActivityStack;
 import edu.bupt.ticketextraction.utils.Server;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -101,7 +98,6 @@ public final class LoginActivity extends AutoPushPopActivity {
     }
 
     private void loginFailed(int errorCode) {
-        loginState = false;
         String builderMsg;
         // input_pwd为空则是查询不到用户名
         // 否则是密码与账号不匹配
@@ -110,15 +106,5 @@ public final class LoginActivity extends AutoPushPopActivity {
         getAlertDialog(builderMsg,
                 (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
-    }
-
-    private @NotNull AlertDialog getAlertDialog(String text,
-                                                DialogInterface.OnClickListener onClickListener) {
-        // 先创建一个builder，再通过builder构造alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(text).
-                setCancelable(false).
-                setPositiveButton("确认", onClickListener);
-        return builder.create();
     }
 }

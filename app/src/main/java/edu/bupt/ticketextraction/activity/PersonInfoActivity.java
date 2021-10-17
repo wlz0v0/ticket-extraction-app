@@ -26,6 +26,7 @@ import java.util.Map;
  * </pre>
  */
 public final class PersonInfoActivity extends AutoPushPopActivity {
+    // 上限四个
     private final LinkedHashMap<ContactFragment, Boolean> fragments = new LinkedHashMap<>();
     // 从Extra获取Contact时对应的Extra名
     public final static String CONTACT = "contact";
@@ -68,6 +69,12 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
      * @param contact 联系人
      */
     public void jumpFromPersonInfoToContact(Contact contact) {
+        // 上限四个联系人
+        final int MAX_CONTACT_COUNT = 4;
+        if (fragments.size() == MAX_CONTACT_COUNT) {
+            showBottomToast(this, "最多只能有4个联系人！", 5);
+            return;
+        }
         Intent intent = new Intent(this, ContactActivity.class);
         intent.putExtra(CONTACT, contact);
         startActivity(intent);
@@ -82,14 +89,6 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
         // 通过putExtra传递变量
         intent.putExtra(SetPasswordActivity.TITLE_EXTRA, SetPasswordActivity.Titles.CHANGE);
         intent.putExtra(SetPasswordActivity.BUTTON_TEXT_EXTRA, SetPasswordActivity.ButtonTexts.CHANGE);
-        startActivity(intent);
-    }
-
-    /**
-     * 跳转到LoginActivity
-     */
-    public void jumpFromPersonInfoToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
@@ -116,7 +115,13 @@ public final class PersonInfoActivity extends AutoPushPopActivity {
         addContactBtn.setOnClickListener(view1 -> jumpFromPersonInfoToCreateContact());
         changePasswordBtn.setOnClickListener(view1 -> jumpFromPersonInfoToChangePassword());
         changeAccountBtn.setOnClickListener(this::changeAccountOnClickListenerCallback);
-        logoffBtn.setOnClickListener(view1 -> jumpFromPersonInfoToLogin());
+        logoffBtn.setOnClickListener(view1 -> {
+            // 登录状态为false
+            LoginActivity.loginState = false;
+            showBottomToast(this, "注销成功！", 5);
+            // 结束当前Activity
+            ActivityStack.getInstance().finishActivity();
+        });
         exitBtn.setOnClickListener(view1 -> ActivityStack.getInstance().finishAllActivities());
     }
 

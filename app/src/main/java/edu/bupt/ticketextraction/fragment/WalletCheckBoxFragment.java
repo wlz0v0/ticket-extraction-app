@@ -31,7 +31,7 @@ public final class WalletCheckBoxFragment extends Fragment {
     private String walletName;
     private final MainActivity fatherActivity;
     // 创建此HashMap是为了通过钱包名得到对应的CheckBoxFragment
-    // 目前只用于删除WalletCheckBox
+    // 用于删除和重命名WalletCheckBox
     public static HashMap<String, WalletCheckBoxFragment> checkBoxFragmentHashMap;
 
     public WalletCheckBoxFragment(String walletName, MainActivity fatherActivity) {

@@ -1,6 +1,5 @@
 package edu.bupt.ticketextraction.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +8,6 @@ import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.utils.ActivityStack;
 import edu.bupt.ticketextraction.wallet.WalletManager;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -55,15 +53,5 @@ public final class CreateWalletActivity extends AutoPushPopActivity {
         AlertDialog alertDialog = getAlertDialog("创建失败",
                 (dialog, which) -> dialog.dismiss());
         alertDialog.show();
-    }
-
-    private @NotNull AlertDialog getAlertDialog(String text,
-                                                DialogInterface.OnClickListener onClickListener) {
-        // 先创建一个builder，再通过builder构造alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(text).
-                setCancelable(false).
-                setPositiveButton("确认", onClickListener);
-        return builder.create();
     }
 }

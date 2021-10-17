@@ -5,6 +5,7 @@ import edu.bupt.ticketextraction.file.FileManager;
 import edu.bupt.ticketextraction.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.fragment.WalletButtonFragment;
 import edu.bupt.ticketextraction.fragment.WalletCheckBoxFragment;
+import edu.bupt.ticketextraction.utils.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -196,18 +197,8 @@ public enum WalletManager {
         // wallet不应为null
         assert wallet != null;
         wallet.setWalletName(newName);
-        // 遍历旧的Map，将除了要修改Key的Entry添加到新的Map中
-        // 修改Key的Entry则把新名作为Key在原来的位置添加到新的Map中
-        LinkedHashMap<String, Wallet> temp = new LinkedHashMap<>();
-        for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
-            // 找到目标Entry则插入新名称
-            if (entry.getKey().equals(oldName)) {
-                temp.put(newName, wallet);
-                continue;
-            }
-            temp.put(entry.getKey(), entry.getValue());
-        }
-        wallets = temp;
+        // 修改旧名称的值为新名称
+        wallets = CollectionUtils.replaceLinkedHashMapKey(wallets, oldName, newName);
     }
 
     /**
