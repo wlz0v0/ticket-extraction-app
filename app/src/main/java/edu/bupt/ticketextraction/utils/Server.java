@@ -1,6 +1,6 @@
 package edu.bupt.ticketextraction.utils;
 
-import edu.bupt.ticketextraction.data.tickets.CabTicket;
+import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("unused")
 public final class Server {
+    private final static String securityCode = "";
     /**
      * 调用登录服务
      *

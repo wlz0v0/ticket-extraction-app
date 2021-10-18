@@ -12,7 +12,7 @@
     <!-- 为bill fragment添加滚动条，
          防止创建的钱包数量占满整个布局后无法创建新钱包
          自定义滚动条，设置最大高度 -->
-    <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
+    <edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -33,7 +33,7 @@
 
         </LinearLayout>
 
-    </edu.bupt.ticketextraction.customviews.MaxHeightScrollView>
+    </edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView>
 
     <LinearLayout
             android:id="@+id/dummy"

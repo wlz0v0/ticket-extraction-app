@@ -1,6 +1,6 @@
 package edu.bupt.ticketextraction.utils;
 
-import edu.bupt.ticketextraction.data.tickets.CabTicket;
+import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

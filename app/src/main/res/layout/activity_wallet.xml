@@ -5,7 +5,7 @@
         android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/shallow_gray">
 
-    <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
+    <edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -20,7 +20,7 @@
 
         </LinearLayout>
 
-    </edu.bupt.ticketextraction.customviews.MaxHeightScrollView>
+    </edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView>
 
     <Button
             style="@style/normal_button_style"

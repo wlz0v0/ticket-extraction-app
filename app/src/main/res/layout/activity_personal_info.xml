@@ -11,7 +11,7 @@
 
     <!-- 设置最大长度！   -->
     <!--   个人信息  -->
-    <edu.bupt.ticketextraction.customviews.MaxHeightScrollView
+    <edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:max_height="250dp"
@@ -49,7 +49,7 @@
 
         </LinearLayout>
 
-    </edu.bupt.ticketextraction.customviews.MaxHeightScrollView>
+    </edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView>
 
     <!--  修改密码  -->
     <Button
