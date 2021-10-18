@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
-import edu.bupt.ticketextraction.export.email.Email;
+import edu.bupt.ticketextraction.utils.Server;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -54,8 +54,8 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
                 // TODO: 将此钱包对应的excel添加到附件中！
             }
         }
-        Email email = new Email(emailAddress);
-        if (email.send()) {
+        //TODO
+        if (Server.sendEmail(new ArrayList<>(), "")) {
             sendSuccessful();
         } else {
             sendFailed();

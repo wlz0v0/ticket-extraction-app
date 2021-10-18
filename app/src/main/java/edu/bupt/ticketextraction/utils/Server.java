@@ -21,6 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public final class Server {
     private final static String securityCode = "";
+
     /**
      * 调用登录服务
      *
@@ -76,16 +77,18 @@ public final class Server {
      * 把出租车发票的信息转换成表格
      *
      * @param tickets 待发送的所有票据信息
-     * @param email 目标邮箱
+     * @param email   目标邮箱
+     * @return 是否成功
      */
     @Contract(pure = true)
-    public static void sendEmail(@NotNull ArrayList<CabTicket> tickets, String email) {
+    public static boolean sendEmail(@NotNull ArrayList<CabTicket> tickets, String email) {
         // 每个发票一行，再加第一行的说明
         final int rowCnt = tickets.size() + 1;
         // 第一列的说明，再加上单价、距离、总价、日期四列
         final int columnCnt = 5;
         String[][] infos = new String[rowCnt][columnCnt];
         //TODO 票据信息转化为String[][]数组，对应表格的行和列
+        return false;
     }
 
     @Contract(pure = true)
