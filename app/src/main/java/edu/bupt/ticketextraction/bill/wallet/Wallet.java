@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *     version: 0.0.1
  * </pre>
  */
-public class Wallet implements Serializable, Writable {
+public final class Wallet implements Serializable, Writable {
     // 钱包名
     private String walletName;
 
@@ -67,9 +67,8 @@ public class Wallet implements Serializable, Writable {
 
     /**
      * 从data文件中读取数据
-     * 包内访问权限
      */
-    protected void readFromData() {
+    public void readFromData() {
         // 构造BufferReader来读取一行
         // 一个发票为一行
         // 读的时候需要先清空tickets
@@ -100,7 +99,6 @@ public class Wallet implements Serializable, Writable {
 
     /**
      * 将钱包中的所有发票信息写入数据文件
-     * 包内访问权限
      */
     @Override
     public void writeToData() {

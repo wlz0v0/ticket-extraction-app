@@ -13,9 +13,18 @@ import java.util.Stack;
  *     version: 0.0.1
  * </pre>
  */
-public enum ActivityStack {
-    INSTANCE;
+public final class ActivityStack {
+    /**
+     * 单例模式，构造器私有
+     */
+    private ActivityStack() {}
 
+    /**
+     * 私有静态内部类，负责实例化单例
+     */
+    private static class InstanceHolder{
+        private final static ActivityStack INSTANCE = new ActivityStack();
+    }
     /**
      * Activity栈
      */
@@ -25,7 +34,7 @@ public enum ActivityStack {
      * @return ActivityStack实例
      */
     public static ActivityStack getInstance() {
-        return INSTANCE;
+        return InstanceHolder.INSTANCE;
     }
 
     /**

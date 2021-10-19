@@ -23,8 +23,18 @@ import java.util.Map;
  *     version: 0.0.1
  * </pre>
  */
-public enum WalletManager {
-    INSTANCE;
+public final class WalletManager {
+    /**
+     * 单例模式，构造器私有
+     */
+    private WalletManager() {}
+
+    /**
+     * 私有静态内部类，负责实例化单例
+     */
+    private static class InstanceHolder{
+        private final static WalletManager INSTANCE = new WalletManager();
+    }
 
     /**
      * key: wallet name string <br>
@@ -57,7 +67,7 @@ public enum WalletManager {
      * @return WalletManager实例
      */
     public static WalletManager getInstance() {
-        return INSTANCE;
+        return InstanceHolder.INSTANCE;
     }
 
     /**

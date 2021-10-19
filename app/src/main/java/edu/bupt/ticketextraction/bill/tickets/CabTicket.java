@@ -17,12 +17,12 @@ import java.nio.charset.StandardCharsets;
  *     version: 0.0.1
  * </pre>
  */
-@SuppressWarnings({"Unus", "unused"})
+@SuppressWarnings("unused")
 public final class CabTicket extends AbstractTicket {
-    private Double unitPrice;
-    private Double totalPrice;
-    private Double distance;
-    private String date;
+    private final Double unitPrice;
+    private final Double totalPrice;
+    private final Double distance;
+    private final String date;
 
     /**
      * CabTicket的构造器
@@ -142,22 +142,6 @@ public final class CabTicket extends AbstractTicket {
 
     public String getWALLET_NAME() {
         return WALLET_NAME;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
     }
 
     /**
