@@ -23,6 +23,15 @@ public final class Server {
     private final static String securityCode = "";
 
     /**
+     * Server工具类，请不要实例化此类！
+     *
+     * @throws InstantiationException 实例化异常，因为该类不可实例化
+     */
+    private Server() throws InstantiationException {
+        throw new InstantiationException();
+    }
+
+    /**
      * 调用登录服务
      *
      * @param phoneNumber 账号
@@ -84,10 +93,21 @@ public final class Server {
     public static boolean sendEmail(@NotNull ArrayList<CabTicket> tickets, String email) {
         // 每个发票一行，再加第一行的说明
         final int rowCnt = tickets.size() + 1;
-        // 第一列的说明，再加上单价、距离、总价、日期四列
+        // 第一列的序号，再加上单价、距离、总价、日期四列
         final int columnCnt = 5;
+        String[] firstRow = {"发票", "单价", "距离", "总价", "日期"};
         String[][] infos = new String[rowCnt][columnCnt];
-        //TODO 票据信息转化为String[][]数组，对应表格的行和列
+        // 第一行说明信息
+        System.arraycopy(firstRow, 0, infos[0], 0, columnCnt);
+        for (int i = 1; i < rowCnt; ++i) {
+            // 序号、单价、距离、总价、日期
+            CabTicket ticket = tickets.get(i);
+            infos[i][0] = String.valueOf(i);
+            infos[i][1] = String.valueOf(ticket.getUnitPrice());
+            infos[i][2] = String.valueOf(ticket.getDistance());
+            infos[i][3] = String.valueOf(ticket.getTotalPrice());
+            infos[i][4] = ticket.getDate();
+        }
         return false;
     }
 
@@ -99,15 +119,6 @@ public final class Server {
     @Contract(pure = true)
     public static void callOcr() {
         //TODO 识别
-    }
-
-    /**
-     * Server工具类，请不要实例化此类！
-     *
-     * @throws InstantiationException 实例化异常，因为该类不可实例化
-     */
-    private Server() throws InstantiationException {
-        throw new InstantiationException();
     }
 
     /**
