@@ -5,10 +5,14 @@ import edu.bupt.ticketextraction.setting.contact.Contact;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * <pre>
@@ -150,5 +154,44 @@ public final class Server {
         assert messageDigest != null;
         messageDigest.update(plainText.getBytes());
         return new BigInteger(messageDigest.digest()).toString(32);
+    }
+
+    private static String post(@NotNull String urlStr, @NotNull Map<String, String> params) {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(urlStr);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            //以下两行必须加否则报错.
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assert conn != null;
+        StringBuilder s = new StringBuilder();
+        // 使用try-with-resources替代try-catch-finally
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+
+            StringBuilder psBuilder = new StringBuilder();
+
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                psBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+            }
+            String ps = psBuilder.substring(0, psBuilder.lastIndexOf("&"));
+
+            writer.write(ps + "\r\n");
+
+            writer.flush();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                s.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s.toString();
     }
 }

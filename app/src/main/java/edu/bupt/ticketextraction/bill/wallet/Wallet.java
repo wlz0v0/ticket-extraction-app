@@ -81,7 +81,7 @@ public final class Wallet implements Serializable, Writable {
                 // 按照空格切割得到发票的各个信息
                 String[] info = line.split(" ");
                 // 构建发票
-                CabTicket.Builder builder = new CabTicket.Builder(walletName, info[0]);
+                CabTicket.Builder builder = new CabTicket.Builder(walletName, info[0], info[5], info[6]);
                 builder.setUnitPrice(Double.parseDouble(info[1])).
                         setTotalPrice(Double.parseDouble(info[2])).
                         setDistance(Double.parseDouble(info[3])).
@@ -93,7 +93,7 @@ public final class Wallet implements Serializable, Writable {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * 将钱包中的所有发票信息写入数据文件
      */

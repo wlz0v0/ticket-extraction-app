@@ -25,20 +25,24 @@ public final class CabTicket extends AbstractTicket {
     private final String date;
 
     /**
-     * @param walletName 钱包名
-     * @param sourceName 对应的资源文件名
-     * @param unitPrice  单价
-     * @param totalPrice 总价
-     * @param distance   行驶距离
-     * @param date       日期
+     * @param walletName   钱包名
+     * @param sourceName   对应的资源文件名
+     * @param ticketNumber 发票号码
+     * @param ticketCode   发票代码
+     * @param unitPrice    单价
+     * @param totalPrice   总价
+     * @param distance     行驶距离
+     * @param date         日期
      */
     private CabTicket(String walletName,
                       String sourceName,
+                      String ticketNumber,
+                      String ticketCode,
                       double unitPrice,
                       double totalPrice,
                       double distance,
                       String date) {
-        super(walletName, sourceName, "出租车发票");
+        super(walletName, sourceName, "出租车发票", ticketNumber, ticketCode);
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
         this.distance = distance;
@@ -61,11 +65,11 @@ public final class CabTicket extends AbstractTicket {
         return date;
     }
 
-    public String getSOURCE_NAME() {
+    public String getSourceName() {
         return SOURCE_NAME;
     }
 
-    public String getWALLET_NAME() {
+    public String getWalletName() {
         return WALLET_NAME;
     }
 
@@ -75,7 +79,8 @@ public final class CabTicket extends AbstractTicket {
     @Override
     public void writeToData() {
 
-        byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").
+        byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance +
+                " " + date + " " + TICKET_NUMBER + " " + TICKET_CODE + "\n").
                 getBytes(StandardCharsets.UTF_8);
         try (FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile()) {
             outputStream.write(bytes);
@@ -92,6 +97,8 @@ public final class CabTicket extends AbstractTicket {
     public static class Builder extends AbstractTicket.Builder<Builder> {
         private final String walletName;
         private final String sourceName;
+        private final String ticketNumber;
+        private final String ticketCode;
         private Double unitPrice;
         private Double totalPrice;
         private Double distance;
@@ -101,13 +108,15 @@ public final class CabTicket extends AbstractTicket {
          * @param walletName 钱包名
          * @param sourceName 资源文件名
          */
-        public Builder(String walletName, String sourceName) {
+        public Builder(String walletName, String sourceName, String ticketNumber, String ticketCode) {
             unitPrice = 0.0;
             totalPrice = 0.0;
             distance = 0.0;
             date = "\0";
             this.walletName = walletName;
             this.sourceName = sourceName;
+            this.ticketNumber = ticketNumber;
+            this.ticketCode = ticketCode;
         }
 
         /**
@@ -155,7 +164,7 @@ public final class CabTicket extends AbstractTicket {
          */
         @Override
         public @NotNull CabTicket create() {
-            return new CabTicket(walletName, sourceName, unitPrice, totalPrice, distance, date);
+            return new CabTicket(walletName, sourceName, ticketNumber, ticketCode, unitPrice, totalPrice, distance, date);
         }
     }
 }

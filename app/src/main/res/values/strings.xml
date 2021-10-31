@@ -59,4 +59,5 @@
     <string name="change_contact_info">修改信息</string>
     <string name="input_name">请输入姓名</string>
     <string name="input_email">请输入邮箱</string>
+    <string name="check_btn">验&#160;&#160;&#160;&#160;真</string>
 </resources>

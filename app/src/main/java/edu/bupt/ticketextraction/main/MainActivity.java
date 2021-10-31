@@ -12,17 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.bill.wallet.WalletActivity;
-import edu.bupt.ticketextraction.bill.wallet.WalletButtonFragment;
-import edu.bupt.ticketextraction.bill.wallet.CreateWalletActivity;
+import edu.bupt.ticketextraction.bill.wallet.*;
 import edu.bupt.ticketextraction.export.SendToEmailActivity;
 import edu.bupt.ticketextraction.export.WalletCheckBoxFragment;
-import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
-import edu.bupt.ticketextraction.bill.wallet.Wallet;
-import edu.bupt.ticketextraction.bill.wallet.WalletManager;
 import edu.bupt.ticketextraction.setting.AboutUsActivity;
 import edu.bupt.ticketextraction.setting.LoginActivity;
 import edu.bupt.ticketextraction.setting.PersonInfoActivity;
+import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -40,29 +36,25 @@ import java.util.Map;
  * </pre>
  */
 public final class MainActivity extends AutoPushPopActivity {
-    // 用于创建FragmentTransaction，以展示fragment
-    private FragmentManager fgMng;
-
-    // 利用hashmap简化if else语句，fragments保存fragment的id和对象的映射关系
-    // Fragment利用多态，实际为继承了Fragment的自定义Fragment
-    private HashMap<Integer, Fragment> fragments;
-
-    // 跳转到其他activity前的fragment的id，默认为发票fragment
-    private static int beforeJumpFragmentId = R.id.bill;
-
     /**
      * LinkedHashMap防止打乱顺序
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
      **/
     public static LinkedHashMap<WalletButtonFragment, Boolean> walletButtonFragments;
-
     /**
      * LinkedHashMap防止打乱顺序
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
      **/
     public static LinkedHashMap<WalletCheckBoxFragment, Boolean> walletCheckBoxFragments;
+    // 跳转到其他activity前的fragment的id，默认为发票fragment
+    private static int beforeJumpFragmentId = R.id.bill;
+    // 用于创建FragmentTransaction，以展示fragment
+    private FragmentManager fgMng;
+    // 利用hashmap简化if else语句，fragments保存fragment的id和对象的映射关系
+    // Fragment利用多态，实际为继承了Fragment的自定义Fragment
+    private HashMap<Integer, Fragment> fragments;
 
     /**
      * 跳转到钱包activity
@@ -226,7 +218,7 @@ public final class MainActivity extends AutoPushPopActivity {
     private void initFragments() {
         BillFragment fgBill = new BillFragment(this);
         ExportFragment fgExport = new ExportFragment(this);
-        CheckFragment fgCheck = new CheckFragment("这个页面做发票验真功能");
+        CheckFragment fgCheck = new CheckFragment(this);
         SettingFragment fgSetting = new SettingFragment(this);
 
         // 把fragment以及对应的id存入hashmap中

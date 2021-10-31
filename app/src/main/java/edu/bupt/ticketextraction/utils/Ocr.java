@@ -16,6 +16,15 @@ import java.io.File;
  */
 public final class Ocr {
     /**
+     * Ocr工具类，请不要实例化此类！
+     *
+     * @throws InstantiationException 实例化异常，因为该类不可实例化
+     */
+    private Ocr() throws InstantiationException {
+        throw new InstantiationException();
+    }
+
+    /**
      * 调用ocr识别
      * TODO: 区分是图片还是视频，设置一个枚举类区分吧
      *
@@ -24,20 +33,13 @@ public final class Ocr {
      * @return 识别得到的发票信息
      */
     public static @NotNull CabTicket extract(@NotNull File sourceFile, String walletName) {
-        CabTicket.Builder builder = new CabTicket.Builder(walletName, sourceFile.getAbsolutePath());
+        final String number = "123";
+        final String code = "456";
+        CabTicket.Builder builder = new CabTicket.Builder(walletName, sourceFile.getAbsolutePath(), number, code);
         builder.setUnitPrice(3.0).
                 setTotalPrice(11.0).
                 setDate("2021.10.4").
                 setDistance(3.0);
         return builder.create();
-    }
-
-    /**
-     * Ocr工具类，请不要实例化此类！
-     *
-     * @throws InstantiationException 实例化异常，因为该类不可实例化
-     */
-    private Ocr() throws InstantiationException{
-        throw new InstantiationException();
     }
 }

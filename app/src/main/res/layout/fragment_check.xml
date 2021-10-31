@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/white">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
-    <TextView
-            android:id="@+id/txt_content"
+    <!-- 为export fragment添加滚动条，
+         防止创建的钱包数量占满整个布局后无法创建新钱包
+         自定义滚动条，设置最大高度 -->
+    <edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/fragment_bill"
-            android:textColor="@android:color/holo_purple"
-            android:textSize="20sp"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:id="@+id/check_scroll"
+            app:max_height="560dp">
 
-</LinearLayout>
+        <!-- 钱包fragment的容器Layout -->
+        <LinearLayout
+                android:id="@+id/wallet_fragment_container_in_check"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+            <CheckBox
+                    style="@style/export_wallet_check_box"
+                    android:id="@+id/default_wallet_check_box"
+                    android:text="@string/default_wallet"/>
+
+        </LinearLayout>
+
+    </edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+        <Button
+                style="@style/normal_button_style"
+                android:id="@+id/check_btn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/check_btn"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="66dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

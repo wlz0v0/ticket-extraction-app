@@ -19,18 +19,28 @@ public abstract class AbstractTicket implements Serializable, Writable {
     protected final String WALLET_NAME;
     protected final String SOURCE_NAME;
     protected final String TICKET_TYPE;
+    protected final String TICKET_NUMBER;
+    protected final String TICKET_CODE;
 
     /**
-     * @param walletName 钱包名
-     * @param sourceName 资源文件名
-     * @param ticketType 发票类型
+     * @param walletName   钱包名
+     * @param sourceName   资源文件名
+     * @param ticketType   发票类型
+     * @param ticketNumber 发票号码
+     * @param ticketCode   发票代码
      */
-    protected AbstractTicket(@NotNull String walletName, @NotNull String sourceName, @NotNull String ticketType) {
+    protected AbstractTicket(@NotNull String walletName,
+                             @NotNull String sourceName,
+                             @NotNull String ticketType,
+                             @NotNull String ticketNumber,
+                             @NotNull String ticketCode) {
         this.WALLET_NAME = walletName;
         this.TICKET_TYPE = ticketType;
         // 资源名只取文件名，不要目录名了
         int lastSlash = sourceName.lastIndexOf('/');
         this.SOURCE_NAME = sourceName.substring(lastSlash);
+        this.TICKET_NUMBER = ticketNumber;
+        this.TICKET_CODE = ticketCode;
     }
 
     /**
