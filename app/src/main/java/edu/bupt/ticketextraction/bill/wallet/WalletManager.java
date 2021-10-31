@@ -1,10 +1,10 @@
 package edu.bupt.ticketextraction.bill.wallet;
 
+import edu.bupt.ticketextraction.export.WalletCheckBoxFragment;
 import edu.bupt.ticketextraction.main.MainActivity;
+import edu.bupt.ticketextraction.utils.CollectionUtils;
 import edu.bupt.ticketextraction.utils.file.FileManager;
 import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
-import edu.bupt.ticketextraction.export.WalletCheckBoxFragment;
-import edu.bupt.ticketextraction.utils.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -24,18 +24,8 @@ import java.util.Map;
  * </pre>
  */
 public final class WalletManager {
-    /**
-     * 单例模式，构造器私有
-     */
-    private WalletManager() {}
-
-    /**
-     * 私有静态内部类，负责实例化单例
-     */
-    private static class InstanceHolder{
-        private final static WalletManager INSTANCE = new WalletManager();
-    }
-
+    private final static String WALLETS_DATA_PATH = FileFactory.EXTERNAL_FILE_DIR + "/wallets/WalletsData.dat";
+    private static MainActivity mainActivity;
     /**
      * key: wallet name string <br>
      * value: wallet <br>
@@ -46,9 +36,11 @@ public final class WalletManager {
      **/
     private LinkedHashMap<String, Wallet> wallets = new LinkedHashMap<>();
 
-    private final static String WALLETS_DATA_PATH = FileFactory.EXTERNAL_FILE_DIR + "/wallets/WalletsData.dat";
-
-    private static MainActivity mainActivity;
+    /**
+     * 单例模式，构造器私有
+     */
+    private WalletManager() {
+    }
 
     /**
      * 由于在创建wallet fragment时需要设置按钮点击监听器
@@ -118,15 +110,12 @@ public final class WalletManager {
             }
         }
         // 把有哪些钱包写入文件
-        FileOutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream(WALLETS_DATA_PATH, false);
+        try (FileOutputStream outputStream = new FileOutputStream(WALLETS_DATA_PATH, false)) {
             for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
                 // 加个\n，每个钱包名为一行
                 byte[] bytes = (entry.getKey() + "\n").getBytes(StandardCharsets.UTF_8);
                 outputStream.write(bytes);
             }
-            outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -251,5 +240,12 @@ public final class WalletManager {
         int i = path.indexOf('/');
         path = path.substring(0, i);
         return path;
+    }
+
+    /**
+     * 私有静态内部类，负责实例化单例
+     */
+    private static class InstanceHolder {
+        private final static WalletManager INSTANCE = new WalletManager();
     }
 }

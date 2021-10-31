@@ -1,8 +1,8 @@
 package edu.bupt.ticketextraction.bill.wallet;
 
-import edu.bupt.ticketextraction.utils.file.filefactory.WalletDataFileFactory;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.utils.file.Writable;
+import edu.bupt.ticketextraction.utils.file.filefactory.WalletDataFileFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,10 +18,9 @@ import java.util.ArrayList;
  * </pre>
  */
 public final class Wallet implements Serializable, Writable {
+    private final ArrayList<CabTicket> tickets;
     // 钱包名
     private String walletName;
-
-    private final ArrayList<CabTicket> tickets;
 
     /**
      * 创建一个钱包
@@ -73,10 +72,9 @@ public final class Wallet implements Serializable, Writable {
         // 一个发票为一行
         // 读的时候需要先清空tickets
         tickets.clear();
-        try {
-            FileInputStream inputStream = new WalletDataFileFactory(walletName).getInputStream();
-            InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            BufferedReader bufferedReader = new BufferedReader(reader);
+        try (FileInputStream inputStream = new WalletDataFileFactory(walletName).getInputStream();
+             InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+             BufferedReader bufferedReader = new BufferedReader(reader)) {
             // 局部变量line保存每行读取的信息
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -95,8 +93,7 @@ public final class Wallet implements Serializable, Writable {
             e.printStackTrace();
         }
     }
-
-
+    
     /**
      * 将钱包中的所有发票信息写入数据文件
      */

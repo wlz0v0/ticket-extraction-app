@@ -1,6 +1,7 @@
 package edu.bupt.ticketextraction.utils;
 
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
+import edu.bupt.ticketextraction.setting.contact.Contact;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,6 +47,16 @@ public final class Server {
     }
 
     /**
+     * @param phoneNumber 手机号
+     * @return 从数据库中查到的联系人
+     */
+    @Contract(pure = true)
+    public static Contact @NotNull [] callGetContacts(@NotNull String phoneNumber) {
+        Contact[] contacts = new Contact[2];
+        return contacts;
+    }
+
+    /**
      * 调用注册服务
      *
      * @param phoneNumber      账号
@@ -76,10 +87,11 @@ public final class Server {
      * 发送验证码短信到指定手机号上
      *
      * @param phoneNumber 手机号
+     * @return 返回的验证码
      */
     @Contract(pure = true)
-    public static void callVerificationSending(String phoneNumber) {
-
+    public static @NotNull String callVerificationSending(String phoneNumber) {
+        return "6626";
     }
 
     /**

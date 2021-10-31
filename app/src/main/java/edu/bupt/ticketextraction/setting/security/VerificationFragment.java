@@ -26,10 +26,10 @@ import java.text.MessageFormat;
  * </pre>
  */
 public final class VerificationFragment extends Fragment {
+    private final SetPasswordActivity fatherActivity;
     private EditText phoneNumberEt;
     private EditText verificationCodeEt;
     private Button getVerificationBtn;
-    private final SetPasswordActivity fatherActivity;
 
     public VerificationFragment(SetPasswordActivity fatherActivity) {
         this.fatherActivity = fatherActivity;
@@ -99,6 +99,7 @@ public final class VerificationFragment extends Fragment {
             getVerificationBtn.setClickable(true);
         });
         countdown.start();
-        Server.callVerificationSending(phoneNumberEt.getText().toString());
+        String code = Server.callVerificationSending(phoneNumberEt.getText().toString());
+        fatherActivity.getAlertDialog(code, (dialog, which) -> dialog.dismiss());
     }
 }

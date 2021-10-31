@@ -14,7 +14,14 @@ import java.util.Map;
  *     version: 0.0.1
  * </pre>
  */
-public class CollectionUtils {
+public final class CollectionUtils {
+    /**
+     * @throws InstantiationException 实例化异常，该类不可实例化
+     */
+    private CollectionUtils() throws InstantiationException {
+        throw new InstantiationException();
+    }
+
     /**
      * 替换LinkedHashMap的Key值，同时保持LinkedHashMap原有的顺序
      *
@@ -37,12 +44,5 @@ public class CollectionUtils {
             temp.put(entry.getKey(), entry.getValue());
         }
         return temp;
-    }
-
-    /**
-     * @throws InstantiationException 实例化异常，该类不可实例化
-     */
-    private CollectionUtils() throws InstantiationException {
-        throw new InstantiationException();
     }
 }

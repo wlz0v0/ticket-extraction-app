@@ -25,17 +25,77 @@ public final class CabTicket extends AbstractTicket {
     private final String date;
 
     /**
+     * @param walletName 钱包名
+     * @param sourceName 对应的资源文件名
+     * @param unitPrice  单价
+     * @param totalPrice 总价
+     * @param distance   行驶距离
+     * @param date       日期
+     */
+    private CabTicket(String walletName,
+                      String sourceName,
+                      double unitPrice,
+                      double totalPrice,
+                      double distance,
+                      String date) {
+        super(walletName, sourceName, "出租车发票");
+        this.unitPrice = unitPrice;
+        this.totalPrice = totalPrice;
+        this.distance = distance;
+        this.date = date;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getSOURCE_NAME() {
+        return SOURCE_NAME;
+    }
+
+    public String getWALLET_NAME() {
+        return WALLET_NAME;
+    }
+
+    /**
+     * 将发票数据以append的形式写入文件中
+     */
+    @Override
+    public void writeToData() {
+
+        byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").
+                getBytes(StandardCharsets.UTF_8);
+        try (FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile()) {
+            outputStream.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * CabTicket的构造器
      */
     // Builder类未使用返回值不做警告，因为一定会有一个返回值用不到
     @SuppressWarnings("UnusedReturnValue")
-    public static class Builder extends AbstractTicket.Builder<Builder>{
+    public static class Builder extends AbstractTicket.Builder<Builder> {
+        private final String walletName;
+        private final String sourceName;
         private Double unitPrice;
         private Double totalPrice;
         private Double distance;
         private String date;
-        private final String walletName;
-        private final String sourceName;
 
         /**
          * @param walletName 钱包名
@@ -96,67 +156,6 @@ public final class CabTicket extends AbstractTicket {
         @Override
         public @NotNull CabTicket create() {
             return new CabTicket(walletName, sourceName, unitPrice, totalPrice, distance, date);
-        }
-    }
-
-    /**
-     * @param walletName 钱包名
-     * @param sourceName 对应的资源文件名
-     * @param unitPrice  单价
-     * @param totalPrice 总价
-     * @param distance   行驶距离
-     * @param date       日期
-     */
-    private CabTicket(String walletName,
-                      String sourceName,
-                      double unitPrice,
-                      double totalPrice,
-                      double distance,
-                      String date) {
-        super(walletName, sourceName, "出租车发票");
-        this.unitPrice = unitPrice;
-        this.totalPrice = totalPrice;
-        this.distance = distance;
-        this.date = date;
-    }
-
-    public Double getDistance() {
-        return distance;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public Double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getSOURCE_NAME() {
-        return SOURCE_NAME;
-    }
-
-    public String getWALLET_NAME() {
-        return WALLET_NAME;
-    }
-
-    /**
-     * 将发票数据以append的形式写入文件中
-     */
-    @Override
-    public void writeToData() {
-        FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile();
-        byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance + " " + date + "\n").
-                getBytes(StandardCharsets.UTF_8);
-        try {
-            outputStream.write(bytes);
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
