@@ -68,7 +68,7 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
      * 本函数用于设置Activity的返回键和标题
      *
      * @param activity 要设置的Activity，在相应的Activity中传this就行
-     * @param title Activity标题
+     * @param title    Activity标题
      */
     protected void setActionBar(@NotNull AutoPushPopActivity activity, String title) {
         ActionBar actionBar = activity.getSupportActionBar();
@@ -89,19 +89,19 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
      */
     public void showBottomToast(AutoPushPopActivity activity, String message, int time) {
         Toast toast = Toast.makeText(activity, message, time);
-        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }
 
     /**
      * 展示AlertDialog
      *
-     * @param text 要展示的文本
+     * @param text            要展示的文本
      * @param onClickListener PositiveButton的回调函数
      * @return 对应AlertDialog
      */
     public @NotNull AlertDialog getAlertDialog(String text,
-                                                DialogInterface.OnClickListener onClickListener) {
+                                               DialogInterface.OnClickListener onClickListener) {
         // 先创建一个builder，再通过builder构造alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(text).

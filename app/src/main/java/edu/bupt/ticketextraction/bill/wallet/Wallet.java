@@ -72,7 +72,7 @@ public final class Wallet implements Serializable, Writable {
         // 一个发票为一行
         // 读的时候需要先清空tickets
         tickets.clear();
-        try (FileInputStream inputStream = new WalletDataFileFactory(walletName).getInputStream();
+        try (FileInputStream inputStream = new WalletDataFileFactory(walletName).createInputStream();
              InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(reader)) {
             // 局部变量line保存每行读取的信息
@@ -100,7 +100,7 @@ public final class Wallet implements Serializable, Writable {
     @Override
     public void writeToData() {
         // 先清空数据文件
-        FileOutputStream outputStream = new WalletDataFileFactory(walletName).createFile();
+        FileOutputStream outputStream = new WalletDataFileFactory(walletName).createOutputStream();
         try {
             outputStream.close();
         } catch (IOException e) {

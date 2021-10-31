@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.export.SendToEmailActivity;
-import edu.bupt.ticketextraction.main.MainActivity;
 import org.jetbrains.annotations.NotNull;
 
 /**

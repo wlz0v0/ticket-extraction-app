@@ -25,10 +25,9 @@ import java.util.ArrayList;
  */
 
 public final class SendToEmailActivity extends AutoPushPopActivity {
-    private String emailAddress;
-
     // checkBoxes用于发送email时确定哪些需要被发送
     public static ArrayList<CheckBox> checkBoxes;
+    private String emailAddress;
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -72,6 +71,7 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
 
     /**
      * 获得一个弹窗，用于提高代码复用率
+     *
      * @param text 创建的弹窗的信息的字符串
      **/
     private @NotNull AlertDialog getAlertDialog(String text) {
@@ -80,7 +80,7 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
         builder.setMessage(text).
                 setCancelable(false).
                 setPositiveButton("确认", (dialog, which) ->
-                    dialog.dismiss());
+                        dialog.dismiss());
         return builder.create();
     }
 }

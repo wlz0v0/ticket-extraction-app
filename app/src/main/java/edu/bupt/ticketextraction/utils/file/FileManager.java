@@ -1,7 +1,5 @@
 package edu.bupt.ticketextraction.utils.file;
 
-import edu.bupt.ticketextraction.bill.wallet.WalletManager;
-
 import java.io.File;
 
 /**
@@ -17,13 +15,7 @@ public final class FileManager {
     /**
      * 单例模式，构造器私有
      */
-    private FileManager() {}
-
-    /**
-     * 私有静态内部类，负责实例化单例
-     */
-    private static class InstanceHolder{
-        private final static FileManager INSTANCE = new FileManager();
+    private FileManager() {
     }
 
     public static FileManager getInstance() {
@@ -61,5 +53,12 @@ public final class FileManager {
      */
     public void clearCache() {
 
+    }
+
+    /**
+     * 私有静态内部类，负责实例化单例
+     */
+    private static class InstanceHolder {
+        private final static FileManager INSTANCE = new FileManager();
     }
 }

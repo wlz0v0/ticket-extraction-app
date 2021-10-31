@@ -14,12 +14,12 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.bill.tickets.TicketFragment;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
-import edu.bupt.ticketextraction.bill.tickets.CabTicket;
+import edu.bupt.ticketextraction.utils.Ocr;
 import edu.bupt.ticketextraction.utils.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.utils.file.filefactory.VideoFileFactory;
-import edu.bupt.ticketextraction.utils.Ocr;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,10 +35,10 @@ import java.util.Iterator;
  * </pre>
  */
 public final class WalletActivity extends AutoPushPopActivity {
-    private Wallet wallet;
-    private final ArrayList<TicketFragment> sourceFragments = new ArrayList<>();
-    private static final int START_CAMERA = 1;
     public final static String WALLET_EXTRA = "wallet";
+    private static final int START_CAMERA = 1;
+    private final ArrayList<TicketFragment> sourceFragments = new ArrayList<>();
+    private Wallet wallet;
 
     public void removeCabTicket(CabTicket ticket) {
         wallet.removeTicket(ticket);

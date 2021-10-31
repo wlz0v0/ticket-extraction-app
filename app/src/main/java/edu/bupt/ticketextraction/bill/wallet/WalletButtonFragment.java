@@ -15,11 +15,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.main.MainActivity;
-import edu.bupt.ticketextraction.bill.wallet.RenameWalletActivity;
-import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.export.WalletCheckBoxFragment;
-import edu.bupt.ticketextraction.bill.wallet.WalletManager;
+import edu.bupt.ticketextraction.main.MainActivity;
+import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

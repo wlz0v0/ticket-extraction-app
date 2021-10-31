@@ -82,7 +82,7 @@ public abstract class FileFactory {
 
     /**
      * @param directory 目录
-     * @param prefix 文件名
+     * @param prefix    文件名
      * @return 文件输入流
      */
     protected FileInputStream getInDataStream(String directory, String prefix) {

@@ -35,7 +35,7 @@ public final class WalletDataFileFactory extends FileFactory {
      *
      * @return 钱包数据文件输出流
      */
-    public FileOutputStream createFile() {
+    public FileOutputStream createOutputStream() {
         return getOutDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX, false);
     }
 
@@ -44,7 +44,7 @@ public final class WalletDataFileFactory extends FileFactory {
      *
      * @return 钱包数据文件输出流
      */
-    public FileOutputStream createAppendFile() {
+    public FileOutputStream createAppendOutputStream() {
         return getOutDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX, true);
     }
 
@@ -53,7 +53,7 @@ public final class WalletDataFileFactory extends FileFactory {
      *
      * @return 钱包数据文件读入流
      */
-    public FileInputStream getInputStream() {
+    public FileInputStream createInputStream() {
         return getInDataStream(DATA_DIRECTORY, WALLET_DATA_PREFIX);
     }
 }

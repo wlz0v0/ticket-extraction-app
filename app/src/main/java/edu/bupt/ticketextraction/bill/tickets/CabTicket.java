@@ -82,7 +82,7 @@ public final class CabTicket extends AbstractTicket {
         byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance +
                 " " + date + " " + TICKET_NUMBER + " " + TICKET_CODE + "\n").
                 getBytes(StandardCharsets.UTF_8);
-        try (FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendFile()) {
+        try (FileOutputStream outputStream = new WalletDataFileFactory(WALLET_NAME).createAppendOutputStream()) {
             outputStream.write(bytes);
         } catch (IOException e) {
             e.printStackTrace();

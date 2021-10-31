@@ -15,9 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.bill.tickets.TicketActivity;
 import edu.bupt.ticketextraction.bill.wallet.WalletActivity;
-import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import org.jetbrains.annotations.NotNull;
 
 /**
