@@ -19,10 +19,10 @@ import org.jetbrains.annotations.NotNull;
  *     version: 0.0.1
  * </pre>
  */
-public final class CheckFragment extends Fragment {
+public final class InstructionFragment extends Fragment {
     private final MainActivity fatherActivity;
 
-    public CheckFragment(MainActivity fatherActivity) {
+    public InstructionFragment(MainActivity fatherActivity) {
         this.fatherActivity = fatherActivity;
     }
 
@@ -30,7 +30,7 @@ public final class CheckFragment extends Fragment {
     public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
                                       @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                                       @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_check, container, false);
+        View view = inflater.inflate(R.layout.fragment_instruction, container, false);
         return view;
     }
 }

@@ -7,4 +7,4 @@
  *     version: 0.0.1
  * </pre>
  */
-package edu.bupt.ticketextraction.check;
+package edu.bupt.ticketextraction.instruction;

@@ -17,18 +17,18 @@
             app:max_height="560dp">
 
         <!-- 钱包fragment的容器Layout -->
-        <LinearLayout
+        <RadioGroup
                 android:id="@+id/wallet_fragment_container_in_check"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:orientation="vertical">
 
-            <CheckBox
+            <RadioButton
                     style="@style/export_wallet_check_box"
-                    android:id="@+id/default_wallet_check_box"
+                    android:id="@+id/default_wallet_radio_button"
                     android:text="@string/default_wallet"/>
 
-        </LinearLayout>
+        </RadioGroup>
 
     </edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView>
 
@@ -51,5 +51,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="66dp"/>
     </LinearLayout>
+
 
 </RelativeLayout>

@@ -34,7 +34,6 @@
         <activity android:name=".setting.TeamActivity"/>
         <activity android:name=".bill.wallet.CreateWalletActivity"/>
         <activity android:name=".bill.wallet.WalletActivity"/>
-        <activity android:name=".main.InstructionActivity"/>
         <activity android:name=".bill.tickets.TicketActivity"/>
         <activity android:name=".setting.security.SetPasswordActivity"/>
         <activity android:name=".setting.LoginActivity"/>

@@ -11,6 +11,40 @@
 
         <TextView
                 style="@style/ticket_info_constant"
+                android:text="@string/ticket_number"
+                android:textSize="22sp"/>
+
+        <TextView
+                android:id="@+id/number_textview"
+                style="@style/ticket_info_variable"
+                android:text=""/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/ticket_info_constant"
+                android:text="@string/ticket_code"
+                android:textSize="22sp"/>
+
+        <TextView
+                android:id="@+id/code_textview"
+                style="@style/ticket_info_variable"
+                android:text=""/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/ticket_info_constant"
                 android:text="@string/unit_price"/>
 
         <TextView

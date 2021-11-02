@@ -4,7 +4,7 @@
     <string name="fragment_bill">发票</string>
     <string name="fragment_export">导出</string>
     <string name="camera_btn">相机</string>
-    <string name="fragment_check">验真</string>
+    <string name="fragment_instruction">教程</string>
     <string name="fragment_setting">设置</string>
     <string name="login_account">请输入账号</string>
     <string name="login_password">请输入密码</string>
@@ -60,4 +60,6 @@
     <string name="input_name">请输入姓名</string>
     <string name="input_email">请输入邮箱</string>
     <string name="check_btn">验&#160;&#160;&#160;&#160;真</string>
+    <string name="ticket_code">&#160;&#160;发票代码:</string>
+    <string name="ticket_number">&#160;&#160;发票号码:</string>
 </resources>

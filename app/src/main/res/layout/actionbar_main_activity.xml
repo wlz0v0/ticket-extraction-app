@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -14,17 +13,5 @@
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
             android:background="@android:color/holo_purple"/>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/instruction_button"
-            android:text="@string/action_instruction"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:drawableStart="@drawable/help_white"
-            android:layout_alignParentEnd="true"
-            android:background="@android:color/holo_purple"
-            tools:ignore="RelativeOverlap"/>
 
 </RelativeLayout>

@@ -55,7 +55,7 @@ public final class TicketFragment extends Fragment {
         sourceBtn.setLongClickable(true);
         // 点击跳转到发票具体信息
         sourceBtn.setOnClickListener(view1 -> jumpFromWalletToTicket());
-        // 长按可删除发票
+        // 长按可删除发票或者发票验真
         sourceBtn.setOnLongClickListener(this::onLongClickListenerCallback);
 
         // 设置相关文本
@@ -79,7 +79,8 @@ public final class TicketFragment extends Fragment {
         builder.setMessage("希望进行的操作").
                 setCancelable(false).
                 setPositiveButton("删除", this::positiveButtonCallback).
-                setNegativeButton("取消", this::negativeButtonCallback);
+                setNeutralButton("取消", this::neutralButtonCallback).
+                setNegativeButton("验真", this::negativeButtonCallback);
         AlertDialog dialog = builder.create();
         dialog.show();
         return true;
@@ -109,8 +110,13 @@ public final class TicketFragment extends Fragment {
         dialog1.show();
     }
 
+    // 验真按钮点击回调
+    private void negativeButtonCallback(DialogInterface dialog, int which) {
+
+    }
+
     // 取消按钮点击回调
-    private void negativeButtonCallback(@NotNull DialogInterface dialog, int which) {
+    private void neutralButtonCallback(@NotNull DialogInterface dialog, int which) {
         dialog.dismiss();
     }
 

@@ -3,10 +3,10 @@
 <!-- 本xml为主activity布局文件 -->
 
 <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:orientation="vertical">
 
     <!-- fragment的容器 -->
     <RelativeLayout
@@ -41,9 +41,9 @@
 
         <RadioButton
                 style="@style/radio_button_style"
-                android:id="@+id/check"
-                android:drawableTop="@drawable/check_icon_selector"
-                android:text="@string/fragment_check"/>
+                android:id="@+id/instruction"
+                android:drawableTop="@drawable/help_icon_selector"
+                android:text="@string/fragment_instruction"/>
 
         <RadioButton
                 style="@style/radio_button_style"

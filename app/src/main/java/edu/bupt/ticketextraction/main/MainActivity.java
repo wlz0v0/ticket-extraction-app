@@ -2,8 +2,6 @@ package edu.bupt.ticketextraction.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.annotation.Nullable;
@@ -19,7 +17,6 @@ import edu.bupt.ticketextraction.setting.AboutUsActivity;
 import edu.bupt.ticketextraction.setting.LoginActivity;
 import edu.bupt.ticketextraction.setting.PersonInfoActivity;
 import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,24 +115,6 @@ public final class MainActivity extends AutoPushPopActivity {
         startActivity(intent);
     }
 
-    /**
-     * 跳转到InstructionActivity
-     */
-    public void jumpFromMainToInstruction() {
-        // 无需设置跳转id，因为所有fragment都能跳转过去
-        Intent intent = new Intent(MainActivity.this, InstructionActivity.class);
-        startActivity(intent);
-    }
-
-    // 点击使用说明后跳转到使用说明
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == R.id.instruction_button) {
-            jumpFromMainToInstruction();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,10 +136,6 @@ public final class MainActivity extends AutoPushPopActivity {
             actionBar.setDisplayShowHomeEnabled(false);
             // 不显示标题
             actionBar.setDisplayShowTitleEnabled(false);
-            // 绑定使用说明按钮
-            Button instructionBtn = findViewById(R.id.instruction_button);
-            // 设置使用说明按钮点击监听器
-            instructionBtn.setOnClickListener(view -> jumpFromMainToInstruction());
         }
 
         initFragments();
@@ -218,14 +193,14 @@ public final class MainActivity extends AutoPushPopActivity {
     private void initFragments() {
         BillFragment fgBill = new BillFragment(this);
         ExportFragment fgExport = new ExportFragment(this);
-        CheckFragment fgCheck = new CheckFragment(this);
+        InstructionFragment fgCheck = new InstructionFragment(this);
         SettingFragment fgSetting = new SettingFragment(this);
 
         // 把fragment以及对应的id存入hashmap中
         fragments = new HashMap<>();
         fragments.put(R.id.bill, fgBill);
         fragments.put(R.id.export, fgExport);
-        fragments.put(R.id.check, fgCheck);
+        fragments.put(R.id.instruction, fgCheck);
         fragments.put(R.id.setting, fgSetting);
 
         // 初始化FragmentTransaction并将fragments添加到activity中
