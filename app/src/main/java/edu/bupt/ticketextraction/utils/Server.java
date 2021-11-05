@@ -56,7 +56,8 @@ public final class Server {
      */
     @Contract(pure = true)
     public static Contact @NotNull [] callGetContacts(@NotNull String phoneNumber) {
-        Contact[] contacts = new Contact[2];
+        Contact[] contacts = new Contact[4];
+        
         return contacts;
     }
 

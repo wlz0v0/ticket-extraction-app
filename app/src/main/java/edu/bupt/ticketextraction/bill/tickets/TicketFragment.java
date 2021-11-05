@@ -111,8 +111,8 @@ public final class TicketFragment extends Fragment {
     }
 
     // 验真按钮点击回调
-    private void negativeButtonCallback(DialogInterface dialog, int which) {
-
+    private void negativeButtonCallback(@NotNull DialogInterface dialog, int which) {
+        dialog.dismiss();
     }
 
     // 取消按钮点击回调
@@ -124,7 +124,7 @@ public final class TicketFragment extends Fragment {
      * 删除该资源，包括对应的Fragment、钱包中的信息
      */
     private void removeSource() {
-        // 删除页面中的SourceFragment
+        // 删除页面中的TicketFragment
         FragmentTransaction transaction = fatherActivity.getSupportFragmentManager().beginTransaction();
         transaction.remove(this);
         transaction.commit();
