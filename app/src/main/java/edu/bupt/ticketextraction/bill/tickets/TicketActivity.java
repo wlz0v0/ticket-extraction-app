@@ -33,10 +33,15 @@ public final class TicketActivity extends AutoPushPopActivity {
         // 绑定所有TextView
         // 断言ticket非空
         assert ticket != null;
+        TextView ticketNumber = findViewById(R.id.number_textview);
+        TextView ticketCode = findViewById(R.id.code_textview);
         TextView unitPrice = findViewById(R.id.unit_price_textview);
         TextView distance = findViewById(R.id.distance_textview);
         TextView totalPrice = findViewById(R.id.total_price_textview);
         TextView date = findViewById(R.id.date_textview);
+        
+        ticketNumber.setText(ticket.getTicketNumber());
+        ticketCode.setText(ticket.getTicketCode());
         unitPrice.setText(ticket.getUnitPrice().toString());
         distance.setText(ticket.getDistance().toString());
         totalPrice.setText(ticket.getTotalPrice().toString());

@@ -65,14 +65,6 @@ public final class CabTicket extends AbstractTicket {
         return date;
     }
 
-    public String getSourceName() {
-        return SOURCE_NAME;
-    }
-
-    public String getWalletName() {
-        return WALLET_NAME;
-    }
-
     /**
      * 将发票数据以append的形式写入文件中
      */

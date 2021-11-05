@@ -15,6 +15,7 @@ import java.io.Serializable;
  *     version: 0.0.1
  * </pre>
  */
+@SuppressWarnings("unused")
 public abstract class AbstractTicket implements Serializable, Writable {
     protected final String WALLET_NAME;
     protected final String SOURCE_NAME;
@@ -41,6 +42,26 @@ public abstract class AbstractTicket implements Serializable, Writable {
         this.SOURCE_NAME = sourceName.substring(lastSlash);
         this.TICKET_NUMBER = ticketNumber;
         this.TICKET_CODE = ticketCode;
+    }
+
+    public String getSourceName() {
+        return SOURCE_NAME;
+    }
+
+    public String getWalletName() {
+        return WALLET_NAME;
+    }
+
+    public String getTicketNumber() {
+        return TICKET_NUMBER;
+    }
+
+    public String getTicketCode() {
+        return TICKET_CODE;
+    }
+
+    public String getTicketType() {
+        return TICKET_TYPE;
     }
 
     /**
