@@ -15,13 +15,8 @@ import java.io.File;
  * </pre>
  */
 public final class Ocr {
-    /**
-     * Ocr工具类，请不要实例化此类！
-     *
-     * @throws InstantiationException 实例化异常，因为该类不可实例化
-     */
-    private Ocr() throws InstantiationException {
-        throw new InstantiationException();
+    private Ocr() {
+        throw new AssertionError();
     }
 
     /**

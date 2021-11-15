@@ -12,6 +12,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,14 +27,16 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public final class Server {
     private final static String securityCode = "";
+    private final static String EMAIL_URL = "/mail";
+    private final static String LOGIN_URL = "/login";
+    private final static String REGISTER_URL = "/register";
+    private final static String GET_EMAIL_URL = "/getMails";
 
     /**
      * Server工具类，请不要实例化此类！
-     *
-     * @throws InstantiationException 实例化异常，因为该类不可实例化
      */
-    private Server() throws InstantiationException {
-        throw new InstantiationException();
+    private Server() {
+        throw new AssertionError();
     }
 
     /**
@@ -47,7 +50,11 @@ public final class Server {
     public static int callLogin(String phoneNumber, String password) {
         // 加密密码
         String cipherText = Server.passwordEncrypt(password);
-        return 1;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("phone", phoneNumber);
+        map.put("key", cipherText);
+        String res = Server.post(LOGIN_URL, map);
+        return Integer.parseInt(res);
     }
 
     /**
@@ -57,7 +64,9 @@ public final class Server {
     @Contract(pure = true)
     public static Contact @NotNull [] callGetContacts(@NotNull String phoneNumber) {
         Contact[] contacts = new Contact[4];
-        
+        HashMap<String, String> map = new HashMap<>();
+        map.put("phone", phoneNumber);
+//        map = Server.post(url, map);
         return contacts;
     }
 
@@ -73,6 +82,7 @@ public final class Server {
     public static boolean callRegister(String phoneNumber, String password, String verificationCode) {
         // 加密密码
         String cipherText = Server.passwordEncrypt(password);
+        HashMap<String, String> map = new HashMap<>();
         return true;
     }
 
@@ -125,6 +135,8 @@ public final class Server {
             infos[i][3] = String.valueOf(ticket.getTotalPrice());
             infos[i][4] = ticket.getDate();
         }
+        HashMap<String, String> map = new HashMap<>();
+        Server.post(EMAIL_URL, map);
         return false;
     }
 

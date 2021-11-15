@@ -15,11 +15,8 @@ import java.util.Map;
  * </pre>
  */
 public final class CollectionUtils {
-    /**
-     * @throws InstantiationException 实例化异常，该类不可实例化
-     */
-    private CollectionUtils() throws InstantiationException {
-        throw new InstantiationException();
+    private CollectionUtils() {
+        throw new AssertionError();
     }
 
     /**
