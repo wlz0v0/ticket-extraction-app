@@ -24,7 +24,7 @@ public final class ContactActivity extends AutoPushPopActivity {
     // 俩文本框,展示Contact信息
     private TextView nameTextView;
     private TextView emailTextView;
-
+    private Contact contact;
     /**
      * 启动CreateContactActivity，并获取其返回的name和email<br>
      * 这个Launcher必须要定义在字段中
@@ -38,6 +38,8 @@ public final class ContactActivity extends AutoPushPopActivity {
                     // 获取返回字符串
                     String name = intent.getStringExtra(PersonInfoActivity.NEW_NAME);
                     String email = intent.getStringExtra(PersonInfoActivity.NEW_EMAIL);
+                    contact.setName(name);
+                    contact.setEmail(email);
                     // 设置对应文本内容
                     nameTextView.setText(name);
                     emailTextView.setText(email);
@@ -50,20 +52,20 @@ public final class ContactActivity extends AutoPushPopActivity {
         setContentView(R.layout.activity_contact);
         Intent intent = getIntent();
         // 获取传入的联系人
-        Contact contact = (Contact) intent.getSerializableExtra(PersonInfoActivity.CONTACT);
+        contact = (Contact) intent.getSerializableExtra(PersonInfoActivity.CONTACT);
         // contact不应该为空
         assert contact != null;
 
         // 设置ActionBar
-        super.setActionBar(this, contact.name);
+        super.setActionBar(this, contact.getName());
 
         // 绑定控件
         nameTextView = findViewById(R.id.contact_name);
         emailTextView = findViewById(R.id.contact_email);
 
         // 设置文本内容
-        nameTextView.setText(contact.name);
-        emailTextView.setText(contact.email);
+        nameTextView.setText(contact.getName());
+        emailTextView.setText(contact.getEmail());
 
         // 绑定按钮
         Button changeInfoBtn = findViewById(R.id.change_contact_info_button);

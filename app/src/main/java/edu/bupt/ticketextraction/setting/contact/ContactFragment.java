@@ -39,7 +39,7 @@ public final class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         Button contactBtn = view.findViewById(R.id.contact_button);
         // 设置联系人姓名
-        contactBtn.setText(contact.name);
+        contactBtn.setText(contact.getName());
         // 设置点击跳转
         contactBtn.setOnClickListener(view1 -> fatherActivity.jumpFromPersonInfoToContact(contact));
         return view;

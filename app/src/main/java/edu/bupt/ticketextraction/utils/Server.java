@@ -27,10 +27,11 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public final class Server {
     private final static String securityCode = "";
-    private final static String EMAIL_URL = "/mail";
+    private final static String SEND_EMAIL_URL = "/mail";
     private final static String LOGIN_URL = "/login";
     private final static String REGISTER_URL = "/register";
-    private final static String GET_EMAIL_URL = "/getMails";
+    private final static String GET_CONTACT_URL = "/getMails";
+    private final static String SET_CONTACT_URL = "/setMails";
 
     /**
      * Server工具类，请不要实例化此类！
@@ -66,8 +67,29 @@ public final class Server {
         Contact[] contacts = new Contact[4];
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
-//        map = Server.post(url, map);
+        String res = Server.post(GET_CONTACT_URL, map);
+        String[] nameAndEmails = res.split(" ");
+        for (int i = 0; i < contacts.length; ++i) {
+            contacts[i].setName(nameAndEmails[i * 2]);
+            contacts[i].setEmail(nameAndEmails[i * 2 + 1]);
+        }
         return contacts;
+    }
+
+    /**
+     * @param phoneNumber 手机号
+     * @return 是否成功
+     */
+    @Contract(pure = true)
+    public static boolean callSetContacts(@NotNull String phoneNumber, Contact @NotNull [] contacts) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("phone", phoneNumber);
+        for (int i = 0; i < contacts.length; ++i) {
+            map.put("name" + i, contacts[i].getName());
+            map.put("mail" + i, contacts[i].getEmail());
+        }
+        String res = Server.post(GET_CONTACT_URL, map);
+        return res.equals("True");
     }
 
     /**
@@ -83,7 +105,10 @@ public final class Server {
         // 加密密码
         String cipherText = Server.passwordEncrypt(password);
         HashMap<String, String> map = new HashMap<>();
-        return true;
+        map.put("phone", phoneNumber);
+        map.put("key", cipherText);
+        String res = Server.post(REGISTER_URL, map);
+        return res.equals("True");
     }
 
     /**
@@ -121,23 +146,30 @@ public final class Server {
         // 每个发票一行，再加第一行的说明
         final int rowCnt = tickets.size() + 1;
         // 第一列的序号，再加上单价、距离、总价、日期四列
-        final int columnCnt = 5;
-        String[] firstRow = {"发票", "单价", "距离", "总价", "日期"};
-        String[][] infos = new String[rowCnt][columnCnt];
+        final int columnCnt = 7;
+        String[] firstRow = {"发票", "发票号码", "发票代码", "单价", "距离", "总价", "日期"};
+
         // 第一行说明信息
-        System.arraycopy(firstRow, 0, infos[0], 0, columnCnt);
-        for (int i = 1; i < rowCnt; ++i) {
-            // 序号、单价、距离、总价、日期
-            CabTicket ticket = tickets.get(i);
-            infos[i][0] = String.valueOf(i);
-            infos[i][1] = String.valueOf(ticket.getUnitPrice());
-            infos[i][2] = String.valueOf(ticket.getDistance());
-            infos[i][3] = String.valueOf(ticket.getTotalPrice());
-            infos[i][4] = ticket.getDate();
+        StringBuilder sb = new StringBuilder();
+        for (String s : firstRow) {
+            sb.append(s).append(" ");
         }
         HashMap<String, String> map = new HashMap<>();
-        Server.post(EMAIL_URL, map);
-        return false;
+        map.put("0", String.valueOf(rowCnt));
+        map.put("1", sb.toString());
+        for (int i = 2; i <= rowCnt; ++i) {
+            // 序号、单价、距离、总价、日期
+            CabTicket ticket = tickets.get(i);
+            String sb2 = ticket.getTicketNumber() + " " +
+                    ticket.getTicketCode() + " " +
+                    ticket.getUnitPrice() + " " +
+                    ticket.getDistance() + " " +
+                    ticket.getTotalPrice() + " " +
+                    ticket.getDate();
+            map.put(String.valueOf(i), sb2);
+        }
+        String res = Server.post(SEND_EMAIL_URL, map);
+        return res.equals("True");
     }
 
     @Contract(pure = true)
