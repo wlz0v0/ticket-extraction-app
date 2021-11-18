@@ -94,10 +94,11 @@ public final class WalletManager {
         return true;
     }
 
+
     /**
-     * 将所有数据写入文件
+     * 创建钱包目录
      */
-    public void writeWalletsToData() {
+    public void createWalletDirectory() {
         // 检查是否存在WalletData目录
         // 不存在则先创建
         File file = new File(WALLETS_DATA_PATH);
@@ -109,6 +110,15 @@ public final class WalletManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 将所有数据写入文件
+     */
+    public void writeWalletsToData() {
+        // 检查是否存在WalletData目录
+        // 不存在则先创建
+        createWalletDirectory();
         // 把有哪些钱包写入文件
         try (FileOutputStream outputStream = new FileOutputStream(WALLETS_DATA_PATH, false)) {
             for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {

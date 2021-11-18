@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.bill.wallet;
 
+import android.util.Log;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.utils.file.Writable;
 import edu.bupt.ticketextraction.utils.file.filefactory.WalletDataFileFactory;
@@ -80,6 +81,7 @@ public final class Wallet implements Serializable, Writable {
             while ((line = bufferedReader.readLine()) != null) {
                 // 按照空格切割得到发票的各个信息
                 String[] info = line.split(" ");
+                Log.e("wlz", line);
                 // 构建发票
                 CabTicket.Builder builder = new CabTicket.Builder(walletName, info[0], info[5], info[6]);
                 builder.setUnitPrice(Double.parseDouble(info[1])).
