@@ -1,16 +1,15 @@
 package edu.bupt.ticketextraction.export;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import edu.bupt.ticketextraction.R;
+import edu.bupt.ticketextraction.bill.wallet.Wallet;
+import edu.bupt.ticketextraction.bill.wallet.WalletManager;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
 import edu.bupt.ticketextraction.utils.Server;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -49,38 +48,22 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
     private void sendEmail() {
         for (CheckBox cb : checkBoxes) {
             if (cb.isChecked()) {
-                Log.d("", "");
-                // TODO: 将此钱包对应的excel添加到附件中！
+                Wallet w = WalletManager.getInstance().getWallet(cb.getText().toString());
+                assert w != null;
+                if (Server.sendEmail(w.getTickets(), emailAddress)) {
+                    sendSuccessful();
+                } else {
+                    sendFailed();
+                }
             }
-        }
-        //TODO
-        if (Server.sendEmail(new ArrayList<>(), "")) {
-            sendSuccessful();
-        } else {
-            sendFailed();
         }
     }
 
     private void sendSuccessful() {
-        getAlertDialog("发送邮件成功").show();
+        showBottomToast(this, "发送邮件成功", 5);
     }
 
     private void sendFailed() {
-        getAlertDialog("发送邮件失败").show();
-    }
-
-    /**
-     * 获得一个弹窗，用于提高代码复用率
-     *
-     * @param text 创建的弹窗的信息的字符串
-     **/
-    private @NotNull AlertDialog getAlertDialog(String text) {
-        // 先创建一个builder，再通过builder构造alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(text).
-                setCancelable(false).
-                setPositiveButton("确认", (dialog, which) ->
-                        dialog.dismiss());
-        return builder.create();
+        showBottomToast(this, "发送邮件失败", 5);
     }
 }
