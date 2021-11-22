@@ -70,7 +70,6 @@ public final class CabTicket extends AbstractTicket {
      */
     @Override
     public void writeToData() {
-
         byte[] bytes = (SOURCE_NAME + " " + unitPrice + " " + totalPrice + " " + distance +
                 " " + date + " " + TICKET_NUMBER + " " + TICKET_CODE + "\n").
                 getBytes(StandardCharsets.UTF_8);

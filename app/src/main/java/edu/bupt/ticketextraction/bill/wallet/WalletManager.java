@@ -129,9 +129,7 @@ public final class WalletManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
-            this.writeWalletSourceToData(entry.getValue());
-        }
+        wallets.forEach((key, value) -> writeWalletSourceToData(value));
     }
 
     /**
@@ -168,13 +166,9 @@ public final class WalletManager {
         }
         // 根据所有钱包的名字创建钱包
         if (!walletNames.isEmpty()) {
-            for (String name : walletNames) {
-                createWallet(name);
-            }
+            walletNames.forEach(this::createWallet);
         }
-        for (Map.Entry<String, Wallet> entry : wallets.entrySet()) {
-            this.readWalletSourceFromData(entry.getValue());
-        }
+        wallets.forEach((key, value) -> readWalletSourceFromData(value));
     }
 
     /**

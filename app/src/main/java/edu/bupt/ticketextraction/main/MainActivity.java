@@ -62,7 +62,8 @@ public final class MainActivity extends AutoPushPopActivity {
         // 从发票fragment跳转
         beforeJumpFragmentId = R.id.bill;
         Intent intent = new Intent(MainActivity.this, WalletActivity.class);
-        intent.putExtra(WalletActivity.WALLET_EXTRA, wallet);
+        // 序列化传参会生成一个新对象，无法获取之前的对象，所以采用静态setter
+        WalletActivity.setWallet(wallet);
         startActivity(intent);
     }
 

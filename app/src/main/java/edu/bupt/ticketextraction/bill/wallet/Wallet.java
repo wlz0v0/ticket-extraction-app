@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *     version: 0.0.1
  * </pre>
  */
-public final class Wallet implements Serializable, Writable {
+public final class Wallet implements Writable {
     private final ArrayList<CabTicket> tickets;
     // 钱包名
     private String walletName;
@@ -52,16 +52,19 @@ public final class Wallet implements Serializable, Writable {
      */
     public void addTicket(CabTicket ticket) {
         tickets.add(ticket);
+        Log.e("ticket", String.format("add size:%d", tickets.size()));
     }
 
     public void removeTicket(CabTicket ticket) {
         tickets.remove(ticket);
+        Log.e("ticket", String.format("remove size:%d", tickets.size()));
     }
 
     /**
      * @return 存储发票信息的数组
      */
     public ArrayList<CabTicket> getTickets() {
+        Log.e("ticket", String.format("get size:%d", tickets.size()));
         return tickets;
     }
 
@@ -73,6 +76,7 @@ public final class Wallet implements Serializable, Writable {
         // 一个发票为一行
         // 读的时候需要先清空tickets
         tickets.clear();
+        Log.e("ticket", String.format("clear size:%d", tickets.size()));
         try (FileInputStream inputStream = new WalletDataFileFactory(walletName).createInputStream();
              InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(reader)) {
@@ -89,11 +93,12 @@ public final class Wallet implements Serializable, Writable {
                         setDistance(Double.parseDouble(info[3])).
                         setDate(info[4]);
                 // 添加到数组中
-                tickets.add(builder.create());
+                this.addTicket(builder.create());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.e("ticket", String.format("read size:%d", tickets.size()));
     }
 
     /**
@@ -110,8 +115,7 @@ public final class Wallet implements Serializable, Writable {
         }
 
         // 再把数据写进去
-        for (CabTicket ticket : tickets) {
-            ticket.writeToData();
-        }
+        tickets.forEach(CabTicket::writeToData);
+        Log.e("ticket", String.format("write size:%d", tickets.size()));
     }
 }

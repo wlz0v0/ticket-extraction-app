@@ -37,8 +37,12 @@ import java.util.Iterator;
 public final class WalletActivity extends AutoPushPopActivity {
     public final static String WALLET_EXTRA = "wallet";
     private static final int START_CAMERA = 1;
+    private static Wallet wallet;
     private final ArrayList<TicketFragment> sourceFragments = new ArrayList<>();
-    private Wallet wallet;
+
+    public static void setWallet(Wallet wallet) {
+        WalletActivity.wallet = wallet;
+    }
 
     public void removeCabTicket(CabTicket ticket) {
         wallet.removeTicket(ticket);
@@ -52,9 +56,7 @@ public final class WalletActivity extends AutoPushPopActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-
-        wallet = (Wallet) getIntent().getSerializableExtra(WALLET_EXTRA);
-
+        
         // 设置ActionBar
         assert wallet != null;
         super.setActionBar(this, wallet.getWalletName());
