@@ -23,3 +23,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//dependencies {
+//    implementation 'com.google.code.gson:gson:2.8.9'
+//}

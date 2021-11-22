@@ -17,9 +17,9 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.bill.tickets.TicketFragment;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
-import edu.bupt.ticketextraction.utils.Ocr;
 import edu.bupt.ticketextraction.utils.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.utils.file.filefactory.VideoFileFactory;
+import edu.bupt.ticketextraction.utils.ocr.Ocr;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,9 +35,9 @@ import java.util.Iterator;
  * </pre>
  */
 public final class WalletActivity extends AutoPushPopActivity {
-    public final static String WALLET_EXTRA = "wallet";
-    private static final int START_CAMERA = 1;
+    private static final int START_CAMERA = 123456;
     private static Wallet wallet;
+    private static File curFile;
     private final ArrayList<TicketFragment> sourceFragments = new ArrayList<>();
 
     public static void setWallet(Wallet wallet) {
@@ -56,7 +56,7 @@ public final class WalletActivity extends AutoPushPopActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-        
+
         // 设置ActionBar
         assert wallet != null;
         super.setActionBar(this, wallet.getWalletName());
@@ -81,6 +81,14 @@ public final class WalletActivity extends AutoPushPopActivity {
     protected void onStop() {
         super.onStop();
         WalletManager.getInstance().writeWalletSourceToData(wallet);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        if (requestCode == START_CAMERA) {
+            new Thread(() -> extractTicket(curFile)).start();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void shootBtnOnClickCallback(View view) {
@@ -113,11 +121,10 @@ public final class WalletActivity extends AutoPushPopActivity {
                         "edu.bupt.ticketextraction.FileProvider",
                         imageFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                curFile = imageFile;
                 // startActivityForResult已被弃用，但仍然选择使用它XD
                 // noinspection deprecation
                 startActivityForResult(intent, START_CAMERA);
-                // 调用OCR识别
-                this.extractTicket(imageFile);
             }
         }
     }
