@@ -3,6 +3,7 @@ package edu.bupt.ticketextraction.bill.wallet;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,7 +22,10 @@ import edu.bupt.ticketextraction.utils.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.utils.file.filefactory.VideoFileFactory;
 import edu.bupt.ticketextraction.utils.ocr.Ocr;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -68,18 +72,18 @@ public final class WalletActivity extends AutoPushPopActivity {
         recordBtn.setOnClickListener(this::recordBtnOnClickCallback);
     }
 
-    // onStart时读取资源数据并展示所有资源
+    // onResume时读取资源数据并展示所有资源
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         WalletManager.getInstance().readWalletSourceFromData(wallet);
         showSources();
     }
 
-    // onStop时将数据写入文件
+    // onPause时将数据写入文件
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         WalletManager.getInstance().writeWalletSourceToData(wallet);
     }
 
@@ -149,9 +153,11 @@ public final class WalletActivity extends AutoPushPopActivity {
     }
 
     private void extractTicket(File file) {
+        bitmapCompress(file);
         CabTicket ticket = Ocr.extract(file, wallet.getWalletName());
         // 将获取的信息添加到钱包中以展示
         wallet.addTicket(ticket);
+        showSources();
     }
 
     // 在钱包中展示资源文件
@@ -170,5 +176,42 @@ public final class WalletActivity extends AutoPushPopActivity {
             sourceFragments.add(fragment);
         }
         transaction.commitAllowingStateLoss();
+    }
+
+    /**
+     * 采用质量压缩压缩图片，使之大小小于2M，因为Base64编码后的数据会变大
+     *
+     * @param file 图片文件
+     */
+    private void bitmapCompress(File file) {
+        Bitmap photoBitMap = null;
+        // 用文件获取uri
+        Uri uri = Uri.fromFile(file);
+        try {
+            //用uri获取Bitmap
+            //noinspection deprecation
+            photoBitMap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert photoBitMap != null;
+        // 压缩质量
+        int quality = 100;
+        int maxFileSize = 2000; // 2MB
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        // 图片大小大于2M就循环压缩直到小于2M
+        do {
+            byteArrayOutputStream.reset();
+            // 压缩图片
+            photoBitMap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
+            try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+                // 覆盖之前的图片
+                fileOutputStream.write(byteArrayOutputStream.toByteArray());
+                fileOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            quality -= 10;
+        } while (byteArrayOutputStream.toByteArray().length / 1024 > maxFileSize && quality > 0);
     }
 }

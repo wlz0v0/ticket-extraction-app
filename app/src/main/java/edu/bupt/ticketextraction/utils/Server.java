@@ -27,11 +27,13 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public final class Server {
     private final static String securityCode = "";
-    private final static String SEND_EMAIL_URL = "/mail";
-    private final static String LOGIN_URL = "/login";
-    private final static String REGISTER_URL = "/register";
-    private final static String GET_CONTACT_URL = "/getMails";
-    private final static String SET_CONTACT_URL = "/setMails";
+    @SuppressWarnings("HttpUrlsUsage")
+    private final static String SERVER_URL = "http://ubuntu@crepusculumx.icu:8888";
+    private final static String SEND_EMAIL_URL = SERVER_URL + "/mail";
+    private final static String LOGIN_URL = SERVER_URL + "/login";
+    private final static String REGISTER_URL = SERVER_URL + "/register";
+    private final static String GET_CONTACT_URL = SERVER_URL + "/getMails";
+    private final static String SET_CONTACT_URL = SERVER_URL + "/setMails";
 
     /**
      * Server工具类，请不要实例化此类！
