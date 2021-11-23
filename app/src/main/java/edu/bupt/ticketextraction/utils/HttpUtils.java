@@ -1,7 +1,11 @@
 package edu.bupt.ticketextraction.utils;
 
+import android.app.AlertDialog;
+import android.util.Log;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
+import edu.bupt.ticketextraction.main.AutoPushPopActivity;
 import edu.bupt.ticketextraction.setting.contact.Contact;
+import edu.bupt.ticketextraction.utils.ocr.Ocr;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +29,7 @@ import java.util.Map;
  * </pre>
  */
 @SuppressWarnings("unused")
-public final class Server {
+public final class HttpUtils {
     private final static String securityCode = "";
     @SuppressWarnings("HttpUrlsUsage")
     private final static String SERVER_URL = "http://ubuntu@crepusculumx.icu:8888";
@@ -34,12 +38,32 @@ public final class Server {
     private final static String REGISTER_URL = SERVER_URL + "/register";
     private final static String GET_CONTACT_URL = SERVER_URL + "/getMails";
     private final static String SET_CONTACT_URL = SERVER_URL + "/setMails";
+    private static volatile boolean stopFlag = true;
+    private static volatile CabTicket curTicket;
 
     /**
-     * Server工具类，请不要实例化此类！
+     * HttpUtils工具类，请不要实例化此类！
      */
-    private Server() {
+    private HttpUtils() {
         throw new AssertionError();
+    }
+
+    public static @NotNull CabTicket callExtract(@NotNull AutoPushPopActivity activity, @NotNull File sourceFile, String walletName) {
+        new Thread(() -> {
+            curTicket = Ocr.extract(sourceFile, walletName);
+            stopFlag = false;
+            Log.e("thread", "done");
+        }).start();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setCancelable(false).
+                setMessage("正在识别图片，请稍等");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        //noinspection StatementWithEmptyBody
+        while (stopFlag) {
+        }
+        dialog.dismiss();
+        return curTicket;
     }
 
     /**
@@ -52,11 +76,11 @@ public final class Server {
     @Contract(pure = true)
     public static int callLogin(String phoneNumber, String password) {
         // 加密密码
-        String cipherText = Server.passwordEncrypt(password);
+        String cipherText = HttpUtils.passwordEncrypt(password);
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
         map.put("key", cipherText);
-        String res = Server.post(LOGIN_URL, map);
+        String res = HttpUtils.post(LOGIN_URL, map);
         return Integer.parseInt(res);
     }
 
@@ -69,7 +93,7 @@ public final class Server {
         Contact[] contacts = new Contact[4];
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
-        String res = Server.post(GET_CONTACT_URL, map);
+        String res = HttpUtils.post(GET_CONTACT_URL, map);
         String[] nameAndEmails = res.split(" ");
         for (int i = 0; i < contacts.length; ++i) {
             contacts[i].setName(nameAndEmails[i * 2]);
@@ -90,7 +114,7 @@ public final class Server {
             map.put("name" + i, contacts[i].getName());
             map.put("mail" + i, contacts[i].getEmail());
         }
-        String res = Server.post(GET_CONTACT_URL, map);
+        String res = HttpUtils.post(GET_CONTACT_URL, map);
         return res.equals("True");
     }
 
@@ -105,11 +129,11 @@ public final class Server {
     @Contract(pure = true)
     public static boolean callRegister(String phoneNumber, String password, String verificationCode) {
         // 加密密码
-        String cipherText = Server.passwordEncrypt(password);
+        String cipherText = HttpUtils.passwordEncrypt(password);
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
         map.put("key", cipherText);
-        String res = Server.post(REGISTER_URL, map);
+        String res = HttpUtils.post(REGISTER_URL, map);
         return res.equals("True");
     }
 
@@ -170,7 +194,7 @@ public final class Server {
                     ticket.getDate();
             map.put(String.valueOf(i), sb2);
         }
-        String res = Server.post(SEND_EMAIL_URL, map);
+        String res = HttpUtils.post(SEND_EMAIL_URL, map);
         return res.equals("True");
     }
 

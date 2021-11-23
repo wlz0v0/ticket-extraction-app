@@ -9,7 +9,7 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.bill.wallet.Wallet;
 import edu.bupt.ticketextraction.bill.wallet.WalletManager;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
-import edu.bupt.ticketextraction.utils.Server;
+import edu.bupt.ticketextraction.utils.HttpUtils;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
             if (cb.isChecked()) {
                 Wallet w = WalletManager.getInstance().getWallet(cb.getText().toString());
                 assert w != null;
-                if (Server.sendEmail(w.getTickets(), emailAddress)) {
+                if (HttpUtils.sendEmail(w.getTickets(), emailAddress)) {
                     sendSuccessful();
                 } else {
                     sendFailed();

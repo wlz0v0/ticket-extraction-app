@@ -4,6 +4,7 @@ import android.util.Log;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,27 +38,53 @@ public final class Ocr {
      * @return 识别得到的发票信息
      */
     public static @NotNull CabTicket extract(@NotNull File sourceFile, String walletName) {
-//        String res = taxiReceipt(sourceFile);
+        String res = taxiReceipt(sourceFile);
         String number = "识别异常";
         String code = "识别异常";
         String date = "识别异常";
         double unitPrice = 0.0;
         double distance = 0.0;
         double totalPrice = 0.0;
-//        try {
-//            if (res != null) {
-//                // 解析识别结果
-//                JSONObject jsonObject = new JSONObject(res);
-//                number = jsonObject.getString("InvoiceNum");
-//                code = jsonObject.getString("InvoiceCode");
-//                date = jsonObject.getString("Date");
-//                unitPrice = jsonObject.getDouble("PricePerkm");
-//                distance = jsonObject.getDouble("Distance");
-//                totalPrice = jsonObject.getDouble("TotalFare");
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        JSONObject jsonObject = null;
+        try {
+            if (res != null) {
+                // 解析识别结果
+                JSONObject result = new JSONObject(res);
+                jsonObject = new JSONObject(result.getJSONObject("words_result").toString());
+                Log.e("json", jsonObject.toString());
+                number = jsonObject.getString("InvoiceNum");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (jsonObject != null) {
+            try {
+                code = jsonObject.getString("InvoiceCode");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                date = jsonObject.getString("Date");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                unitPrice = jsonObject.getDouble("PricePerkm");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                distance = jsonObject.getDouble("Distance");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                totalPrice = jsonObject.getDouble("TotalFare");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         // 根据结果生成
         CabTicket.Builder builder = new CabTicket.Builder(walletName, sourceFile.getAbsolutePath(), number, code);
         builder.setUnitPrice(unitPrice).
@@ -102,7 +129,6 @@ public final class Ocr {
             String imgParam = URLEncoder.encode(imgStr, "UTF-8");
 
             String param = "image=" + imgParam;
-            Log.e("img", param);
 
             // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
             String accessToken = getAuth();

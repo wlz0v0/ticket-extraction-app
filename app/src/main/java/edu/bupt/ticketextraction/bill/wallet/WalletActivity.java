@@ -4,10 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -18,9 +19,9 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.bill.tickets.TicketFragment;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
+import edu.bupt.ticketextraction.utils.HttpUtils;
 import edu.bupt.ticketextraction.utils.file.filefactory.ImageFileFactory;
 import edu.bupt.ticketextraction.utils.file.filefactory.VideoFileFactory;
-import edu.bupt.ticketextraction.utils.ocr.Ocr;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,10 +67,10 @@ public final class WalletActivity extends AutoPushPopActivity {
         super.setActionBar(this, wallet.getWalletName());
 
         Button shootBtn = findViewById(R.id.camera_shoot_btn);
-        shootBtn.setOnClickListener(this::shootBtnOnClickCallback);
+        shootBtn.setOnClickListener(view -> shootBtnOnClickCallback());
 
         Button recordBtn = findViewById(R.id.camera_record_btn);
-        recordBtn.setOnClickListener(this::recordBtnOnClickCallback);
+        recordBtn.setOnClickListener(view -> recordBtnOnClickCallback());
     }
 
     // onResume时读取资源数据并展示所有资源
@@ -90,12 +91,12 @@ public final class WalletActivity extends AutoPushPopActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         if (requestCode == START_CAMERA) {
-            new Thread(() -> extractTicket(curFile)).start();
+            extractTicket(curFile);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void shootBtnOnClickCallback(View view) {
+    private void shootBtnOnClickCallback() {
         int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, START_CAMERA);
@@ -104,7 +105,7 @@ public final class WalletActivity extends AutoPushPopActivity {
         }
     }
 
-    private void recordBtnOnClickCallback(View view) {
+    private void recordBtnOnClickCallback() {
         int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, START_CAMERA);
@@ -154,9 +155,11 @@ public final class WalletActivity extends AutoPushPopActivity {
 
     private void extractTicket(File file) {
         bitmapCompress(file);
-        CabTicket ticket = Ocr.extract(file, wallet.getWalletName());
+        CabTicket ticket = HttpUtils.callExtract(this, file, wallet.getWalletName());
         // 将获取的信息添加到钱包中以展示
         wallet.addTicket(ticket);
+        WalletManager.getInstance().writeWalletSourceToData(wallet);
+        Log.e("wallet", "show sources");
         showSources();
     }
 
@@ -179,7 +182,8 @@ public final class WalletActivity extends AutoPushPopActivity {
     }
 
     /**
-     * 采用质量压缩压缩图片，使之大小小于2M，因为Base64编码后的数据会变大
+     * 压缩图片，质量压缩使之大小小于2M，因为Base64编码后的数据会变大<br>
+     * 尺寸压缩使之像素小于4096像素
      *
      * @param file 图片文件
      */
@@ -199,6 +203,7 @@ public final class WalletActivity extends AutoPushPopActivity {
         int quality = 100;
         int maxFileSize = 2000; // 2MB
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        // 先质量压缩
         // 图片大小大于2M就循环压缩直到小于2M
         do {
             byteArrayOutputStream.reset();
@@ -213,5 +218,36 @@ public final class WalletActivity extends AutoPushPopActivity {
             }
             quality -= 10;
         } while (byteArrayOutputStream.toByteArray().length / 1024 > maxFileSize && quality > 0);
+        Log.e("image size", String.valueOf(byteArrayOutputStream.toByteArray().length / 1024));
+
+        // 再尺寸压缩
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 只读长度进内存
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        options.inJustDecodeBounds = false;
+        int width = options.outWidth;
+        int height = options.outHeight;
+        int maxWidth = 2048;
+        int maxHeight = 2048;
+        int scale = 1; // 1表示不缩放
+        if (width > height && width > maxWidth) {
+            scale = width / maxWidth;
+        } else if (width <= height && height > maxHeight) {
+            scale = height / maxHeight;
+        }
+        options.inSampleSize = scale;
+        // 根据options进行尺寸缩放
+        photoBitMap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        Log.e("image scale", String.valueOf(scale));
+        byteArrayOutputStream.reset();
+        photoBitMap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            // 覆盖之前的图片
+            fileOutputStream.write(byteArrayOutputStream.toByteArray());
+            fileOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

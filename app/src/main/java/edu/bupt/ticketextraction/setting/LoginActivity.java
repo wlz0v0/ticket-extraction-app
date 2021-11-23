@@ -10,7 +10,7 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
 import edu.bupt.ticketextraction.setting.security.SetPasswordActivity;
 import edu.bupt.ticketextraction.utils.ActivityStack;
-import edu.bupt.ticketextraction.utils.Server;
+import edu.bupt.ticketextraction.utils.HttpUtils;
 
 /**
  * <pre>
@@ -79,7 +79,7 @@ public final class LoginActivity extends AutoPushPopActivity {
             // 获取输入的账号和密码
             String account = accountEt.getText().toString();
             String password = passwordEt.getText().toString();
-            int loginRet = Server.callLogin(account, password);
+            int loginRet = HttpUtils.callLogin(account, password);
             if (loginRet == 1) {
                 loginSuccessful();
             } else {

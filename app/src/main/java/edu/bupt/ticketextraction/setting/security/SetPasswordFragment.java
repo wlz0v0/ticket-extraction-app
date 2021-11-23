@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.utils.Server;
+import edu.bupt.ticketextraction.utils.HttpUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
@@ -29,13 +29,13 @@ import java.util.regex.Pattern;
  * </pre>
  */
 public final class SetPasswordFragment extends Fragment {
+    // 大写字母+数字+小写字母 3~16位
+    private final static Pattern passwordPattern = Pattern.compile("[A-Za-z0-9]{3,16}");
+    private final SetPasswordActivity fatherActivity;
     private TextView passwordWarning;
     private TextView rePasswordWarning;
     private EditText passwordEt;
     private EditText rePasswordEt;
-    private final SetPasswordActivity fatherActivity;
-    // 大写字母+数字+小写字母 3~16位
-    private final static Pattern passwordPattern = Pattern.compile("[A-Za-z0-9]{3,16}");
 
     public SetPasswordFragment(SetPasswordActivity fatherActivity) {
         this.fatherActivity = fatherActivity;
@@ -59,7 +59,7 @@ public final class SetPasswordFragment extends Fragment {
         setPasswordBtn.setText(String.valueOf(fatherActivity.setPasswordButtonText.toString()));
         setPasswordBtn.setOnClickListener(view1 -> {
             if (isValid()) {
-                boolean isSuccess = Server.callRegister(
+                boolean isSuccess = HttpUtils.callRegister(
                         fatherActivity.phoneNumber,
                         passwordEt.getText().toString(),
                         rePasswordEt.getText().toString());

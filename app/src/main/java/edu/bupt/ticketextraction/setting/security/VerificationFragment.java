@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
-import edu.bupt.ticketextraction.utils.Server;
+import edu.bupt.ticketextraction.utils.HttpUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
@@ -56,7 +56,7 @@ public final class VerificationFragment extends Fragment {
      * @param view Do NOT use the param
      */
     private void onClickListenerCallback(View view) {
-        if (Server.callAccountVerification(
+        if (HttpUtils.callAccountVerification(
                 phoneNumberEt.getText().toString(),
                 verificationCodeEt.getText().toString())) {
             // 成功则转到密码重置 还要设置一下手机号
@@ -99,7 +99,7 @@ public final class VerificationFragment extends Fragment {
             getVerificationBtn.setClickable(true);
         });
         countdown.start();
-        String code = Server.callVerificationSending(phoneNumberEt.getText().toString());
+        String code = HttpUtils.callVerificationSending(phoneNumberEt.getText().toString());
         fatherActivity.getAlertDialog(code, (dialog, which) -> dialog.dismiss());
     }
 }
