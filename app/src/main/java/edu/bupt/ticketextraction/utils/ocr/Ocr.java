@@ -51,13 +51,13 @@ public final class Ocr {
                 // 解析识别结果
                 JSONObject result = new JSONObject(res);
                 jsonObject = new JSONObject(result.getJSONObject("words_result").toString());
-                Log.e("json", jsonObject.toString());
                 number = jsonObject.getString("InvoiceNum");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         if (jsonObject != null) {
+            // 每个字段单独解析，以免万一有一个拉了剩下的全都解析不了
             try {
                 code = jsonObject.getString("InvoiceCode");
             } catch (JSONException e) {
@@ -131,6 +131,7 @@ public final class Ocr {
             String param = "image=" + imgParam;
 
             // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
+            // TODO 把access_token缓存到文件中
             String accessToken = getAuth();
 
             return HttpUtil.post(url, accessToken, param);
@@ -172,14 +173,13 @@ public final class Ocr {
                 result.append(line);
             }
             /*
-             * 返回结果示例
+             * 返回结果
              */
             JSONObject jsonObject = new JSONObject(result.toString());
             String res = jsonObject.getString("access_token");
             Log.e("token", res);
             return res;
         } catch (Exception e) {
-            System.err.print("获取token失败！");
             e.printStackTrace();
         }
         return null;

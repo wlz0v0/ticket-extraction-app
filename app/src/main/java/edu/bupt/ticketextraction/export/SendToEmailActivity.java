@@ -50,7 +50,7 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
             if (cb.isChecked()) {
                 Wallet w = WalletManager.getInstance().getWallet(cb.getText().toString());
                 assert w != null;
-                if (HttpUtils.sendEmail(w.getTickets(), emailAddress)) {
+                if (HttpUtils.sendEmail(w.getTickets(), emailAddress, this)) {
                     sendSuccessful();
                 } else {
                     sendFailed();

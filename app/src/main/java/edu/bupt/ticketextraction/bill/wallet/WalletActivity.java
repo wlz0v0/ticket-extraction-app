@@ -159,7 +159,6 @@ public final class WalletActivity extends AutoPushPopActivity {
         // 将获取的信息添加到钱包中以展示
         wallet.addTicket(ticket);
         WalletManager.getInstance().writeWalletSourceToData(wallet);
-        Log.e("wallet", "show sources");
         showSources();
     }
 

@@ -40,6 +40,7 @@ public final class HttpUtils {
     private final static String SET_CONTACT_URL = SERVER_URL + "/setMails";
     private static volatile boolean stopFlag = true;
     private static volatile CabTicket curTicket;
+    private static volatile String postResult;
 
     /**
      * HttpUtils工具类，请不要实例化此类！
@@ -54,15 +55,7 @@ public final class HttpUtils {
             stopFlag = false;
             Log.e("thread", "done");
         }).start();
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setCancelable(false).
-                setMessage("正在识别图片，请稍等");
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        //noinspection StatementWithEmptyBody
-        while (stopFlag) {
-        }
-        dialog.dismiss();
+        HttpUtils.threadBlocking("正在识别中，请稍等", activity);
         return curTicket;
     }
 
@@ -168,9 +161,10 @@ public final class HttpUtils {
      * @return 是否成功
      */
     @Contract(pure = true)
-    public static boolean sendEmail(@NotNull ArrayList<CabTicket> tickets, String email) {
+    public static boolean sendEmail(@NotNull ArrayList<CabTicket> tickets, String email, @NotNull AutoPushPopActivity activity) {
         // 每个发票一行，再加第一行的说明
         final int rowCnt = tickets.size() + 1;
+        Log.e("mail", "row count" + rowCnt);
         // 第一列的序号，再加上单价、距离、总价、日期四列
         final int columnCnt = 7;
         String[] firstRow = {"发票", "发票号码", "发票代码", "单价", "距离", "总价", "日期"};
@@ -181,6 +175,7 @@ public final class HttpUtils {
             sb.append(s).append(" ");
         }
         HashMap<String, String> map = new HashMap<>();
+        map.put("mail", email);
         map.put("0", String.valueOf(rowCnt));
         map.put("1", sb.toString());
         for (int i = 2; i <= rowCnt; ++i) {
@@ -194,18 +189,20 @@ public final class HttpUtils {
                     ticket.getDate();
             map.put(String.valueOf(i), sb2);
         }
-        String res = HttpUtils.post(SEND_EMAIL_URL, map);
-        return res.equals("True");
+        Log.e("mail", map.toString());
+
+        // post调用发送邮件服务
+        new Thread(() -> {
+            postResult = HttpUtils.post(SEND_EMAIL_URL, map);
+            stopFlag = false;
+        }).start();
+        HttpUtils.threadBlocking("发送邮件中，请稍等", activity);
+        return postResult.equals("True");
     }
 
     @Contract(pure = true)
     public static void callCheckTicketValid() {
         //TODO 验真
-    }
-
-    @Contract(pure = true)
-    public static void callOcr() {
-        //TODO 识别
     }
 
     /**
@@ -227,42 +224,75 @@ public final class HttpUtils {
         return new BigInteger(messageDigest.digest()).toString(32);
     }
 
+
+    /**
+     * 弹出弹窗并阻塞线程
+     *
+     * @param dialogText 弹窗信息
+     * @param activity   弹窗弹出的上下文
+     */
+    private static void threadBlocking(String dialogText, AutoPushPopActivity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setCancelable(false).
+                setMessage(dialogText);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        //noinspection StatementWithEmptyBody
+        while (stopFlag) {
+        }
+        stopFlag = true;
+        dialog.dismiss();
+    }
+
     private static String post(@NotNull String urlStr, @NotNull Map<String, String> params) {
-        HttpURLConnection conn = null;
+        StringBuilder s = null;
+        BufferedWriter writer = null;
+        BufferedReader reader = null;
         try {
             URL url = new URL(urlStr);
-            conn = (HttpURLConnection) url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             //以下两行必须加否则报错.
             conn.setDoInput(true);
             conn.setDoOutput(true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        assert conn != null;
-        StringBuilder s = new StringBuilder();
-        // 使用try-with-resources替代try-catch-finally
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-
-            StringBuilder psBuilder = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                psBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+                sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
             }
-            String ps = psBuilder.substring(0, psBuilder.lastIndexOf("&"));
+            sb = new StringBuilder(sb.substring(0, sb.lastIndexOf("&")));
+            writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 
-            writer.write(ps + "\r\n");
+            writer.write(sb + "\r\n");
 
             writer.flush();
             String line;
+            reader = conn.getResponseCode() > 400
+                    ? new BufferedReader(new InputStreamReader(conn.getErrorStream()))
+                    : new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            s = new StringBuilder();
             while ((line = reader.readLine()) != null) {
                 s.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        assert s != null;
         return s.toString();
     }
 }
