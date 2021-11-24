@@ -180,8 +180,9 @@ public final class HttpUtils {
         map.put("1", sb.toString());
         for (int i = 2; i <= rowCnt; ++i) {
             // 序号、单价、距离、总价、日期
-            CabTicket ticket = tickets.get(i);
-            String sb2 = ticket.getTicketNumber() + " " +
+            CabTicket ticket = tickets.get(i - 2);
+            String sb2 = i - 1 + " " +
+                    ticket.getTicketNumber() + " " +
                     ticket.getTicketCode() + " " +
                     ticket.getUnitPrice() + " " +
                     ticket.getDistance() + " " +
@@ -223,7 +224,6 @@ public final class HttpUtils {
         messageDigest.update(plainText.getBytes());
         return new BigInteger(messageDigest.digest()).toString(32);
     }
-
 
     /**
      * 弹出弹窗并阻塞线程
