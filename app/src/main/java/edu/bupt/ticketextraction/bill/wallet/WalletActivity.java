@@ -91,7 +91,13 @@ public final class WalletActivity extends AutoPushPopActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         if (requestCode == START_CAMERA) {
-            extractTicket(curFile);
+            if (resultCode == RESULT_OK) {
+                extractTicket(curFile);
+            } else if (resultCode == RESULT_CANCELED) {
+                //noinspection ResultOfMethodCallIgnored
+                curFile.delete();
+            }
+            return;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
