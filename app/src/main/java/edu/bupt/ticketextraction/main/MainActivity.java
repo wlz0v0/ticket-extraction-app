@@ -17,6 +17,7 @@ import edu.bupt.ticketextraction.setting.AboutUsActivity;
 import edu.bupt.ticketextraction.setting.LoginActivity;
 import edu.bupt.ticketextraction.setting.PersonInfoActivity;
 import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
+import edu.bupt.ticketextraction.utils.ocr.Ocr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,6 +125,8 @@ public final class MainActivity extends AutoPushPopActivity {
         // 首先初始化所有static变量
         initStaticVars();
 
+        // 获取assess_token
+        new Thread(Ocr::getAuth).start();
         fgMng = getSupportFragmentManager();
 
         ActionBar actionBar = getSupportActionBar();

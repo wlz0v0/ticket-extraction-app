@@ -1,5 +1,6 @@
 package edu.bupt.ticketextraction.utils.ocr;
 
+import android.util.Log;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import org.jetbrains.annotations.NotNull;
@@ -159,11 +160,12 @@ public final class Ocr {
 
     /**
      * 获取API访问token
-     * 该token有一定的有效期，需要自行管理，当失效时需重新获取.
+     * 该token有一定的有效期，需要自行管理，当失效时需重新获取.<br>
+     * 使用synchronized是因为在启动时主线程会调用此函数，需要同步一下
      *
      * @return assess_token 示例：
      */
-    private static @Nullable String getAuth() {
+    public static synchronized @Nullable String getAuth() {
         // 检查目录是否存在 不存在则创建
         if (!directory.exists()) {
             //noinspection ResultOfMethodCallIgnored
@@ -187,6 +189,7 @@ public final class Ocr {
             // 如果为空则说明这是第一次读取，从服务器获取assess_token并缓存到本地
             line = reader.readLine();
             if (line == null) {
+                Log.e("assess_token", "post");
                 return getAuthFromBaidu();
             }
             assessToken = line;
@@ -238,7 +241,7 @@ public final class Ocr {
              * 返回结果
              */
             JSONObject jsonObject = new JSONObject(result.toString());
-            String res = jsonObject.getString("access_token");
+            String res = jsonObject.getString("access_token") + "\n";
             // 把结果缓存到文件 assess_token + date
             outputStream.write(res.getBytes(StandardCharsets.UTF_8));
             outputStream.write(new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date())
