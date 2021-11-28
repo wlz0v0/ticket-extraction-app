@@ -23,13 +23,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"/>
 
-        <TextView
-                style="@style/introduction_style"
-                android:id="@+id/instruction_textview2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"/>
-
     </edu.bupt.ticketextraction.utils.customviews.MaxHeightScrollView>
 
 </RelativeLayout>
