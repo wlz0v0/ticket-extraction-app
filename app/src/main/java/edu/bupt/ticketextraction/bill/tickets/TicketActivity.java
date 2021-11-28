@@ -39,7 +39,7 @@ public final class TicketActivity extends AutoPushPopActivity {
         TextView distance = findViewById(R.id.distance_textview);
         TextView totalPrice = findViewById(R.id.total_price_textview);
         TextView date = findViewById(R.id.date_textview);
-        
+
         ticketNumber.setText(ticket.getTicketNumber());
         ticketCode.setText(ticket.getTicketCode());
         unitPrice.setText(ticket.getUnitPrice().toString());

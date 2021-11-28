@@ -16,7 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.bill.wallet.WalletActivity;
+import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * <pre>
@@ -133,6 +136,11 @@ public final class TicketFragment extends Fragment {
         fatherActivity.removeSourceFragment(this);
 
         // 删除钱包中的信息
-        fatherActivity.removeCabTicket(this.cabTicket);
+        fatherActivity.removeCabTicket(cabTicket);
+
+        // 删除对应图片
+        File file = new File(FileFactory.WALLETS_DIR + WalletActivity.wallet.getWalletName() + "/" + cabTicket.SOURCE_NAME);
+        //noinspection ResultOfMethodCallIgnored
+        file.delete();
     }
 }

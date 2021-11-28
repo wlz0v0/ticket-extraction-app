@@ -41,7 +41,7 @@ import java.util.Iterator;
  */
 public final class WalletActivity extends AutoPushPopActivity {
     private static final int START_CAMERA = 123456;
-    private static Wallet wallet;
+    public static Wallet wallet;
     private static File curFile;
     private final ArrayList<TicketFragment> sourceFragments = new ArrayList<>();
 
