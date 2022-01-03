@@ -1,6 +1,8 @@
 package edu.bupt.ticketextraction.main;
 
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,6 +18,7 @@ import edu.bupt.ticketextraction.export.WalletCheckBoxFragment;
 import edu.bupt.ticketextraction.setting.AboutUsActivity;
 import edu.bupt.ticketextraction.setting.LoginActivity;
 import edu.bupt.ticketextraction.setting.PersonInfoActivity;
+import edu.bupt.ticketextraction.utils.DownloadReceiver;
 import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.utils.ocr.Ocr;
 
@@ -35,10 +38,6 @@ import java.util.Map;
  */
 public final class MainActivity extends AutoPushPopActivity {
     /**
-     * 当前版本号
-     */
-    public static final String CUR_VERSION = "0.0.0";
-    /**
      * LinkedHashMap防止打乱顺序
      * key 钱包fragment
      * value fragment是否已经被添加到activity中
@@ -57,6 +56,8 @@ public final class MainActivity extends AutoPushPopActivity {
     // 利用hashmap简化if else语句，fragments保存fragment的id和对象的映射关系
     // Fragment利用多态，实际为继承了Fragment的自定义Fragment
     private HashMap<Integer, Fragment> fragments;
+    // 下载监听器
+    private DownloadReceiver downloadReceiver;
 
     /**
      * 跳转到钱包activity
@@ -158,6 +159,10 @@ public final class MainActivity extends AutoPushPopActivity {
         // 设置跳转前fragment的checked为true以在初始界面展示
         RadioButton beforeJumpButton = findViewById(beforeJumpFragmentId);
         beforeJumpButton.setChecked(true);
+
+        // 注册下载监听器
+        downloadReceiver = new DownloadReceiver();
+        registerReceiver(downloadReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
@@ -178,6 +183,7 @@ public final class MainActivity extends AutoPushPopActivity {
         super.onDestroy();
         // 将wallets中的数据保存到文件中
         WalletManager.getInstance().writeWalletsToData();
+        unregisterReceiver(downloadReceiver);
     }
 
     // 初始化所有static变量

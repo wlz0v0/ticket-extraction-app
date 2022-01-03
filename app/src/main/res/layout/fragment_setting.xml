@@ -26,5 +26,4 @@
             style="@style/setting_button_style"
             android:id="@+id/about_us"
             android:text="@string/about_us"/>
-
 </LinearLayout>

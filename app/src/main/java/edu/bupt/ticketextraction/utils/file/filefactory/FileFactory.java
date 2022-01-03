@@ -19,7 +19,17 @@ import java.util.Locale;
  * </pre>
  */
 public abstract class FileFactory {
+    /**
+     * apk存储路径
+     */
+    public static String APK_PATH;
+    /**
+     * 外部存储目录
+     */
     public static String EXTERNAL_FILE_DIR;
+    /**
+     * 钱包文件夹目录
+     */
     public static String WALLETS_DIR;
 
     /**

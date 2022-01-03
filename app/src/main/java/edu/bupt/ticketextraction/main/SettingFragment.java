@@ -14,6 +14,7 @@ import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.setting.LoginActivity;
 import edu.bupt.ticketextraction.utils.HttpUtils;
 import edu.bupt.ticketextraction.utils.file.FileManager;
+import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,6 +27,14 @@ import org.jetbrains.annotations.NotNull;
  * </pre>
  */
 public final class SettingFragment extends Fragment {
+    /**
+     * 当前版本号
+     */
+    public static final String CUR_VERSION = "0_0_1";
+    /**
+     * 最新版本号
+     */
+    public static String LATEST_VERSION;
     private final MainActivity fatherActivity;
 
     public SettingFragment(MainActivity fatherActivity) {
@@ -33,9 +42,7 @@ public final class SettingFragment extends Fragment {
     }
 
     @Override
-    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         // 从设置跳转到用户管理
@@ -49,16 +56,22 @@ public final class SettingFragment extends Fragment {
         // 检查更新
         Button checkUpdateBtn = view.findViewById(R.id.check_update);
         checkUpdateBtn.setOnClickListener(view1 -> {
-            String latest = HttpUtils.getLatestVersionNum(fatherActivity);
+            LATEST_VERSION = HttpUtils.getLatestVersionNum(fatherActivity);
+            String latest = LATEST_VERSION.replace('_', '.');
             Log.e("version: ", latest);
             // 最新则提示已为最新，否则弹出窗口提示更新
-            if (latest.equals(MainActivity.CUR_VERSION)) {
+            if (LATEST_VERSION.equals(HttpUtils.PERMISSION_REFUSED)) {
+                fatherActivity.showBottomToast(fatherActivity, "请求被拒绝！", 5);
+            } else if (LATEST_VERSION.equals(CUR_VERSION)) {
                 fatherActivity.showBottomToast(fatherActivity, "已是最新版本！", 5);
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-                builder.setMessage("最新版本为" + latest).
-                        setPositiveButton("现在更新", (dialog, which) -> HttpUtils.downloadLatestApk()).
-                        setNegativeButton("下次一定", (dialog, which) -> dialog.dismiss());
+                builder.setMessage("最新版本为" + latest)
+                        .setPositiveButton("现在更新", (dialog, which) -> {
+                            FileFactory.APK_PATH = "/apk/TicketExtraction" + LATEST_VERSION + "apk";
+                            HttpUtils.downloadLatestApk(fatherActivity);
+                        })
+                        .setNegativeButton("下次一定", (dialog, which) -> dialog.dismiss());
                 builder.create().show();
             }
         });

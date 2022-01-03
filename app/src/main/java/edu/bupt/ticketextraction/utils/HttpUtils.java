@@ -1,10 +1,14 @@
 package edu.bupt.ticketextraction.utils;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import edu.bupt.ticketextraction.bill.tickets.CabTicket;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
 import edu.bupt.ticketextraction.setting.contact.Contact;
+import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
 import edu.bupt.ticketextraction.utils.ocr.Ocr;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +34,7 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public final class HttpUtils {
+    public static final String PERMISSION_REFUSED = "refused";
     private final static String securityCode = "";
     @SuppressWarnings("HttpUrlsUsage")
     private final static String SERVER_URL = "http://ubuntu@crepusculumx.icu:8888";
@@ -43,6 +48,7 @@ public final class HttpUtils {
     private static volatile boolean stopFlag = true;
     private static volatile CabTicket curTicket;
     private static volatile String postResult;
+    private static volatile String getResult;
 
     /**
      * HttpUtils工具类，请不要实例化此类！
@@ -64,21 +70,39 @@ public final class HttpUtils {
     /**
      * @return 最新的版本号
      */
-    public static String getLatestVersionNum(AutoPushPopActivity activity) {
+    public static String getLatestVersionNum(@NotNull AutoPushPopActivity activity) {
         new Thread(() -> {
-            postResult = get(GET_VERSION_NUM);
+            getResult = get(GET_VERSION_NUM);
             stopFlag = false;
         }).start();
         HttpUtils.threadBlocking("请稍等", activity);
-        return postResult;
+        return getResult;
     }
 
     /**
      * 下载最新版的APK
      */
-    public static void downloadLatestApk() {
-        get(DOWNLOAD_APK);
-        Log.e("download", "success");
+    public static void downloadLatestApk(@NotNull AutoPushPopActivity activity) {
+        // 检查是否存在安装包，存在则直接安装
+        File file = new File(FileFactory.EXTERNAL_FILE_DIR + FileFactory.APK_PATH);
+        if (file.exists()) {
+            DownloadReceiver.install(activity, file.getPath());
+            return;
+        }
+        DownloadManager dm = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(DOWNLOAD_APK);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setDestinationInExternalFilesDir(activity, null, FileFactory.APK_PATH);
+        // 下载时和下载完成通知
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setTitle("发票识别");
+        request.setDescription("正在下载最新版app");
+        // 指定文件类型为apk
+        request.setMimeType("application/vnd.android.package-archive");
+
+        long id = dm.enqueue(request);
+        Log.e("download", "start");
+        activity.showBottomToast(activity, "开始下载", 5);
     }
 
     /**
@@ -203,13 +227,7 @@ public final class HttpUtils {
         for (int i = 2; i <= rowCnt; ++i) {
             // 序号、单价、距离、总价、日期
             CabTicket ticket = tickets.get(i - 2);
-            String sb2 = i - 1 + " " +
-                    ticket.getTicketNumber() + " " +
-                    ticket.getTicketCode() + " " +
-                    ticket.getUnitPrice() + " " +
-                    ticket.getDistance() + " " +
-                    ticket.getTotalPrice() + " " +
-                    ticket.getDate();
+            String sb2 = i - 1 + " " + ticket.getTicketNumber() + " " + ticket.getTicketCode() + " " + ticket.getUnitPrice() + " " + ticket.getDistance() + " " + ticket.getTotalPrice() + " " + ticket.getDate();
             map.put(String.valueOf(i), sb2);
         }
         Log.e("mail", map.toString());
@@ -255,8 +273,7 @@ public final class HttpUtils {
      */
     private static void threadBlocking(String dialogText, AutoPushPopActivity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setCancelable(false).
-                setMessage(dialogText);
+        builder.setCancelable(false).setMessage(dialogText);
         AlertDialog dialog = builder.create();
         dialog.show();
         //noinspection StatementWithEmptyBody
@@ -264,6 +281,30 @@ public final class HttpUtils {
         }
         stopFlag = true;
         dialog.dismiss();
+    }
+
+    private static String asyncGet(String urlStr) {
+        new Thread(() -> {
+            getResult = get(urlStr);
+            stopFlag = false;
+        }).start();
+        //noinspection StatementWithEmptyBody
+        while (stopFlag) {
+        }
+        stopFlag = true;
+        return getResult;
+    }
+
+    private static String asyncPost(String urlStr, Map<String, String> params) {
+        new Thread(() -> {
+            postResult = post(urlStr, params);
+            stopFlag = false;
+        }).start();
+        //noinspection StatementWithEmptyBody
+        while (stopFlag) {
+        }
+        stopFlag = true;
+        return postResult;
     }
 
     private static String post(@NotNull String urlStr, @NotNull Map<String, String> params) {
@@ -289,9 +330,7 @@ public final class HttpUtils {
 
             writer.flush();
             String line;
-            reader = conn.getResponseCode() > 400
-                    ? new BufferedReader(new InputStreamReader(conn.getErrorStream()))
-                    : new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            reader = conn.getResponseCode() > 400 ? new BufferedReader(new InputStreamReader(conn.getErrorStream())) : new BufferedReader(new InputStreamReader(conn.getInputStream()));
             s = new StringBuilder();
             while ((line = reader.readLine()) != null) {
                 s.append(line);
