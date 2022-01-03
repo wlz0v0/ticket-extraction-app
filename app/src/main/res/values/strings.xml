@@ -62,4 +62,5 @@
     <string name="check_btn">验&#160;&#160;&#160;&#160;真</string>
     <string name="ticket_code">&#160;&#160;发票代码:</string>
     <string name="ticket_number">&#160;&#160;发票号码:</string>
+    <string name="check_update">检查更新</string>
 </resources>

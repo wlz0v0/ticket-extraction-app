@@ -16,6 +16,12 @@
             style="@style/setting_button_style"
             android:id="@+id/clear_cache"
             android:text="@string/clear_cache"/>
+
+    <Button
+            style="@style/setting_button_style"
+            android:id="@+id/check_update"
+            android:text="@string/check_update"/>
+
     <Button
             style="@style/setting_button_style"
             android:id="@+id/about_us"

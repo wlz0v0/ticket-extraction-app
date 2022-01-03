@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
+import edu.bupt.ticketextraction.main.MainActivity;
 
 /**
  * <pre>
@@ -38,8 +39,7 @@ public final class AboutUsActivity extends AutoPushPopActivity {
 
         TextView textView = findViewById(R.id.version_textview);
         // 当前版本
-        final String cur_version = "0.0.0";
-        textView.setText(cur_version);
+        textView.setText(MainActivity.CUR_VERSION);
 
         Button teamBtn = findViewById(R.id.team_btn);
         teamBtn.setOnClickListener(view -> jumpFromAboutUsToTeam());

@@ -38,6 +38,8 @@ public final class HttpUtils {
     private final static String REGISTER_URL = SERVER_URL + "/register";
     private final static String GET_CONTACT_URL = SERVER_URL + "/getMails";
     private final static String SET_CONTACT_URL = SERVER_URL + "/setMails";
+    private final static String GET_VERSION_NUM = SERVER_URL + "/checkVersion";
+    private final static String DOWNLOAD_APK = SERVER_URL + "/TaxiReceiptAPK";
     private static volatile boolean stopFlag = true;
     private static volatile CabTicket curTicket;
     private static volatile String postResult;
@@ -57,6 +59,26 @@ public final class HttpUtils {
         }).start();
         HttpUtils.threadBlocking("正在识别中，请稍等", activity);
         return curTicket;
+    }
+
+    /**
+     * @return 最新的版本号
+     */
+    public static String getLatestVersionNum(AutoPushPopActivity activity) {
+        new Thread(() -> {
+            postResult = get(GET_VERSION_NUM);
+            stopFlag = false;
+        }).start();
+        HttpUtils.threadBlocking("请稍等", activity);
+        return postResult;
+    }
+
+    /**
+     * 下载最新版的APK
+     */
+    public static void downloadLatestApk() {
+        get(DOWNLOAD_APK);
+        Log.e("download", "success");
     }
 
     /**
@@ -287,6 +309,34 @@ public final class HttpUtils {
             if (writer != null) {
                 try {
                     writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        assert s != null;
+        return s.toString();
+    }
+
+    private static String get(String urlStr) {
+        StringBuilder s = null;
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(urlStr);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            String line;
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            s = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                s.append(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

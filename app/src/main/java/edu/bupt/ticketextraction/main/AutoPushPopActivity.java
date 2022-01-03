@@ -85,7 +85,7 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
      *
      * @param activity 要展示Toast的Activity
      * @param message  Toast要展示的消息
-     * @param time     Toast要展示的时间
+     * @param time     Toast要展示的时间，单位秒
      */
     public void showBottomToast(AutoPushPopActivity activity, String message, int time) {
         Toast toast = Toast.makeText(activity, message, time);

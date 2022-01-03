@@ -35,6 +35,10 @@ import java.util.Map;
  */
 public final class MainActivity extends AutoPushPopActivity {
     /**
+     * 当前版本号
+     */
+    public static final String CUR_VERSION = "0.0.0";
+    /**
      * LinkedHashMap防止打乱顺序
      * key 钱包fragment
      * value fragment是否已经被添加到activity中

@@ -1,6 +1,8 @@
 package edu.bupt.ticketextraction.main;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.setting.LoginActivity;
+import edu.bupt.ticketextraction.utils.HttpUtils;
 import edu.bupt.ticketextraction.utils.file.FileManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,6 +45,23 @@ public final class SettingFragment extends Fragment {
         // 清除缓存
         Button clearCacheBtn = view.findViewById(R.id.clear_cache);
         clearCacheBtn.setOnClickListener(view1 -> FileManager.getInstance().clearCache());
+
+        // 检查更新
+        Button checkUpdateBtn = view.findViewById(R.id.check_update);
+        checkUpdateBtn.setOnClickListener(view1 -> {
+            String latest = HttpUtils.getLatestVersionNum(fatherActivity);
+            Log.e("version: ", latest);
+            // 最新则提示已为最新，否则弹出窗口提示更新
+            if (latest.equals(MainActivity.CUR_VERSION)) {
+                fatherActivity.showBottomToast(fatherActivity, "已是最新版本！", 5);
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
+                builder.setMessage("最新版本为" + latest).
+                        setPositiveButton("现在更新", (dialog, which) -> HttpUtils.downloadLatestApk()).
+                        setNegativeButton("下次一定", (dialog, which) -> dialog.dismiss());
+                builder.create().show();
+            }
+        });
 
         // 从设置跳转到关于
         Button aboutUsBtn = view.findViewById(R.id.about_us);
