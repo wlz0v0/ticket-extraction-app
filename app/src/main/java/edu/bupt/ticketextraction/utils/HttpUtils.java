@@ -32,7 +32,7 @@ import java.util.Map;
  *     version: 0.0.1
  * </pre>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SameParameterValue"})
 public final class HttpUtils {
     public static final String PERMISSION_REFUSED = "refused";
     private final static String securityCode = "";
@@ -45,6 +45,7 @@ public final class HttpUtils {
     private final static String SET_CONTACT_URL = SERVER_URL + "/setMails";
     private final static String GET_VERSION_NUM = SERVER_URL + "/checkVersion";
     private final static String DOWNLOAD_APK = SERVER_URL + "/TaxiReceiptAPK";
+    private final static String TRUE = "True";
     private static volatile boolean stopFlag = true;
     private static volatile CabTicket curTicket;
     private static volatile String postResult;
@@ -71,12 +72,7 @@ public final class HttpUtils {
      * @return 最新的版本号
      */
     public static String getLatestVersionNum(@NotNull AutoPushPopActivity activity) {
-        new Thread(() -> {
-            getResult = get(GET_VERSION_NUM);
-            stopFlag = false;
-        }).start();
-        HttpUtils.threadBlocking("请稍等", activity);
-        return getResult;
+        return asyncGet(GET_VERSION_NUM);
     }
 
     /**
@@ -100,7 +96,7 @@ public final class HttpUtils {
         // 指定文件类型为apk
         request.setMimeType("application/vnd.android.package-archive");
 
-        long id = dm.enqueue(request);
+        dm.enqueue(request);
         Log.e("download", "start");
         activity.showBottomToast(activity, "开始下载", 5);
     }
@@ -119,7 +115,7 @@ public final class HttpUtils {
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
         map.put("key", cipherText);
-        String res = HttpUtils.post(LOGIN_URL, map);
+        String res = HttpUtils.asyncPost(LOGIN_URL, map);
         return Integer.parseInt(res);
     }
 
@@ -132,7 +128,7 @@ public final class HttpUtils {
         Contact[] contacts = new Contact[4];
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
-        String res = HttpUtils.post(GET_CONTACT_URL, map);
+        String res = HttpUtils.asyncPost(GET_CONTACT_URL, map);
         String[] nameAndEmails = res.split(" ");
         for (int i = 0; i < contacts.length; ++i) {
             contacts[i].setName(nameAndEmails[i * 2]);
@@ -153,8 +149,8 @@ public final class HttpUtils {
             map.put("name" + i, contacts[i].getName());
             map.put("mail" + i, contacts[i].getEmail());
         }
-        String res = HttpUtils.post(GET_CONTACT_URL, map);
-        return res.equals("True");
+        String res = HttpUtils.asyncPost(SET_CONTACT_URL, map);
+        return res.equals(TRUE);
     }
 
     /**
@@ -172,8 +168,8 @@ public final class HttpUtils {
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
         map.put("key", cipherText);
-        String res = HttpUtils.post(REGISTER_URL, map);
-        return res.equals("True");
+        String res = HttpUtils.asyncPost(REGISTER_URL, map);
+        return res.equals(TRUE);
     }
 
     /**
@@ -233,12 +229,8 @@ public final class HttpUtils {
         Log.e("mail", map.toString());
 
         // post调用发送邮件服务
-        new Thread(() -> {
-            postResult = HttpUtils.post(SEND_EMAIL_URL, map);
-            stopFlag = false;
-        }).start();
-        HttpUtils.threadBlocking("发送邮件中，请稍等", activity);
-        return postResult.equals("True");
+        String res = asyncPost(SEND_EMAIL_URL, map);
+        return res.equals(TRUE);
     }
 
     @Contract(pure = true)

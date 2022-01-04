@@ -67,8 +67,7 @@ public final class VerificationFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
             builder.setMessage("验证码错误！").
                     setCancelable(false).
-                    // 关闭弹窗
-                            setPositiveButton("确认", (dialog, which) -> dialog.dismiss());
+                    setPositiveButton("确认", (dialog, which) -> dialog.dismiss());// 关闭弹窗
             builder.create().show();
         }
     }

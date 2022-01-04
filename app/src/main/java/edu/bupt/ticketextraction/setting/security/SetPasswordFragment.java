@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.utils.HttpUtils;
@@ -65,10 +64,7 @@ public final class SetPasswordFragment extends Fragment {
                         rePasswordEt.getText().toString());
                 // 断言注册成功，但估摸着可能会因为与服务器之间的连接出问题
                 assert isSuccess;
-                AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-                builder.setMessage("注册成功").
-                        setCancelable(false).
-                        setPositiveButton("确认", (dialog, which) -> dialog.dismiss());
+                fatherActivity.showBottomToast(fatherActivity, "注册成功", 5);
             }
         });
         return view;
