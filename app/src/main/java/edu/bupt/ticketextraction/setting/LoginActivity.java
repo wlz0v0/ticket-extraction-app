@@ -79,6 +79,16 @@ public final class LoginActivity extends AutoPushPopActivity {
             // 获取输入的账号和密码
             String account = accountEt.getText().toString();
             String password = passwordEt.getText().toString();
+            // 用户名和密码不能为空
+            if (account.equals("")) {
+                showBottomToast(this, "用户名不能为空！", 3);
+                return;
+            }
+            if (password.equals("")) {
+                showBottomToast(this, "密码不能为空！", 3);
+                return;
+            }
+
             int loginRet = HttpUtils.callLogin(account, password);
             if (loginRet == 1) {
                 loginSuccessful();
@@ -91,12 +101,10 @@ public final class LoginActivity extends AutoPushPopActivity {
     private void loginSuccessful() {
         loginState = true;
         // 通过调用finish结束LoginActivity，登录成功
-        getAlertDialog("登录成功",
-                (dialogInterface, i) -> {
-                    // 结束Activity并弹出栈
-                    ActivityStack.getInstance().finishActivity();
-                })
-                .show();
+        getAlertDialog("登录成功", (dialogInterface, i) -> {
+            // 结束Activity并弹出栈
+            ActivityStack.getInstance().finishActivity();
+        }).show();
     }
 
     private void loginFailed(int errorCode) {
@@ -105,8 +113,6 @@ public final class LoginActivity extends AutoPushPopActivity {
         // 否则是密码与账号不匹配
         builderMsg = errorCode == -1 ? "用户名不存在!" : "密码错误!";
         // 登录失败，关闭提示框
-        getAlertDialog(builderMsg,
-                (dialogInterface, i) -> dialogInterface.dismiss())
-                .show();
+        getAlertDialog(builderMsg, (dialogInterface, i) -> dialogInterface.dismiss()).show();
     }
 }

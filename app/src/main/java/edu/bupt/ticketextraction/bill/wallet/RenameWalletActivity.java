@@ -31,9 +31,15 @@ public final class RenameWalletActivity extends AutoPushPopActivity {
         Button button = findViewById(R.id.create_wallet_btn);
         button.setText("重命名");
         button.setOnClickListener(view -> {
+            String walletName = name.getText().toString();
+            // 钱包名为空则弹出提醒
+            if (walletName.equals("")) {
+                showBottomToast(this, "钱包名不能为空", 3);
+                return;
+            }
             Intent intent = new Intent();
             // 将新钱包名传回去
-            intent.putExtra(WalletButtonFragment.NEW_WALLET_NAME, name.getText().toString());
+            intent.putExtra(WalletButtonFragment.NEW_WALLET_NAME, walletName);
             setResult(0, intent);
             // 结束当前Activity
             ActivityStack.getInstance().finishActivity();

@@ -41,9 +41,7 @@ public final class SetPasswordFragment extends Fragment {
     }
 
     @Override
-    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set_password, container, false);
         // 绑定控件
         // 错误提醒文本框
@@ -58,13 +56,20 @@ public final class SetPasswordFragment extends Fragment {
         setPasswordBtn.setText(String.valueOf(fatherActivity.setPasswordButtonText.toString()));
         setPasswordBtn.setOnClickListener(view1 -> {
             if (isValid()) {
-                boolean isSuccess = HttpUtils.callRegister(
-                        fatherActivity.phoneNumber,
-                        passwordEt.getText().toString(),
-                        rePasswordEt.getText().toString());
-                // 断言注册成功，但估摸着可能会因为与服务器之间的连接出问题
-                assert isSuccess;
-                fatherActivity.showBottomToast(fatherActivity, "注册成功", 5);
+                int errorCode = HttpUtils.callRegister(fatherActivity.phoneNumber, passwordEt.getText().toString(), rePasswordEt.getText().toString());
+                switch (errorCode) {
+                    case 1:
+                        fatherActivity.showBottomToast(fatherActivity, "注册成功", 5);
+                        break;
+                    case -1:
+                        fatherActivity.showBottomToast(fatherActivity, "手机号已存在！", 5);
+                        break;
+                    case -2:
+                        fatherActivity.showBottomToast(fatherActivity, "未知错误", 5);
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
             }
         });
         return view;
@@ -87,15 +92,13 @@ public final class SetPasswordFragment extends Fragment {
     private boolean isValid() {
         String password = passwordEt.getText().toString();
         String rePassword = rePasswordEt.getText().toString();
-        return password.isEmpty() && rePassword.isEmpty()
-                && isPasswordValid() && isRePasswordValid();
+        return !password.isEmpty() && !rePassword.isEmpty() && isPasswordValid() && isRePasswordValid();
     }
 
     private boolean isPasswordValid() {
         // 当密码为空时不做提醒
         String password = passwordEt.getText().toString();
-        if (password.isEmpty())
-            return true;
+        if (password.isEmpty()) return true;
         return passwordPattern.matcher(password).matches();
     }
 

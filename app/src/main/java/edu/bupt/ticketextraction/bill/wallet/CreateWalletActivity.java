@@ -32,6 +32,11 @@ public final class CreateWalletActivity extends AutoPushPopActivity {
         Button createBtn = findViewById(R.id.create_wallet_btn);
         createBtn.setOnClickListener(view -> {
             String walletName = walletNameEt.getText().toString();
+            // 钱包名为空弹出提示
+            if (walletName.equals("")) {
+                showBottomToast(this, "钱包名不能为空！", 3);
+                return;
+            }
             if (WalletManager.getInstance().createWallet(walletName)) {
                 createSuccessful();
             } else {

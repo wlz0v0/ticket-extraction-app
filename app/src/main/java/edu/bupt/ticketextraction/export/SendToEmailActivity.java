@@ -12,6 +12,7 @@ import edu.bupt.ticketextraction.main.AutoPushPopActivity;
 import edu.bupt.ticketextraction.utils.HttpUtils;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * <pre>
@@ -24,8 +25,17 @@ import java.util.ArrayList;
  */
 
 public final class SendToEmailActivity extends AutoPushPopActivity {
-    // checkBoxes用于发送email时确定哪些需要被发送
+    /**
+     * checkBoxes用于发送email时确定哪些需要被发送
+     */
     public static ArrayList<CheckBox> checkBoxes;
+
+    /**
+     * 邮箱正则表达式，可靠性未知XD
+     */
+    private final Pattern emailPattern =
+            Pattern.compile("^\\s*\\w+(?:\\.?[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$");
+
     private String emailAddress;
 
     @Override
@@ -41,6 +51,10 @@ public final class SendToEmailActivity extends AutoPushPopActivity {
         Button sendBtn = findViewById(R.id.send_btn);
         sendBtn.setOnClickListener(view -> {
             emailAddress = emailEt.getText().toString();
+            if (!emailPattern.matcher(emailAddress).matches()) {
+                showBottomToast(this, "邮箱格式错误！", 3);
+                return;
+            }
             sendEmail();
         });
     }

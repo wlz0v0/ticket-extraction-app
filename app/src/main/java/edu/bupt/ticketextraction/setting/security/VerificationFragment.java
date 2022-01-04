@@ -57,6 +57,7 @@ public final class VerificationFragment extends Fragment {
      */
     private void onClickListenerCallback(View view) {
         if (HttpUtils.callAccountVerification(
+                // TODO: 2022/1/4 在这时候就查询手机号是否存在，通过调用登录服务解决。
                 phoneNumberEt.getText().toString(),
                 verificationCodeEt.getText().toString())) {
             // 成功则转到密码重置 还要设置一下手机号

@@ -46,6 +46,7 @@ public final class HttpUtils {
     private final static String GET_VERSION_NUM = SERVER_URL + "/checkVersion";
     private final static String DOWNLOAD_APK = SERVER_URL + "/TaxiReceiptAPK";
     private final static String TRUE = "True";
+    private final static String ERROR = "Error";
     private static volatile boolean stopFlag = true;
     private static volatile CabTicket curTicket;
     private static volatile String postResult;
@@ -159,17 +160,17 @@ public final class HttpUtils {
      * @param phoneNumber      账号
      * @param password         密码
      * @param verificationCode 验证码
-     * @return 注册成功与否
+     * @return 1-成功 -1-该用户名已被占用 -2-程序运行错误
      */
     @Contract(pure = true)
-    public static boolean callRegister(String phoneNumber, String password, String verificationCode) {
+    public static int callRegister(String phoneNumber, String password, String verificationCode) {
         // 加密密码
         String cipherText = HttpUtils.passwordEncrypt(password);
         HashMap<String, String> map = new HashMap<>();
         map.put("phone", phoneNumber);
         map.put("key", cipherText);
         String res = HttpUtils.asyncPost(REGISTER_URL, map);
-        return res.equals(TRUE);
+        return Integer.parseInt(res);
     }
 
     /**
@@ -345,7 +346,9 @@ public final class HttpUtils {
                 }
             }
         }
-        assert s != null;
+        if (s == null) {
+            return ERROR;
+        }
         return s.toString();
     }
 
