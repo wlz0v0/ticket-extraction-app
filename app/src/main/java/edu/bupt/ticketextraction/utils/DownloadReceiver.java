@@ -19,7 +19,7 @@ import java.io.File;
  *     author : 武连增
  *     e-mail : wulianzeng@bupt.edu.cn
  *     time   : 2022/01/03
- *     desc   : 下载监听器，下载后自动安装apk
+ *     desc   : 下载监听器，继承于{@link BroadcastReceiver}，下载后自动安装apk
  *     version: 0.0.1
  * </pre>
  */

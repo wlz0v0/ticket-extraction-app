@@ -346,7 +346,9 @@ public final class HttpUtils {
                 }
             }
         }
+        // null因为猪头把服务器给关了
         if (s == null) {
+            Log.e("server", "no connection");
             return ERROR;
         }
         return s.toString();
@@ -364,7 +366,6 @@ public final class HttpUtils {
             while ((line = reader.readLine()) != null) {
                 s.append(line);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -376,7 +377,11 @@ public final class HttpUtils {
                 }
             }
         }
-        assert s != null;
+        if (s == null) {
+            // null因为猪头把服务器给关了
+            Log.e("server", "no connection");
+            return ERROR;
+        }
         return s.toString();
     }
 }

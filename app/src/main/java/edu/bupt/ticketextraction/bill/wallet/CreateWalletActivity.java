@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.main.AutoPushPopActivity;
 import edu.bupt.ticketextraction.utils.ActivityStack;
@@ -46,7 +46,7 @@ public final class CreateWalletActivity extends AutoPushPopActivity {
     }
 
     private void createSuccessful() {
-        AlertDialog alertDialog = getAlertDialog("创建成功",
+        QMUIDialog alertDialog = getAlertDialog("创建成功",
                 (dialog, which) -> {
                     // 结束Activity并弹出栈
                     ActivityStack.getInstance().finishActivity();
@@ -55,7 +55,7 @@ public final class CreateWalletActivity extends AutoPushPopActivity {
     }
 
     private void createFailed() {
-        AlertDialog alertDialog = getAlertDialog("创建失败",
+        QMUIDialog alertDialog = getAlertDialog("创建失败",
                 (dialog, which) -> dialog.dismiss());
         alertDialog.show();
     }

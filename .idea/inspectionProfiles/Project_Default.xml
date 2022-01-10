@@ -6,6 +6,14 @@
         <language minSize="52" name="Java" />
       </Languages>
     </inspection_tool>
+    <inspection_tool class="GradlePackageUpdate" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="excludeList">
+        <list>
+          <option value="androidx.appcompat:appcompat" />
+          <option value="androidx.constraintlayout:constraintlayout" />
+        </list>
+      </option>
+    </inspection_tool>
     <inspection_tool class="HttpUrlsUsage" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="ignoredUrls">
         <list>

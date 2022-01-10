@@ -11,9 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.bill.wallet.WalletActivity;
 import edu.bupt.ticketextraction.utils.file.filefactory.FileFactory;
@@ -47,9 +47,7 @@ public final class TicketFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                                      @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                                      @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public @NotNull View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_source, container, false);
         // 设置包含文本框的RelativeLayout为可点击
         // 把这个东西当做按钮
@@ -77,25 +75,49 @@ public final class TicketFragment extends Fragment {
     }
 
     private boolean onLongClickListenerCallback(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
         // 设置弹窗，可以重命名或删除钱包
-        builder.setMessage("希望进行的操作").
-                setCancelable(false).
-                setPositiveButton("删除", this::positiveButtonCallback).
-                setNeutralButton("取消", this::neutralButtonCallback).
-                setNegativeButton("验真", this::negativeButtonCallback);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        // 菜单弹窗，提供多个选项
+        String[] items = {"发票验真", "删除发票"};
+        QMUIDialog.CheckableDialogBuilder builder =
+                new QMUIDialog.CheckableDialogBuilder(fatherActivity);
+        builder.setTitle("发票管理").
+                setCheckedIndex(0).
+                addItems(items, (dialog, which) -> {
+                    // 设置被点击的选项
+                    builder.setCheckedIndex(which);
+                }).
+                addAction("取消", (dialog, index) -> dialog.dismiss()).
+                addAction("确定", ((dialog, index) -> {
+                    switch (index) {
+                        case 0:
+                            // 验真
+                            checkTicketValid(dialog);
+                            break;
+                        case 1:
+                            // 删除
+                            deleteTicket(dialog);
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
+                })).
+                show();
         return true;
     }
 
-    // 删除按钮点击回调
-    private void positiveButtonCallback(DialogInterface dialog, int which) {
+    // 删除发票
+    private void deleteTicket(DialogInterface dialog) {
         // 设置确认弹窗，用户是否确认要删除该资源
-        AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-        builder.setMessage("确认要删除此发票吗？一旦删除，信息无法恢复！").
+        new QMUIDialog.MessageDialogBuilder(fatherActivity).
+                setMessage("确认要删除此发票吗？一旦删除，信息无法恢复！").
                 setCancelable(false).
-                setPositiveButton("确认", (dialog1, which1) -> {
+                addAction("取消", (dialog1, which1) -> {
+                    // 关闭子弹窗
+                    dialog1.dismiss();
+                    // 关闭父弹窗
+                    dialog.dismiss();
+                }).
+                addAction("确认", (dialog1, which1) -> {
                     // 删除该资源相关所有东西
                     removeSource();
                     // 关闭子弹窗
@@ -103,24 +125,13 @@ public final class TicketFragment extends Fragment {
                     // 关闭父弹窗
                     dialog.dismiss();
                 }).
-                setNegativeButton("取消", (dialog1, which1) -> {
-                    // 关闭子弹窗
-                    dialog1.dismiss();
-                    // 关闭父弹窗
-                    dialog.dismiss();
-                });
-        AlertDialog dialog1 = builder.create();
-        dialog1.show();
+                show();
     }
 
-    // 验真按钮点击回调
-    private void negativeButtonCallback(@NotNull DialogInterface dialog, int which) {
+    // 发票验真
+    private void checkTicketValid(@NotNull DialogInterface dialog) {
         dialog.dismiss();
-    }
-
-    // 取消按钮点击回调
-    private void neutralButtonCallback(@NotNull DialogInterface dialog, int which) {
-        dialog.dismiss();
+        // TODO: 2022/1/10 验真
     }
 
     /**

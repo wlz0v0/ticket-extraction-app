@@ -1,6 +1,5 @@
 package edu.bupt.ticketextraction.main;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -8,8 +7,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import edu.bupt.ticketextraction.utils.ActivityStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -100,13 +100,11 @@ public abstract class AutoPushPopActivity extends AppCompatActivity {
      * @param onClickListener PositiveButton的回调函数
      * @return 对应AlertDialog
      */
-    public @NotNull AlertDialog getAlertDialog(String text,
-                                               DialogInterface.OnClickListener onClickListener) {
+    public @NotNull QMUIDialog getAlertDialog(String text,
+                                              QMUIDialogAction.ActionListener onClickListener) {
         // 先创建一个builder，再通过builder构造alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(text).
-                setCancelable(false).
-                setPositiveButton("确认", onClickListener);
+        QMUIDialog.MessageDialogBuilder builder = new QMUIDialog.MessageDialogBuilder(this);
+        builder.addAction("确认", onClickListener).setMessage(text);
         return builder.create();
     }
 }

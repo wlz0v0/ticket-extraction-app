@@ -1,6 +1,5 @@
 package edu.bupt.ticketextraction.main;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import edu.bupt.ticketextraction.R;
 import edu.bupt.ticketextraction.setting.LoginActivity;
 import edu.bupt.ticketextraction.utils.HttpUtils;
@@ -30,7 +30,7 @@ public final class SettingFragment extends Fragment {
     /**
      * 当前版本号
      */
-    public static final String CUR_VERSION = "0_0_1";
+    public static final String CUR_VERSION = "0_0_0";
     /**
      * 最新版本号
      */
@@ -65,14 +65,14 @@ public final class SettingFragment extends Fragment {
             } else if (LATEST_VERSION.equals(CUR_VERSION)) {
                 fatherActivity.showBottomToast(fatherActivity, "已是最新版本！", 5);
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(fatherActivity);
-                builder.setMessage("最新版本为" + latest)
-                        .setPositiveButton("现在更新", (dialog, which) -> {
+                new QMUIDialog.MessageDialogBuilder(fatherActivity).
+                        setTitle("更新").
+                        setMessage("最新版本为" + latest).addAction("下次一定", (dialog, index) -> dialog.dismiss()).
+                        addAction("现在更新", ((dialog, index) -> {
                             FileFactory.APK_PATH = "/apk/TicketExtraction" + LATEST_VERSION + "apk";
                             HttpUtils.downloadLatestApk(fatherActivity);
-                        })
-                        .setNegativeButton("下次一定", (dialog, which) -> dialog.dismiss());
-                builder.create().show();
+                        })).
+                        show();
             }
         });
 
